@@ -39,18 +39,17 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $item = New Item();
-        /*$item->category_id = $request->cat_id;
+        $item->category_id = $request->cat_id;
         $item->name = $request->name;
-        $item->description = $request->description;*/
+        $item->description = $request->description;
 
-        $item->image_path = $request->file;
-        if($file = $request->image){ //->file('pictureInput')
+        if($file = $request->image){
             $name = $file->getClientOriginalName();
             $file->move('images', $name);
             $item->image_path = $name;
         }
 
-          //$item->save();
+          $item->save();
 
         return response($item->jsonSerialize());
     }

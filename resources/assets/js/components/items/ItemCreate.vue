@@ -22,27 +22,21 @@
                         <label for="item_name">Item Name</label>
                         <span class="help-block" v-for="error in errors.item" v-text="error"></span>
                     </div>
-                    <div class="input-field col-md-6">
-                        <input type="file" ref="file" @change="onFileSelected"/>
-                        <!--<picture-input
-                                name="photo_id"
-                                ref="pictureInput"
-                                @change="onFileSelected"
-                                @remove="onRemoved"
-                                width="200"
-                                :removable="true"
-                                removeButtonClass="ui red button"
-                                height="200"
-                                accept="image/jpeg, image/png, image/gif"
-                                buttonClass="ui button primary"
-                                :customStrings="{
-                      upload: '<h1>Upload it!</h1>',
-                      drag: 'Drag and drop your image here, or click the box'}">
-                        </picture-input>-->
-                    </div>
                 </div>
+                    <div class="row">
+                        <div class="input-field col-md-2">
+                            <input type="file" ref="file" @change="onFileSelected"/>
+                        </div>
+                    </div>
             <div class="row">
-                <div class="input-field col-md-6">
+                <div class="col-md-6" id="preview">
+                    <img v-if="url" :src="url"/>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="input-field col-md-5">
                     <textarea v-model="item.description" id="cat_description" class="materialize-textarea" ></textarea>
                     <label for="cat_description">Description</label>
                 </div>
@@ -84,17 +78,17 @@
                 category_name: 'Choose Category',
                 errors:[],
                 item_id: '',
-                show: true
+                show: true,
+               url: null
             }
         },
         created(){
-           //this.getCatList();
 
         },
         computed:{
             isValidForm(){
                 return this.item.name && this.item.cat_id;
-            },
+            }
 
         },
         methods:{
@@ -103,47 +97,31 @@
                 this.category_name = cat_name;
 
             },
-            getCatList(){
-               /* axios.get('api/items')
-                    .then(resp => {
-                        this.categories = resp.data;
-                        console.log(this.categories);
-                    })*/
-            },
             addNewItem(e){
                 let fd = new FormData();
-                fd.append('file', this.item.image, this.item.image.name);
-               /* formData.append('cat_id', this.item.cat_id);
-                formData.append('name', this.item.name);
-                formData.append('description', this.item.description);*/
-                console.log('formData', fd);
-                //console.log('image', this.item);
-                axios.post('api/items', fd, {headers:{'Content-type': 'multipart/form-data'}})
+                fd.append('image', this.item.image);
+                fd.append('cat_id', this.item.cat_id);
+                fd.append('name', this.item.name);
+                fd.append('description', this.item.description);
+
+                axios.post('api/items', fd)
                     .then(resp => {
                         console.log('return', resp);
                         this.send_item = resp.data;
                         this.item.name = '';
                         this.item.description = '';
                         this.category_name = 'Choose Category';
+                        this.item.image = '';
+                        this.url = '';
                         this.show = false;
                     })
             },
-            onFileSelected(event){
-                /*if(image){
-                    this.item.image = image;
-                    console.log('image', this.item.image)
-                }else{
-                    console.log('Not going to happen.');
-                }*/
-               /* if (this.$refs.pictureInput.file) {
-                    this.item.image = this.$refs.pictureInput.file;
+            onFileSelected(){
 
-                } else {
-                    console.log("Old browser. No support for Filereader API");
-                }*/
-               //this.item.image = event.target.files[0];
                this.item.image = this.$refs.file.files[0];
-                console.log('fileSelected', this.item.image)
+               this.url = URL.createObjectURL(this.item.image);
+               //console.log('fileSelected', this.item.image);
+
             },
             onRemoved() {
                 this.item.image = '';
@@ -186,6 +164,16 @@
             opacity: 0;
         }
 
+    }
+    #preview {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #preview img {
+        max-width: 100%;
+        max-height: 350px;
     }
 
 </style>

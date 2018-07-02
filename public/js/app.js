@@ -88366,7 +88366,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n.slide-enter[data-v-6fb6dd82]{\n}\n.slide-enter-active[data-v-6fb6dd82]{\n    -webkit-animation: slide-in-data-v-6fb6dd82 200ms ease-out forwards;\n            animation: slide-in-data-v-6fb6dd82 200ms ease-out forwards;\n}\n.slide-leave[data-v-6fb6dd82]{\n}\n.slide-leave-active[data-v-6fb6dd82]{\n    -webkit-animation: slide-out-data-v-6fb6dd82 200ms ease-out forwards;\n            animation: slide-out-data-v-6fb6dd82 200ms ease-out forwards;\n}\n@-webkit-keyframes slide-in-data-v-6fb6dd82 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@keyframes slide-in-data-v-6fb6dd82 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@-webkit-keyframes slide-out-data-v-6fb6dd82 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n@keyframes slide-out-data-v-6fb6dd82 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.slide-enter[data-v-6fb6dd82]{\n}\n.slide-enter-active[data-v-6fb6dd82]{\n    -webkit-animation: slide-in-data-v-6fb6dd82 200ms ease-out forwards;\n            animation: slide-in-data-v-6fb6dd82 200ms ease-out forwards;\n}\n.slide-leave[data-v-6fb6dd82]{\n}\n.slide-leave-active[data-v-6fb6dd82]{\n    -webkit-animation: slide-out-data-v-6fb6dd82 200ms ease-out forwards;\n            animation: slide-out-data-v-6fb6dd82 200ms ease-out forwards;\n}\n@-webkit-keyframes slide-in-data-v-6fb6dd82 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@keyframes slide-in-data-v-6fb6dd82 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@-webkit-keyframes slide-out-data-v-6fb6dd82 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n@keyframes slide-out-data-v-6fb6dd82 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n#preview[data-v-6fb6dd82] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n#preview img[data-v-6fb6dd82] {\n    max-width: 100%;\n    max-height: 350px;\n}\n\n", ""]);
 
 // exports
 
@@ -88383,12 +88383,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_picture_input___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_picture_input__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -88469,13 +88463,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             category_name: 'Choose Category',
             errors: [],
             item_id: '',
-            show: true
+            show: true,
+            url: null
         };
     },
-    created: function created() {
-        //this.getCatList();
-
-    },
+    created: function created() {},
 
     computed: {
         isValidForm: function isValidForm() {
@@ -88487,47 +88479,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.item.cat_id = cat_id;
             this.category_name = cat_name;
         },
-        getCatList: function getCatList() {
-            /* axios.get('api/items')
-                 .then(resp => {
-                     this.categories = resp.data;
-                     console.log(this.categories);
-                 })*/
-        },
         addNewItem: function addNewItem(e) {
             var _this = this;
 
             var fd = new FormData();
-            fd.append('file', this.item.image, this.item.image.name);
-            /* formData.append('cat_id', this.item.cat_id);
-             formData.append('name', this.item.name);
-             formData.append('description', this.item.description);*/
-            console.log('formData', fd);
-            //console.log('image', this.item);
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/items', fd, { headers: { 'Content-type': 'multipart/form-data' } }).then(function (resp) {
+            fd.append('image', this.item.image);
+            fd.append('cat_id', this.item.cat_id);
+            fd.append('name', this.item.name);
+            fd.append('description', this.item.description);
+
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/items', fd).then(function (resp) {
                 console.log('return', resp);
                 _this.send_item = resp.data;
                 _this.item.name = '';
                 _this.item.description = '';
                 _this.category_name = 'Choose Category';
+                _this.item.image = '';
+                _this.url = '';
                 _this.show = false;
             });
         },
-        onFileSelected: function onFileSelected(event) {
-            /*if(image){
-                this.item.image = image;
-                console.log('image', this.item.image)
-            }else{
-                console.log('Not going to happen.');
-            }*/
-            /* if (this.$refs.pictureInput.file) {
-                 this.item.image = this.$refs.pictureInput.file;
-              } else {
-                 console.log("Old browser. No support for Filereader API");
-             }*/
-            //this.item.image = event.target.files[0];
+        onFileSelected: function onFileSelected() {
+
             this.item.image = this.$refs.file.files[0];
-            console.log('fileSelected', this.item.image);
+            this.url = URL.createObjectURL(this.item.image);
+            //console.log('fileSelected', this.item.image);
         },
         onRemoved: function onRemoved() {
             this.item.image = '';
@@ -89883,9 +89859,11 @@ var render = function() {
                           })
                         ],
                         2
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-field col-md-6" }, [
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "input-field col-md-2" }, [
                         _c("input", {
                           ref: "file",
                           attrs: { type: "file" },
@@ -89895,7 +89873,19 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "input-field col-md-6" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-md-6", attrs: { id: "preview" } },
+                        [
+                          _vm.url
+                            ? _c("img", { attrs: { src: _vm.url } })
+                            : _vm._e()
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "input-field col-md-5" }, [
                         _c("textarea", {
                           directives: [
                             {
