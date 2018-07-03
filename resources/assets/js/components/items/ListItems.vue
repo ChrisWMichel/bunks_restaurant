@@ -14,6 +14,7 @@
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Image</th>
                         <th>Description</th>
                         <th>Price</th>
                         <th>Actions</th>
@@ -21,7 +22,10 @@
                     </thead>
                     <tbody>
                     <tr v-for="item in items">
-                        <td>{{item.name}}</td>
+                        <td  align="center">{{item.name}}</td>
+                        <td>
+                            <img v-if="item.image_path" :src="image_url + item.image_path" width="150" class="center"/>
+                        </td>
                         <td>{{item.description}}</td>
 
                         <td style="width: 180px;">
@@ -47,6 +51,7 @@
                                 </div>
                             </div>
                         </td>
+                        <td><button class="btn btn-sm btn-info" @click="editItem(item)">Edit</button> </td>
                     </tr>
                     </tbody>
                 </table>
@@ -57,6 +62,7 @@
 </template>
 
 <script>
+
     export default {
         name: "ListItems",
         components:{
@@ -65,6 +71,7 @@
         data(){
             return{
                 items:'',
+                image_url: '/images/'
             }
         },
         computed:{
@@ -77,7 +84,8 @@
                 this.items = '';
                 this.items = category.items;
                 //console.log(this.items);
-            }
+            },
+
         }
     }
 </script>
@@ -99,5 +107,17 @@
         width: 60px;
         padding: 0;
         margin:0;
+    }
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    table th{
+        padding-left: 10px;
+    }
+    table td{
+        padding: 3px 0;
+        padding-left: 10px;
     }
 </style>

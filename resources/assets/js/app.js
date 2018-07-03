@@ -8,7 +8,6 @@ import {routes} from "./routes/routes";
 import {store} from './store/store'
 import BootstrapVue from 'bootstrap-vue'
 
-
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
 
