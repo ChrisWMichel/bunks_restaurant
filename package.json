@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.0.0-rc.11",
+        "bulma": "^0.7.1",
         "materialize-css": "^0.100.2",
         "moment": "^2.22.1",
         "toastr": "^2.1.4",

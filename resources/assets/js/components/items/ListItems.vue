@@ -1,6 +1,7 @@
 <template>
     <div>
-
+        <transition name="slide" mode="out-in">
+            <div v-if="show" key="item-list">
         <div class="row">
             <div class="col s12">
                 <button v-for="category in category_names" @click="displayItems(category)">{{category.name}}</button>
@@ -57,21 +58,27 @@
                 </table>
             </div>
         </div>
-
+            </div>
+        <app-edit-item v-else key="edit-item" :showActive="showActive" :item="item" @close_form="closeForm"></app-edit-item>
+        </transition>
     </div>
 </template>
 
 <script>
+    import EditItem from './EditItem'
 
     export default {
         name: "ListItems",
         components:{
-
+            appEditItem: EditItem
         },
         data(){
             return{
                 items:'',
-                image_url: '/images/'
+                image_url: '/images/',
+                showActive:'',
+                item: '',
+                show: true,
             }
         },
         computed:{
@@ -85,7 +92,13 @@
                 this.items = category.items;
                 //console.log(this.items);
             },
-
+            editItem(item){
+                this.show = false;
+                this.item = item;
+            },
+            closeForm(){
+                this.show = true;
+            }
         }
     }
 </script>
@@ -117,7 +130,40 @@
         padding-left: 10px;
     }
     table td{
-        padding: 3px 0;
+        padding: 3px;
         padding-left: 10px;
+    }
+    .slide-enter{
+
+    }
+    .slide-enter-active{
+        animation: slide-in 200ms ease-out forwards;
+    }
+    .slide-leave{
+
+    }
+    .slide-leave-active{
+        animation: slide-out 200ms ease-out forwards;
+    }
+    @keyframes slide-in {
+        from{
+            transform: translateY(-30px);
+            opacity: 0;
+        }
+        to{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    @keyframes slide-out {
+        from{
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to{
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
     }
 </style>

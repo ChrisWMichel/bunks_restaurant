@@ -56,14 +56,12 @@
 
 <script>
     import AddSizePrice from './AddSizePrice'
-    import PictureInput from 'vue-picture-input'
     import axios from 'axios'
 
     export default {
         name: "ItemCreate",
         components:{
             appSizePrice: AddSizePrice,
-            PictureInput
         },
         data(){
             return{
