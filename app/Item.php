@@ -20,4 +20,8 @@ class Item extends Model
     public function sizes(){
         return $this->hasMany(Size::class);
     }
+
+    public static function randNum(){
+        return str_random(10);
+    }
 }

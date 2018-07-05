@@ -23,11 +23,11 @@
                         <span class="help-block" v-for="error in errors.item" v-text="error"></span>
                     </div>
                 </div>
-                    <div class="row">
-                        <div class="input-field col-md-2">
-                            <input type="file" ref="file" @change="onFileSelected"/>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="input-field col-md-2">
+                    <input type="file" ref="file" @change="onFileSelected"/>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-6" id="preview">
                     <img v-if="url" :src="url"/>
@@ -56,14 +56,12 @@
 
 <script>
     import AddSizePrice from './AddSizePrice'
-    import PictureInput from 'vue-picture-input'
     import axios from 'axios'
 
     export default {
         name: "ItemCreate",
         components:{
             appSizePrice: AddSizePrice,
-            PictureInput
         },
         data(){
             return{
@@ -97,7 +95,7 @@
                 this.category_name = cat_name;
 
             },
-            addNewItem(e){
+            addNewItem(){
                 let fd = new FormData();
                 fd.append('image', this.item.image);
                 fd.append('cat_id', this.item.cat_id);
@@ -106,7 +104,6 @@
 
                 axios.post('api/items', fd)
                     .then(resp => {
-                        console.log('return', resp);
                         this.send_item = resp.data;
                         this.item.name = '';
                         this.item.description = '';
@@ -120,8 +117,6 @@
 
                this.item.image = this.$refs.file.files[0];
                this.url = URL.createObjectURL(this.item.image);
-               //console.log('fileSelected', this.item.image);
-
             },
             onRemoved() {
                 this.item.image = '';

@@ -34,6 +34,7 @@
 
             float: right;
         }
+
        /* .right-side{
             text-align: right !important;
         }*/

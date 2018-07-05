@@ -72,9 +72,13 @@ class PriceController extends Controller
      * @param  \App\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Price $price)
+    public function updatePrices(Request $request)
     {
-        //
+        foreach ($request->input() as $val){
+            $price = Price::find($val['id']);
+
+            $price->update(['price' => $val['price']]);
+        }
     }
 
     /**

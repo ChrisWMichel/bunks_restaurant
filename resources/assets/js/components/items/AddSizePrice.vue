@@ -73,9 +73,13 @@
                         .then(resp => {
                             // update vuex
                         });
+
+                    //this.$store.state.categories.push(this.item);
+
                     this.$emit('priceAdded');
                     toastr.success(this.item.name + ' has been added successfully.');
-
+                    //TODO: instaed of retrieving categories from the databas, push it in vuex
+                    this.getCategories();
                 }
             },
             finishItem(){
@@ -85,12 +89,18 @@
 
                 this.$emit('priceAdded');
                 toastr.success(this.item.name + ' has been added successfully.');
-
+                //TODO: instaed of retrieving categories from the databas, push it in vuex
+                this.getCategories();
             },
             formatPrice(value) {
                 let val = (value/1).toFixed(2);
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             },
+            getCategories(){
+                axios.get('api/category').then(resp => {
+                    this.$store.dispatch('getCategories', resp.data);
+                })
+            }
 
         },
 

@@ -1,11 +1,13 @@
 <template>
     <div>
-
+        <transition name="slide" mode="out-in">
+            <div v-if="show" key="item-list">
         <div class="row">
             <div class="col s12">
                 <button v-for="category in category_names" @click="displayItems(category)">{{category.name}}</button>
             </div>
         </div>
+                <h3>{{category_name}}</h3>
         <hr>
 
         <div class="row">
@@ -14,6 +16,7 @@
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Image</th>
                         <th>Description</th>
                         <th>Price</th>
                         <th>Actions</th>
@@ -21,9 +24,11 @@
                     </thead>
                     <tbody>
                     <tr v-for="item in items">
-                        <td>{{item.name}}</td>
+                        <td  align="center">{{item.name}}</td>
+                        <td>
+                            <img v-if="item.image_path" :src="image_url + item.image_path" width="150" class="center"/>
+                        </td>
                         <td>{{item.description}}</td>
-
                         <td style="width: 180px;">
 
                             <div class="row">
@@ -47,25 +52,39 @@
                                 </div>
                             </div>
                         </td>
+                        <td><button class="btn btn-sm btn-info" @click="editItem(item)">Edit</button> </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
+            </div>
+        <app-edit-item v-else key="edit-item" :showActive="showActive" :item="item" @close_form="closeForm"></app-edit-item>
+        </transition>
     </div>
 </template>
 
 <script>
+    import EditItem from './EditItem'
+
     export default {
         name: "ListItems",
         components:{
-
+            appEditItem: EditItem
         },
         data(){
             return{
                 items:'',
+                image_url: '/images/',
+                showActive:'',
+                item: '',
+                show: true,
+                category_name: ''
             }
+        },
+        mounted(){
+            //this.category_names;
+            this.displayItems(this.$store.state.categories[0]);
         },
         computed:{
             category_names(){
@@ -74,9 +93,18 @@
         },
         methods:{
             displayItems(category){
+                this.category_name = category.name;
                 this.items = '';
                 this.items = category.items;
-                //console.log(this.items);
+                //console.log(category.name);
+            },
+            editItem(item){
+                this.show = false;
+                this.item = item;
+            },
+            closeForm(){
+                //this.category_names;
+                this.show = true;
             }
         }
     }
@@ -99,5 +127,50 @@
         width: 60px;
         padding: 0;
         margin:0;
+    }
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    table th{
+        padding-left: 10px;
+    }
+    table td{
+        padding: 3px;
+        padding-left: 10px;
+    }
+    .slide-enter{
+
+    }
+    .slide-enter-active{
+        animation: slide-in 200ms ease-out forwards;
+    }
+    .slide-leave{
+
+    }
+    .slide-leave-active{
+        animation: slide-out 200ms ease-out forwards;
+    }
+    @keyframes slide-in {
+        from{
+            transform: translateY(-30px);
+            opacity: 0;
+        }
+        to{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    @keyframes slide-out {
+        from{
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to{
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
     }
 </style>

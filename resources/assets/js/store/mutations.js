@@ -23,3 +23,17 @@ export const deleteCategory = (state, cat_object) =>{
     state.categories.splice(index, 1);
     //console.log(state.categories);
 };
+
+export const updateItem = (state, item) =>{
+     state.categories.forEach(cat => {
+        if (cat.id === item.category_id) {
+            for(let x =0; x<cat.items.length; x++){
+                if(cat.items[x].id === item.id){
+                    cat.items[x] = item;
+                }
+            }
+            return cat;
+        }
+    });
+
+};
