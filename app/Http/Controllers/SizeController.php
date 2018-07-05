@@ -62,39 +62,14 @@ class SizeController extends Controller
         return response(null);
     }
 
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Size  $size
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Size $size)
+    public function updateSize(Request $request)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Size  $size
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Size $size)
-    {
-        //
-    }
+        foreach ($request->input() as $val){
+            $size = Size::find($val['id']);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Size  $size
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
+            $size->update(['size' => $val['size']]);
+        }
 
     }
 

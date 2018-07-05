@@ -6230,6 +6230,12 @@ function clickHandlerFactory(_ref3) {
 
 /***/ }),
 /* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(211);
+
+/***/ }),
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6252,7 +6258,7 @@ function clickHandlerFactory(_ref3) {
 });
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 var g;
@@ -6277,12 +6283,6 @@ try {
 
 module.exports = g;
 
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(211);
 
 /***/ }),
 /* 17 */
@@ -8834,7 +8834,7 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(16)))
 
 /***/ }),
 /* 19 */
@@ -33234,7 +33234,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(229).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16), __webpack_require__(229).setImmediate))
 
 /***/ }),
 /* 49 */
@@ -47177,7 +47177,7 @@ var props = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form_radio_check__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_form_state__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_form_custom__ = __webpack_require__(24);
@@ -47469,7 +47469,7 @@ var props = {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form_state__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_radio_check__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_loose_equal__ = __webpack_require__(39);
@@ -48827,7 +48827,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(16);
+window.axios = __webpack_require__(14);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -65973,7 +65973,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(29)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16), __webpack_require__(29)(module)))
 
 /***/ }),
 /* 207 */
@@ -83554,7 +83554,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
 
 /***/ }),
 /* 230 */
@@ -83747,7 +83747,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(43)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16), __webpack_require__(43)))
 
 /***/ }),
 /* 231 */
@@ -86668,7 +86668,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
@@ -87380,7 +87380,7 @@ exports.push([module.i, "\n.fade-enter[data-v-11bb8bc0]{\n    opacity: 0;\n}\n.f
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditCategory__ = __webpack_require__(249);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditCategory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__EditCategory__);
@@ -87635,7 +87635,7 @@ exports.push([module.i, "\n.cancle-btn[data-v-7524b1cc]{\n    float: right;\n}\n
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
@@ -87969,7 +87969,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
@@ -88379,7 +88379,7 @@ exports.push([module.i, "\n.slide-enter[data-v-6fb6dd82]{\n}\n.slide-enter-activ
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddSizePrice__ = __webpack_require__(264);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddSizePrice___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddSizePrice__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 //
 //
@@ -88602,7 +88602,7 @@ exports.push([module.i, "\n.show-price[data-v-2f97b20c]{\n    margin-left: 100px
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
@@ -89221,6 +89221,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -89235,8 +89236,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             image_url: '/images/',
             showActive: '',
             item: '',
-            show: true
+            show: true,
+            category_name: ''
         };
+    },
+    mounted: function mounted() {
+        //this.category_names;
+        this.displayItems(this.$store.state.categories[0]);
     },
 
     computed: {
@@ -89246,15 +89252,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         displayItems: function displayItems(category) {
+            this.category_name = category.name;
             this.items = '';
             this.items = category.items;
-            //console.log(this.items);
+            //console.log(category.name);
         },
         editItem: function editItem(item) {
             this.show = false;
             this.item = item;
         },
         closeForm: function closeForm() {
+            //this.category_names;
             this.show = true;
         }
     }
@@ -89346,7 +89354,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n#preview[data-v-5c320390] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n#preview img[data-v-5c320390] {\n    max-width: 100%;\n    max-height: 350px;\n}\n.edit-btn[data-v-5c320390]{\n    float: right;\n}\n.size-list[data-v-5c320390]{\n    /* float:left;*/\n    width: 70px;\n}\n\n/*.ul-size{\n    text-align: center;\n    list-style: none;\n    padding: 0;\n    margin:0;\n}*/\n.price-list[data-v-5c320390]{\n    width: 60px;\n    padding: 0;\n    margin-left: -200px;\n}\n.list-price-block[data-v-5c320390]{\n    border: 1px solid black;\n    width: 30%;\n}\n", ""]);
+exports.push([module.i, "\n#preview[data-v-5c320390] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n#preview img[data-v-5c320390] {\n    max-width: 100%;\n    max-height: 350px;\n}\n.edit-btn[data-v-5c320390]{\n    float: right;\n    margin-bottom: 10px;\n}\n.size-list[data-v-5c320390]{\n    /* float:left;*/\n    width: 70px;\n}\n\n/*.ul-size{\n    text-align: center;\n    list-style: none;\n    padding: 0;\n    margin:0;\n}*/\n.price-list[data-v-5c320390]{\n    width: 60px;\n    padding: 0;\n    margin-left: -200px;\n}\n.preview[data-v-5c320390] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.preview img[data-v-5c320390] {\n    max-width: 100%;\n    max-height: 350px;\n}\n", ""]);
 
 // exports
 
@@ -89357,6 +89365,14 @@ exports.push([module.i, "\n#preview[data-v-5c320390] {\n    display: -webkit-box
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -89420,16 +89436,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "EditItem",
     props: ['showActive', 'item'],
     data: function data() {
         return {
             image_url: '/images/',
+            url: '',
             errors: [],
             new_size: '',
             size_array: [],
-            price_array: []
+            price_array: [],
+            new_image: '',
+            save_data: false,
+            gif: 'images/gif/loading.gif'
         };
     },
 
@@ -89442,21 +89464,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         closeForm: function closeForm() {
             this.$emit('close_form');
         },
-        updateItem: function updateItem() {},
-        onFileSelected: function onFileSelected() {
+        updateItem: function updateItem() {
+            var _this = this;
 
-            this.item.image_path = this.$refs.file.files[0];
-            this.url = URL.createObjectURL(this.item.image_path);
+            this.save_data = true;
+            if (this.size_array.length > 0) {
+                __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/update_size', this.size_array);
+            }
+            if (this.price_array.length > 0) {
+                __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/update_prices', this.price_array);
+            }
+            var fd = new FormData();
+            fd.append('image', this.new_image);
+            fd.append('name', this.item.name);
+            fd.append('description', this.item.description);
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/update_item/' + this.item.id, fd).then(function (resp) {
+                _this.$store.commit('updateItem', resp.data);
+                _this.$emit('close_form');
+                _this.save_data = false;
+                //console.log(this.$store.state.categories);
+            });
+        },
+        onFileSelected: function onFileSelected() {
+            this.item.image_path = '';
+            this.new_image = this.$refs.file.files[0];
+            this.url = URL.createObjectURL(this.new_image);
+            //console.log(this.new_image);
         },
         updateSize: function updateSize(size, value) {
-
-            //this.size_array.push({'id': size.size.id, 'size': size.value});
             this.size_array.push({ 'id': size.id, 'size': value });
-            console.log('size', this.size_array);
+            //console.log('size', this.size_array);
         },
         updatePrice: function updatePrice(price, value) {
             this.price_array.push({ 'id': price.id, 'price': value });
-            console.log('price', this.price_array);
+            //console.log('price', this.price_array);
         }
     }
 });
@@ -89470,145 +89512,182 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("label", { staticClass: "label" }, [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "control" }, [
-          _c("input", {
-            directives: [
+    !_vm.save_data
+      ? _c("div", [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "form",
               {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.item.name,
-                expression: "item.name"
-              }
-            ],
-            staticClass: "input",
-            attrs: { type: "text" },
-            domProps: { value: _vm.item.name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+                attrs: { method: "post", enctype: "multipart/form-data" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.updateItem($event)
+                  }
                 }
-                _vm.$set(_vm.item, "name", $event.target.value)
-              }
-            }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _vm.imageExist
-        ? _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-6", attrs: { id: "preview" } }, [
-              _c("img", { attrs: { src: _vm.image_url + _vm.item.image_path } })
-            ])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "input-field col-md-2" }, [
-          _c("input", {
-            ref: "file",
-            attrs: { type: "file" },
-            on: { change: _vm.onFileSelected }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "input-field col-md-5" }, [
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.item.description,
-                expression: "item.description"
-              }
-            ],
-            staticClass: "materialize-textarea",
-            attrs: { id: "cat_description" },
-            domProps: { value: _vm.item.description },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.item, "description", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm col-sm-offset-1" },
-          _vm._l(_vm.item.sizes, function(size) {
-            return _c("div", [
-              _c("div", { staticClass: "size-list" }, [
-                _c("ul", { staticClass: "ul-size" }, [
-                  size !== null
-                    ? _c("li", [
-                        _c("input", {
-                          attrs: { type: "text" },
-                          domProps: { value: size.size },
-                          on: {
-                            change: function($event) {
-                              _vm.updateSize(size, $event.target.value)
-                            }
-                          }
-                        })
-                      ])
-                    : _vm._e()
-                ])
-              ])
-            ])
-          })
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-sm" },
-          _vm._l(_vm.item.prices, function(price) {
-            return _c("div", [
-              _c("div", { staticClass: "price-list" }, [
-                _c("ul", { staticClass: "ul-size text-center" }, [
-                  _c("li", [
+              },
+              [
+                _c("div", { staticClass: "row" }, [
+                  _c("label", { staticClass: "label" }, [_vm._v("Name")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "control" }, [
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.name,
+                          expression: "item.name"
+                        }
+                      ],
+                      staticClass: "input",
                       attrs: { type: "text" },
-                      domProps: { value: price.price },
+                      domProps: { value: _vm.item.name },
                       on: {
-                        change: function($event) {
-                          _vm.updatePrice(price, $event.target.value)
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "name", $event.target.value)
                         }
                       }
                     })
                   ])
+                ]),
+                _vm._v(" "),
+                _vm.imageExist
+                  ? _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6 preview" }, [
+                        _c("img", {
+                          attrs: { src: _vm.image_url + _vm.item.image_path }
+                        })
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-6 preview" }, [
+                    _vm.url ? _c("img", { attrs: { src: _vm.url } }) : _vm._e()
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "input-field col-md-2" }, [
+                    _c("input", {
+                      ref: "file",
+                      attrs: { type: "file" },
+                      on: { change: _vm.onFileSelected }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "input-field col-md-5" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.description,
+                          expression: "item.description"
+                        }
+                      ],
+                      staticClass: "materialize-textarea",
+                      attrs: { id: "cat_description" },
+                      domProps: { value: _vm.item.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "description", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-sm col-sm-offset-1" },
+                    _vm._l(_vm.item.sizes, function(size) {
+                      return _c("div", [
+                        _c("div", { staticClass: "size-list" }, [
+                          _c("ul", { staticClass: "ul-size" }, [
+                            size !== null
+                              ? _c("li", [
+                                  _c("input", {
+                                    attrs: { type: "text" },
+                                    domProps: { value: size.size },
+                                    on: {
+                                      change: function($event) {
+                                        _vm.updateSize(
+                                          size,
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
+                              : _vm._e()
+                          ])
+                        ])
+                      ])
+                    })
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-sm" },
+                    _vm._l(_vm.item.prices, function(price) {
+                      return _c("div", [
+                        _c("div", { staticClass: "price-list" }, [
+                          _c("ul", { staticClass: "ul-size text-center" }, [
+                            _c("li", [
+                              _c("input", {
+                                attrs: { type: "text" },
+                                domProps: { value: price.price },
+                                on: {
+                                  change: function($event) {
+                                    _vm.updatePrice(price, $event.target.value)
+                                  }
+                                }
+                              })
+                            ])
+                          ])
+                        ])
+                      ])
+                    })
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "edit-btn" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Update Item")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-warning",
+                      on: { click: _vm.closeForm }
+                    },
+                    [_vm._v("Cancel")]
+                  )
                 ])
-              ])
-            ])
-          })
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "edit-btn" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", on: { click: _vm.updateItem } },
-          [_vm._v("Update Item")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-warning", on: { click: _vm.closeForm } },
-          [_vm._v("Cancel")]
-        )
-      ])
-    ])
+              ]
+            )
+          ])
+        ])
+      : _c("div", { staticClass: "text-center" }, [
+          _c("img", { attrs: { src: _vm.gif, width: "300px" } })
+        ])
   ])
 }
 var staticRenderFns = [
@@ -89666,6 +89745,8 @@ var render = function() {
                     })
                   )
                 ]),
+                _vm._v(" "),
+                _c("h3", [_vm._v(_vm._s(_vm.category_name))]),
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
@@ -89873,6 +89954,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCategories", function() { return getCategories; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCategory", function() { return updateCategory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCategory", function() { return deleteCategory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateItem", function() { return updateItem; });
 var uploadAdmins = function uploadAdmins(_ref, admins) {
     var commit = _ref.commit;
 
@@ -89898,6 +89980,12 @@ var deleteCategory = function deleteCategory(_ref4, cat_object) {
     commit('deleteCategory', cat_object);
 };
 
+var updateItem = function updateItem(_ref5, item) {
+    var commit = _ref5.commit;
+
+    commit('updateItem', item);
+};
+
 /***/ }),
 /* 282 */
 /***/ (function(module, exports) {
@@ -89914,6 +90002,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCategories", function() { return getCategories; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCategory", function() { return updateCategory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCategory", function() { return deleteCategory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateItem", function() { return updateItem; });
 var uploadAdmins = function uploadAdmins(state, admins) {
     state.admins = admins;
 };
@@ -89937,6 +90026,21 @@ var deleteCategory = function deleteCategory(state, cat_object) {
     var index = state.categories.indexOf(cat_object);
     state.categories.splice(index, 1);
     //console.log(state.categories);
+};
+
+var updateItem = function updateItem(state, item) {
+    //Object.assign(state.categories, item);
+
+    state.categories.forEach(function (cat) {
+        if (cat.id === item.category_id) {
+            for (var x = 0; x < cat.items.length; x++) {
+                if (cat.items[x].id === item.id) {
+                    cat.items[x] = item;
+                }
+            }
+            return cat;
+        }
+    });
 };
 
 /***/ }),
@@ -93136,7 +93240,7 @@ Object(__WEBPACK_IMPORTED_MODULE_2__utils_plugins__["c" /* vueUse */])(VuePlugin
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form_options__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_form_state__ = __webpack_require__(13);
@@ -93286,7 +93390,7 @@ Object(__WEBPACK_IMPORTED_MODULE_2__utils_plugins__["c" /* vueUse */])(VuePlugin
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form_options__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_form_state__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_form_custom__ = __webpack_require__(24);
@@ -93430,7 +93534,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["c" /* vueUse */])(VuePlugin
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form_size__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_state__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_array__ = __webpack_require__(4);
@@ -93662,7 +93766,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["c" /* vueUse */])(VuePlugin
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form_size__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_state__ = __webpack_require__(13);
 
@@ -93843,7 +93947,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["c" /* vueUse */])(VuePlugin
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form_state__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_custom__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_array__ = __webpack_require__(4);
@@ -94127,7 +94231,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1__utils_plugins__["c" /* vueUse */])(VuePlugin
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_id__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_form_options__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_form__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_form_size__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_form_state__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_form_custom__ = __webpack_require__(24);
@@ -98096,7 +98200,7 @@ function words(string, pattern, guard) {
 
 module.exports = startCase;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
 
 /***/ }),
 /* 381 */
@@ -99034,7 +99138,7 @@ function get(object, path, defaultValue) {
 
 module.exports = get;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
 
 /***/ }),
 /* 382 */

@@ -22,8 +22,11 @@ if($this->middleware('IsAdmin')){
     Route::get('/get_admins', 'AdminController@getAdmins');
     Route::resource('category', 'CategoryController');
     Route::resource('items', 'ItemController');
+    Route::post('update_item/{id}', 'ItemController@updateItem');
     Route::resource('price', 'PriceController');
+    Route::post('update_prices', 'PriceController@updatePrices');
     Route::post('/size/{id}', 'SizeController@storeSizePrice');
+    Route::post('/update_size', 'SizeController@updateSize');
 }
 
 

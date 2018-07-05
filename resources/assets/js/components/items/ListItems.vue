@@ -7,6 +7,7 @@
                 <button v-for="category in category_names" @click="displayItems(category)">{{category.name}}</button>
             </div>
         </div>
+                <h3>{{category_name}}</h3>
         <hr>
 
         <div class="row">
@@ -28,7 +29,6 @@
                             <img v-if="item.image_path" :src="image_url + item.image_path" width="150" class="center"/>
                         </td>
                         <td>{{item.description}}</td>
-
                         <td style="width: 180px;">
 
                             <div class="row">
@@ -79,7 +79,12 @@
                 showActive:'',
                 item: '',
                 show: true,
+                category_name: ''
             }
+        },
+        mounted(){
+            //this.category_names;
+            this.displayItems(this.$store.state.categories[0]);
         },
         computed:{
             category_names(){
@@ -88,15 +93,17 @@
         },
         methods:{
             displayItems(category){
+                this.category_name = category.name;
                 this.items = '';
                 this.items = category.items;
-                //console.log(this.items);
+                //console.log(category.name);
             },
             editItem(item){
                 this.show = false;
                 this.item = item;
             },
             closeForm(){
+                //this.category_names;
                 this.show = true;
             }
         }
