@@ -35,5 +35,9 @@ export const updateItem = (state, item) =>{
             return cat;
         }
     });
+};
+
+export const  getToppings = (state, cat_toppings) =>{
+    state.cat_toppings = cat_toppings;
 
 };

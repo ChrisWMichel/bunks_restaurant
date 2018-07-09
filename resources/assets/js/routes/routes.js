@@ -3,6 +3,7 @@ import NewAdmin from '../components/admin/NewAdmin'
 import Categories from '../components/admin/Categories'
 import CreateItem from '../components/items/ItemCreate'
 import ItemsList from '../components/items/ListItems'
+import ToppingPage from '../components/toppings/ToppingPage'
 
 
 export const routes =[
@@ -11,4 +12,5 @@ export const routes =[
     {path: '/categories', name: 'categories', component:Categories},
     {path: '/create_item', name: 'create_item', component:CreateItem},
     {path:'/list_items', name: 'list_items', component:ItemsList},
+    {path:'/topping_page', name: 'topping_page', component:ToppingPage},
 ];
