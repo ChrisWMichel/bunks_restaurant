@@ -11,6 +11,7 @@
                 <router-link tag="li" :to="{name: 'dashboard'}" active-class="active" exact><a>Dashboard</a></router-link>
 
                 <router-link tag="li" :to="{name: 'categories'}" active-class="active"><a>Categories</a></router-link>
+                <router-link tag="li" :to="{name: 'topping_page'}" active-class="active"><a>Toppings</a></router-link>
 
                 <li><!-- Link with dropdown items -->
                     <a href="#items" data-toggle="collapse" aria-expanded="false">Items</a>
@@ -47,6 +48,7 @@
         name: "SideMenu",
         created(){
             this.getCategories();
+            this.getToppings();
             this.$router.push('/dashboard')
         },
         methods:{
@@ -58,6 +60,11 @@
                     this.$store.dispatch('getCategories', resp.data);
                 })
             },
+            getToppings(){
+                axios.get('api/topping_cat').then(resp => {
+                    this.$store.dispatch('getToppings', resp.data);
+                })
+            }
         }
     }
 </script>

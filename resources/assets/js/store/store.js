@@ -13,7 +13,8 @@ export const store = new Vuex.Store({
 
     state:{
         admins: '',
-        categories: []
+        categories: [],
+        cat_toppings: []
     },
     getters,
     mutations,

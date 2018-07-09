@@ -22,12 +22,17 @@
         props:['cat_object', 'check_status'],
         data(){
             return{
-
+                url: ''
             }
         },
         methods:{
             deleteCat(){
-                axios.delete('api/category/' + this.cat_object.id)
+                if(this.check_status.type == item){
+                    this.url = 'api/category/'
+                }else{
+                    this.url = 'api/topping_cat/'
+                }
+                axios.delete(this.url + this.cat_object.id)
                     .then(resp => {
                         this.$store.dispatch('admin/deleteCategory', this.cat_object);
                         this.cancelCatDelete();

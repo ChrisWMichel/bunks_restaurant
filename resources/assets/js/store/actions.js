@@ -18,3 +18,7 @@ export const deleteCategory = ({commit}, cat_object) =>{
 export const updateItem = ({commit}, item) =>{
     commit('updateItem', item);
 };
+
+export const getToppings = ({commit}, cat) =>{
+    commit('getToppings', cat);
+};
