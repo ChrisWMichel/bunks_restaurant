@@ -39,15 +39,12 @@ class ToppingCatController extends Controller
         return response($category->jsonSerialize());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Topping_Cat  $topping_Cat
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Topping_Cat $topping_Cat)
+    public function show($id)
     {
-        //
+        $category = Topping_Cat::where('id', $id)->first();
+
+        return response($category->jsonSerialize());
+
     }
 
     /**
@@ -61,16 +58,13 @@ class ToppingCatController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Topping_Cat  $topping_Cat
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Topping_Cat $topping_Cat)
+    public function update(Request $request, $id)
     {
-        //
+        $category = Topping_Cat::find($id);
+        $category->name = $request->name;
+        $category->update();
+
+        return response($category->jsonSerialize());
     }
 
     public function destroy($id)

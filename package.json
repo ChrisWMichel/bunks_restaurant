@@ -25,6 +25,7 @@
         "bulma": "^0.7.1",
         "materialize-css": "^0.100.2",
         "moment": "^2.22.1",
+        "node-sass": "^4.9.2",
         "toastr": "^2.1.4",
         "vue-router": "^3.0.1",
         "vuex": "^3.0.1"

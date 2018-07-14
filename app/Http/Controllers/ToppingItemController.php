@@ -27,15 +27,18 @@ class ToppingItemController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $item = New Topping_Item();
+        $item->topping__cat_id = (int)$request->cat_id;
+        $item->item = $request->name;
+        if( $request->double_price == 'true'){
+            $item->double_price = 1;
+        }
+
+        $item->save();
+
+        return response($item->jsonSerialize());
     }
 
     /**
@@ -55,9 +58,8 @@ class ToppingItemController extends Controller
      * @param  \App\Topping_Item  $topping_Item
      * @return \Illuminate\Http\Response
      */
-    public function edit(Topping_Item $topping_Item)
+    public function edit($id)
     {
-        //
     }
 
     /**
@@ -67,9 +69,15 @@ class ToppingItemController extends Controller
      * @param  \App\Topping_Item  $topping_Item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Topping_Item $topping_Item)
+    public function update(Request $request, $id)
     {
-        //
+        $topping = Topping_Item::find($id);
+
+        $topping->item = $request->item;
+        $topping->double_price = $request->double_price;
+        $topping->update();
+
+        //return response($topping->jsonSerialize());
     }
 
     /**

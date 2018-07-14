@@ -41,3 +41,36 @@ export const  getToppings = (state, cat_toppings) =>{
     state.cat_toppings = cat_toppings;
 
 };
+
+export const updateToppingCat = (state, category) =>{
+    state.cat_toppings.forEach((cat) =>{
+        if(cat.id === category.id){
+            cat.name = category.name;
+            return cat;
+        }
+    });
+};
+
+export const addTopping = (state, item) => {
+    state.cat_toppings.forEach((x) => {
+        if(x.id === item.topping__cat_id){
+            console.log('still working');
+            x.topping_items.push(item);
+            return x;
+        }
+    });
+};
+
+export const updateTopping = (state, item) => {
+    state.cat_toppings.forEach((x) => {
+        if(x.id === item.id){
+            for(let y =0; y<x.topping_items.length; y++){
+                if(x.topping_items[y].id === item.id){
+                    x.topping_items[y].item = item.item;
+                    x.topping_items[y].double_price = item.double_price;
+                    return x;
+                }
+            }
+        }
+    });
+};

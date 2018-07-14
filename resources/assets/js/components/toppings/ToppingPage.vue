@@ -8,6 +8,10 @@
             <app-category-create @finished = 'toggleCat'></app-category-create>
         </div>
 
+        <div v-if="hideCatBtn">
+            <app-add-topping></app-add-topping>
+        </div>
+
 
 
     </div>
@@ -15,6 +19,7 @@
 
 <script>
     import CategoryCreate from './CategoryCreate'
+    import AddTopping from './AddTopping'
 
     export default {
         name: "CategoryPage",
@@ -25,7 +30,8 @@
             }
         },
         components:{
-            appCategoryCreate: CategoryCreate
+            appCategoryCreate: CategoryCreate,
+            appAddTopping: AddTopping
         },
         methods:{
             toggleCat(){

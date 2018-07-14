@@ -27,7 +27,9 @@ if($this->middleware('IsAdmin')){
     Route::post('update_prices', 'PriceController@updatePrices');
     Route::post('/size/{id}', 'SizeController@storeSizePrice');
     Route::post('/update_size', 'SizeController@updateSize');
+
     Route::resource('/topping_cat', 'ToppingCatController');
+    Route::resource('/topping_items', 'ToppingItemController');
 }
 
 

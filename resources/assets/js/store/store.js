@@ -14,7 +14,8 @@ export const store = new Vuex.Store({
     state:{
         admins: '',
         categories: [],
-        cat_toppings: []
+        cat_toppings: [],
+        edit_topping: []
     },
     getters,
     mutations,

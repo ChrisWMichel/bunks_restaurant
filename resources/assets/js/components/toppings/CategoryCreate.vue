@@ -39,7 +39,7 @@
                     <td v-if="!edit_category || category_id !== category.id"><button class="btn btn-sm btn-info" @click="editCategory(category.id)">Edit</button> </td>
                     <td v-if="!edit_category || category_id !== category.id"><button class="btn btn-sm btn-danger" @click="deleteCategory(category)">X</button> </td>
                     <transition name="fade">
-                        <!--<app-edit-category v-if="edit_category && category_id === category.id" @updateCat="updateCat($event)" @cancelUpdate="cancelUpdate()" :cat_id="category.id"></app-edit-category>-->
+                        <app-edit-category v-if="edit_category && category_id === category.id" @updateCatTopping="updateCat($event)" @cancelUpdate="cancelUpdate()" :cat_id="category.id"></app-edit-category>
                     </transition>
 
                 </tr>
@@ -58,14 +58,14 @@
 
 <script>
     import axios from 'axios'
-    //import EditCategory from './EditCategory'
+    import EditCatTopping from './EditCatTopping'
     import DeleteCategory from '../admin/DeleteCategory'
     import {mapActions} from 'vuex'
 
     export default {
         //name: "Categories",
         components:{
-            //appEditCategory: EditCategory,
+            appEditCategory: EditCatTopping,
             appDeleteCategory: DeleteCategory
         },
         data(){
@@ -115,11 +115,11 @@
                 this.category_id = '';
                 this.edit_category = false;
 
-                this.updateCategory(category);
+                this.updateToppingCat(category);
                 toastr.success(category.name + ' , has been updated successfully.');
             },
             ...mapActions([
-                'updateCategory',
+                'updateToppingCat',
             ]),
             cancelUpdate(){
                 this.category_id = '';

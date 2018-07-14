@@ -18,9 +18,12 @@
 
     <!-- Styles -->
 
-    <link rel="stylesheet" href="{{asset('materialize/css/materialize.min.css')}}" media="screen,projection" />
+
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+    {{--<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>--}}
     {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">--}}
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}" >
+    <link rel="stylesheet" href="{{asset('materialize/css/materialize.min.css')}}" media="screen,projection" />
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/toastr.min.css') }}">
@@ -100,9 +103,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="{{asset('bower_components/bootstrap/dist/js/bootstrap.js')}}"></script>
 {{--<script src="{{asset('materialize/js/materialize.min.js')}}"></script>--}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{asset('js/admin.js')}}"></script>
+{{--<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>--}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <script src="{{ asset('js/toastr.min.js') }}"></script>
 <script>
     @if(Illuminate\Support\Facades\Session::has('success'))
