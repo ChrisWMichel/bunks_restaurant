@@ -22,3 +22,15 @@ export const updateItem = ({commit}, item) =>{
 export const getToppings = ({commit}, cat) =>{
     commit('getToppings', cat);
 };
+
+export const updateToppingCat = ({commit}, cat) =>{
+    commit('updateToppingCat', cat);
+};
+
+export const addTopping = ({commit}, cat) =>{
+    commit('addTopping', cat);
+};
+
+export const updateTopping = ({commit}, item)=>{
+    commit('updateTopping', item);
+};

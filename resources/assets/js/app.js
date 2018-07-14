@@ -7,8 +7,14 @@ import VueRouter from 'vue-router'
 import {routes} from "./routes/routes";
 import {store} from './store/store'
 import BootstrapVue from 'bootstrap-vue'
+import Materialize from 'materialize-css'
 
+//import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(Materialize);
 Vue.use(BootstrapVue);
+
+
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({

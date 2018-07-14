@@ -48,5 +48,13 @@
 </script>
 
 <style scoped>
-
+    .modal{
+        width:40%;
+        height: 45%;
+        overflow-scrolling: auto;
+    }
+    .modal-content{
+        border: none;
+        box-shadow: none;
+    }
 </style>
