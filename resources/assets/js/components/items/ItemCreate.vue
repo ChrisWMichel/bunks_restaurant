@@ -49,7 +49,7 @@
         </form>
         </div>
 
-        <app-size-price v-else key="price" :item="send_item" :cat_id="item.cat_id" @priceAdded="show = true"></app-size-price>
+        <app-size-price v-else key="price" :item="send_item" @priceAdded="show = true"></app-size-price>
     </transition>
     </div>
 </template>
@@ -80,20 +80,15 @@
                url: null
             }
         },
-        created(){
-
-        },
         computed:{
             isValidForm(){
                 return this.item.name && this.item.cat_id;
             }
-
         },
         methods:{
             getCatId(cat_id, cat_name){
                 this.item.cat_id = cat_id;
                 this.category_name = cat_name;
-
             },
             addNewItem(){
                 let fd = new FormData();
@@ -104,6 +99,7 @@
 
                 axios.post('api/items', fd)
                     .then(resp => {
+                        this.$store.dispatch('addNewItem', resp.data);
                         this.send_item = resp.data;
                         this.item.name = '';
                         this.item.description = '';
@@ -114,7 +110,6 @@
                     })
             },
             onFileSelected(){
-
                this.item.image = this.$refs.file.files[0];
                this.url = URL.createObjectURL(this.item.image);
             },

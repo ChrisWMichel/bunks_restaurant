@@ -11,17 +11,16 @@
 
                 </div>
             </div>
-            <div class="modal-footer">
-                <div class="col-lg-5">
-                    <button class="btn-success" @click="updateItem">Update</button>
-                </div>
-                <div class="col-lg-2 col-lg-offset-1">
-                    <button class="btn-danger" @click="deleteItem">Delete</button>
-                </div>
-                <div class="col-lg-2 col-lg-offset-1">
-                    <button @click="cancelItemEdit" class="modal-close waves-effect waves-green cancle-btn">Cancel</button>
-                </div>
-
+        </div>
+        <div class="modal-footer">
+            <div class="col-lg-5">
+                <button class="btn-success" @click="updateItem" :disabled="!isValidForm">Update</button>
+            </div>
+            <div class="col-lg-2 col-lg-offset-1">
+                <button class="btn-danger" @click="deleteToppingItem">Delete</button>
+            </div>
+            <div class="col-lg-2 col-lg-offset-1">
+                <button @click="cancelItemEdit" class="modal-close waves-effect waves-green cancle-btn">Cancel</button>
             </div>
 
         </div>
@@ -32,7 +31,6 @@
 <script>
     export default {
         name: "EditToppings",
-        props:['editItem'],
         data(){
             return{
 
@@ -41,6 +39,9 @@
         computed:{
             item(){
                 return this.$store.state.edit_topping;
+            },
+            isValidForm(){
+                return this.item.item;
             }
         },
         created(){
@@ -66,8 +67,11 @@
                 $('#topping-modal').modal('hide')
 
             },
-            deleteItem(){
-
+            deleteToppingItem(){
+                this.$store.dispatch('deleteTopping', this.item);
+                this.cancelItemEdit();
+                toastr.success('Topping has been deleted.');
+                axios.delete('api/topping_items/' + this.item.id);
             }
         },
 

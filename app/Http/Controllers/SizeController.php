@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Item;
 use App\Price;
 use App\Size;
@@ -35,7 +34,8 @@ class SizeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function storeSizePrice(Request $request, $id)
     {
@@ -58,8 +58,10 @@ class SizeController extends Controller
             $size->size = $request[$x]['size'];
             $size->save();
         }
+        $item = Item::find($item_id);
 
-        return response(null);
+        //return response(['item_id'=>$item_id]); //->jsonSerialize()
+        $this->sendDataBack($item);
     }
 
     public function updateSize(Request $request)
@@ -71,6 +73,10 @@ class SizeController extends Controller
             $size->update(['size' => $val['size']]);
         }
 
+    }
+
+    protected function sendDataBack($item){
+        return \response($item->jsonSerialize());
     }
 
     /**

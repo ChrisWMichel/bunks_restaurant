@@ -43,7 +43,7 @@
 
     export default {
         name: "AddSizePrice",
-        props:['item', 'cat_id'],
+        props:['item'],
         data(){
             return{
                 main_array:[],
@@ -68,29 +68,28 @@
                     this.price = '';
                     this.size = '';
                 }else{
-                    // add price to item only, and close the form
+                    // add price to item only with no size, and close the form
                     axios.post('api/price', {item_id: this.item.id, price: this.price})
                         .then(resp => {
-                            // update vuex
+                            this.$store.dispatch('addItemPrice', resp.data);
                         });
-
-                    //this.$store.state.categories.push(this.item);
 
                     this.$emit('priceAdded');
                     toastr.success(this.item.name + ' has been added successfully.');
-                    //TODO: instaed of retrieving categories from the databas, push it in vuex
-                    this.getCategories();
                 }
             },
             finishItem(){
                 //add sizes and prices
-                axios.post('api/size/' + this.item.id, this.main_array);
-                // update category -- note: promise did not work in the SizeControll method
-
+                axios.post('api/size/' + this.item.id, this.main_array)
+                    .then(resp => {
+                        // can't retrieve item via SizeController, fixing this problem with this new function:
+                        axios.get('api/getItem/' + this.item.id).then(item =>{
+                            console.log('getItem', item.data);
+                            this.$store.dispatch('addItemSizePrice', item.data);
+                        });
+                    });
                 this.$emit('priceAdded');
                 toastr.success(this.item.name + ' has been added successfully.');
-                //TODO: instaed of retrieving categories from the databas, push it in vuex
-                this.getCategories();
             },
             formatPrice(value) {
                 let val = (value/1).toFixed(2);
@@ -101,7 +100,6 @@
                     this.$store.dispatch('getCategories', resp.data);
                 })
             }
-
         },
 
     }

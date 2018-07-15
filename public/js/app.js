@@ -88479,7 +88479,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             url: null
         };
     },
-    created: function created() {},
 
     computed: {
         isValidForm: function isValidForm() {
@@ -88501,6 +88500,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             fd.append('description', this.item.description);
 
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/items', fd).then(function (resp) {
+                _this.$store.dispatch('addNewItem', resp.data);
                 _this.send_item = resp.data;
                 _this.item.name = '';
                 _this.item.description = '';
@@ -88511,7 +88511,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         onFileSelected: function onFileSelected() {
-
             this.item.image = this.$refs.file.files[0];
             this.url = URL.createObjectURL(this.item.image);
         },
@@ -88665,7 +88664,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "AddSizePrice",
-    props: ['item', 'cat_id'],
+    props: ['item'],
     data: function data() {
         return {
             main_array: [],
@@ -88682,6 +88681,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         addPrice: function addPrice() {
+            var _this = this;
+
             if (this.size !== '') {
                 this.main_array.push({ size: this.size, price: this.price });
                 if (this.main_array.length > 1) {
@@ -88690,38 +88691,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.price = '';
                 this.size = '';
             } else {
-                // add price to item only, and close the form
+                // add price to item only with no size, and close the form
                 __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/price', { item_id: this.item.id, price: this.price }).then(function (resp) {
-                    // update vuex
+                    _this.$store.dispatch('addItemPrice', resp.data);
                 });
-
-                //this.$store.state.categories.push(this.item);
 
                 this.$emit('priceAdded');
                 toastr.success(this.item.name + ' has been added successfully.');
-                //TODO: instaed of retrieving categories from the databas, push it in vuex
-                this.getCategories();
             }
         },
         finishItem: function finishItem() {
-            //add sizes and prices
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/size/' + this.item.id, this.main_array);
-            // update category -- note: promise did not work in the SizeControll method
+            var _this2 = this;
 
+            //add sizes and prices
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/size/' + this.item.id, this.main_array).then(function (resp) {
+                // can't retrieve item via SizeController, fixing this problem with this new function:
+                __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('api/getItem/' + _this2.item.id).then(function (item) {
+                    console.log('getItem', item.data);
+                    _this2.$store.dispatch('addItemSizePrice', item.data);
+                });
+            });
             this.$emit('priceAdded');
             toastr.success(this.item.name + ' has been added successfully.');
-            //TODO: instaed of retrieving categories from the databas, push it in vuex
-            this.getCategories();
         },
         formatPrice: function formatPrice(value) {
             var val = (value / 1).toFixed(2);
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         },
         getCategories: function getCategories() {
-            var _this = this;
+            var _this3 = this;
 
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('api/category').then(function (resp) {
-                _this.$store.dispatch('getCategories', resp.data);
+                _this3.$store.dispatch('getCategories', resp.data);
             });
         }
     }
@@ -89048,7 +89049,7 @@ var render = function() {
               ])
             : _c("app-size-price", {
                 key: "price",
-                attrs: { item: _vm.send_item, cat_id: _vm.item.cat_id },
+                attrs: { item: _vm.send_item },
                 on: {
                   priceAdded: function($event) {
                     _vm.show = true
@@ -89158,7 +89159,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.size-list[data-v-aa931902]{\n    /* float:left;*/\n    width: 70px;\n}\n.ul-size[data-v-aa931902]{\n    text-align: center;\n    list-style: none;\n    padding: 0;\n    margin:0;\n}\n.price-list[data-v-aa931902]{\n    width: 60px;\n    padding: 0;\n    margin:0;\n}\n.center[data-v-aa931902] {\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n}\ntable th[data-v-aa931902]{\n    padding-left: 10px;\n}\ntable td[data-v-aa931902]{\n    padding: 3px;\n    padding-left: 10px;\n}\n.slide-enter[data-v-aa931902]{\n}\n.slide-enter-active[data-v-aa931902]{\n    -webkit-animation: slide-in-data-v-aa931902 200ms ease-out forwards;\n            animation: slide-in-data-v-aa931902 200ms ease-out forwards;\n}\n.slide-leave[data-v-aa931902]{\n}\n.slide-leave-active[data-v-aa931902]{\n    -webkit-animation: slide-out-data-v-aa931902 200ms ease-out forwards;\n            animation: slide-out-data-v-aa931902 200ms ease-out forwards;\n}\n@-webkit-keyframes slide-in-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@keyframes slide-in-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@-webkit-keyframes slide-out-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n@keyframes slide-out-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n", ""]);
+exports.push([module.i, "\n.size-list[data-v-aa931902]{\n    /* float:left;*/\n    width: 70px;\n}\n.ul-size[data-v-aa931902]{\n    text-align: center;\n    list-style: none;\n    padding: 0;\n    margin:0;\n}\n.price-list[data-v-aa931902]{\n    width: 60px;\n    padding: 0;\n    margin:0;\n}\n.center[data-v-aa931902] {\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n}\ntable th[data-v-aa931902]{\n    padding-left: 10px;\n}\ntable td[data-v-aa931902]{\n    padding: 3px;\n    padding-left: 10px;\n}\n.slide-enter[data-v-aa931902]{\n}\n.slide-enter-active[data-v-aa931902]{\n    -webkit-animation: slide-in-data-v-aa931902 200ms ease-out forwards;\n            animation: slide-in-data-v-aa931902 200ms ease-out forwards;\n}\n.slide-leave[data-v-aa931902]{\n}\n.slide-leave-active[data-v-aa931902]{\n    -webkit-animation: slide-out-data-v-aa931902 200ms ease-out forwards;\n            animation: slide-out-data-v-aa931902 200ms ease-out forwards;\n}\n@-webkit-keyframes slide-in-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@keyframes slide-in-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@-webkit-keyframes slide-out-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n@keyframes slide-out-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n.btn-set[data-v-aa931902]{\n    display: block;\n    margin-left: 10px;\n    float: left;\n}\n.btn_x[data-v-aa931902]{\n    margin-left: 10px;\n}\ntd.actions[data-v-aa931902]{\n    width: 120px;\n    padding:0;\n}\n", ""]);
 
 // exports
 
@@ -89171,6 +89172,15 @@ exports.push([module.i, "\n.size-list[data-v-aa931902]{\n    /* float:left;*/\n 
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditItem__ = __webpack_require__(274);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditItem__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -89252,7 +89262,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showActive: '',
             item: '',
             show: true,
-            category_name: ''
+            category_name: '',
+            show_delete: false,
+            show_delete_label: 'Show Delete'
         };
     },
     mounted: function mounted() {
@@ -89279,6 +89291,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         closeForm: function closeForm() {
             //this.category_names;
             this.show = true;
+        },
+        showDeleteBtn: function showDeleteBtn() {
+            this.show_delete = !this.show_delete;
+            if (this.show_delete) {
+                this.show_delete_label = 'Hide Delete';
+            } else {
+                this.show_delete_label = 'Show Delete';
+            }
+        },
+        deleteItem: function deleteItem(item) {
+            this.$store.dispatch('deleteItem', item);
+            toastr.success('Item has been deleted.');
+            axios.delete('api/items/' + item.id);
         }
     }
 });
@@ -89744,7 +89769,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c(
                     "div",
-                    { staticClass: "col s12" },
+                    { staticClass: "col s10" },
                     _vm._l(_vm.category_names, function(category) {
                       return _c(
                         "button",
@@ -89758,7 +89783,9 @@ var render = function() {
                         [_vm._v(_vm._s(category.name))]
                       )
                     })
-                  )
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col s1 offset-10" })
                 ]),
                 _vm._v(" "),
                 _c("h3", [_vm._v(_vm._s(_vm.category_name))]),
@@ -89783,7 +89810,20 @@ var render = function() {
                             _vm._v(" "),
                             _c("th", [_vm._v("Price")]),
                             _vm._v(" "),
-                            _c("th", [_vm._v("Actions")])
+                            _c("th", [
+                              _vm._v(
+                                "\n                        Actions\n                        "
+                              ),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "waves-effect waves-light btn-xs yellow",
+                                  on: { click: _vm.showDeleteBtn }
+                                },
+                                [_vm._v(_vm._s(_vm.show_delete_label))]
+                              )
+                            ])
                           ])
                         ]),
                         _vm._v(" "),
@@ -89875,11 +89915,11 @@ var render = function() {
                                 ])
                               ]),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "actions" }, [
                                 _c(
                                   "button",
                                   {
-                                    staticClass: "btn btn-sm btn-info",
+                                    staticClass: "btn btn-sm btn-info btn-set",
                                     on: {
                                       click: function($event) {
                                         _vm.editItem(item)
@@ -89887,7 +89927,23 @@ var render = function() {
                                     }
                                   },
                                   [_vm._v("Edit")]
-                                )
+                                ),
+                                _vm._v(" "),
+                                _vm.show_delete
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-xs btn-danger btn_x",
+                                        on: {
+                                          click: function($event) {
+                                            _vm.deleteItem(item)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("x")]
+                                    )
+                                  : _vm._e()
                               ])
                             ])
                           })
@@ -91167,11 +91223,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "EditToppings",
-    props: ['editItem'],
     data: function data() {
         return {};
     },
@@ -91179,6 +91233,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         item: function item() {
             return this.$store.state.edit_topping;
+        },
+        isValidForm: function isValidForm() {
+            return this.item.item;
         }
     },
     created: function created() {},
@@ -91201,7 +91258,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             $('#topping-modal').modal();
             $('#topping-modal').modal('hide');
         },
-        deleteItem: function deleteItem() {}
+        deleteToppingItem: function deleteToppingItem() {
+            this.$store.dispatch('deleteTopping', this.item);
+            this.cancelItemEdit();
+            toastr.success('Topping has been deleted.');
+            axios.delete('api/topping_items/' + this.item.id);
+        }
     }
 
 });
@@ -91286,35 +91348,39 @@ var render = function() {
             _vm._v("Double Price")
           ])
         ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal-footer" }, [
+      _c("div", { staticClass: "col-lg-5" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn-success",
+            attrs: { disabled: !_vm.isValidForm },
+            on: { click: _vm.updateItem }
+          },
+          [_vm._v("Update")]
+        )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "modal-footer" }, [
-        _c("div", { staticClass: "col-lg-5" }, [
-          _c(
-            "button",
-            { staticClass: "btn-success", on: { click: _vm.updateItem } },
-            [_vm._v("Update")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-2 col-lg-offset-1" }, [
-          _c(
-            "button",
-            { staticClass: "btn-danger", on: { click: _vm.deleteItem } },
-            [_vm._v("Delete")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-2 col-lg-offset-1" }, [
-          _c(
-            "button",
-            {
-              staticClass: "modal-close waves-effect waves-green cancle-btn",
-              on: { click: _vm.cancelItemEdit }
-            },
-            [_vm._v("Cancel")]
-          )
-        ])
+      _c("div", { staticClass: "col-lg-2 col-lg-offset-1" }, [
+        _c(
+          "button",
+          { staticClass: "btn-danger", on: { click: _vm.deleteToppingItem } },
+          [_vm._v("Delete")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-2 col-lg-offset-1" }, [
+        _c(
+          "button",
+          {
+            staticClass: "modal-close waves-effect waves-green cancle-btn",
+            on: { click: _vm.cancelItemEdit }
+          },
+          [_vm._v("Cancel")]
+        )
       ])
     ])
   ])
@@ -91535,7 +91601,7 @@ var render = function() {
         })
       ),
       _vm._v(" "),
-      _c("app-edit-topping", { attrs: { editItem: _vm.item_edit } })
+      _c("app-edit-topping")
     ],
     1
   )
@@ -91623,7 +91689,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
         admins: '',
         categories: [],
+        cat_item: '',
         cat_toppings: [],
+        item_toppings: [],
         edit_topping: []
     },
     getters: __WEBPACK_IMPORTED_MODULE_3__getters__,
@@ -91646,11 +91714,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCategories", function() { return getCategories; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCategory", function() { return updateCategory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCategory", function() { return deleteCategory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNewItem", function() { return addNewItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateItem", function() { return updateItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteItem", function() { return deleteItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addItemPrice", function() { return addItemPrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addItemSizePrice", function() { return addItemSizePrice; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getToppings", function() { return getToppings; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateToppingCat", function() { return updateToppingCat; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTopping", function() { return addTopping; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateTopping", function() { return updateTopping; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteTopping", function() { return deleteTopping; });
 var uploadAdmins = function uploadAdmins(_ref, admins) {
     var commit = _ref.commit;
 
@@ -91676,34 +91749,63 @@ var deleteCategory = function deleteCategory(_ref4, cat_object) {
     commit('deleteCategory', cat_object);
 };
 
-var updateItem = function updateItem(_ref5, item) {
+var addNewItem = function addNewItem(_ref5, item) {
     var commit = _ref5.commit;
+
+    commit('addNewItem', item);
+};
+var updateItem = function updateItem(_ref6, item) {
+    var commit = _ref6.commit;
 
     commit('updateItem', item);
 };
 
-var getToppings = function getToppings(_ref6, cat) {
-    var commit = _ref6.commit;
+var deleteItem = function deleteItem(_ref7, item) {
+    var commit = _ref7.commit;
+
+    commit('deleteItem', item);
+};
+
+var addItemPrice = function addItemPrice(_ref8, price) {
+    var commit = _ref8.commit;
+
+    commit('addItemPrice', price);
+};
+
+var addItemSizePrice = function addItemSizePrice(_ref9, item) {
+    var commit = _ref9.commit;
+
+    commit('addItemSizePrice', item);
+};
+
+var getToppings = function getToppings(_ref10, cat) {
+    var commit = _ref10.commit;
 
     commit('getToppings', cat);
 };
 
-var updateToppingCat = function updateToppingCat(_ref7, cat) {
-    var commit = _ref7.commit;
+var updateToppingCat = function updateToppingCat(_ref11, cat) {
+    var commit = _ref11.commit;
 
     commit('updateToppingCat', cat);
 };
 
-var addTopping = function addTopping(_ref8, cat) {
-    var commit = _ref8.commit;
+var addTopping = function addTopping(_ref12, cat) {
+    var commit = _ref12.commit;
 
     commit('addTopping', cat);
 };
 
-var updateTopping = function updateTopping(_ref9, item) {
-    var commit = _ref9.commit;
+var updateTopping = function updateTopping(_ref13, item) {
+    var commit = _ref13.commit;
 
     commit('updateTopping', item);
+};
+
+var deleteTopping = function deleteTopping(_ref14, item) {
+    var commit = _ref14.commit;
+
+    commit('deleteTopping', item);
 };
 
 /***/ }),
@@ -91723,10 +91825,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCategory", function() { return updateCategory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCategory", function() { return deleteCategory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateItem", function() { return updateItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteItem", function() { return deleteItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNewItem", function() { return addNewItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addItemPrice", function() { return addItemPrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addItemSizePrice", function() { return addItemSizePrice; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getToppings", function() { return getToppings; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateToppingCat", function() { return updateToppingCat; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTopping", function() { return addTopping; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateTopping", function() { return updateTopping; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteTopping", function() { return deleteTopping; });
 var uploadAdmins = function uploadAdmins(state, admins) {
     state.admins = admins;
 };
@@ -91765,6 +91872,54 @@ var updateItem = function updateItem(state, item) {
     });
 };
 
+var deleteItem = function deleteItem(state, item) {
+    state.categories.forEach(function (cat) {
+        if (cat.id === item.category_id) {
+            var index = cat.items.indexOf(item);
+            cat.items.splice(index, 1);
+            return cat;
+        }
+    });
+};
+
+var addNewItem = function addNewItem(state, item) {
+    state.categories.forEach(function (cat) {
+        if (cat.id == item.category_id) {
+            cat.items.push(item);
+            state.cat_item = item;
+            return cat;
+        }
+    });
+};
+
+var addItemPrice = function addItemPrice(state, price) {
+    state.categories.forEach(function (cat) {
+        if (cat.id === state.cat_item.category_id) {
+            for (var x = 0; x <= cat.items.length; x++) {
+                if (cat.items[x].id == price.item_id) {
+                    cat.items[x].prices.push(price);
+                    state.cat_item = '';
+                    return cat;
+                }
+            }
+        }
+    });
+};
+
+var addItemSizePrice = function addItemSizePrice(state, item) {
+    //console.log('item', item);
+    state.categories.forEach(function (cat) {
+        if (cat.id === item.category_id) {
+            for (var x = 0; x <= cat.items.length; x++) {
+                if (cat.items[x].id == item.id) {
+                    cat.items[x] = item;
+                    return cat;
+                }
+            }
+        }
+    });
+};
+
 var getToppings = function getToppings(state, cat_toppings) {
     state.cat_toppings = cat_toppings;
 };
@@ -91798,6 +91953,15 @@ var updateTopping = function updateTopping(state, item) {
                     return x;
                 }
             }
+        }
+    });
+};
+
+var deleteTopping = function deleteTopping(state, item_object) {
+    state.cat_toppings.forEach(function (cat) {
+        if (cat.id === item_object.topping__cat_id) {
+            var index = cat.topping_items.indexOf(item_object);
+            cat.topping_items.splice(index, 1);
         }
     });
 };

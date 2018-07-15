@@ -54,7 +54,7 @@
                 </table>
             </div>
         </div>
-        <app-edit-topping :editItem="item_edit"></app-edit-topping>
+        <app-edit-topping></app-edit-topping>
     </div>
 </template>
 

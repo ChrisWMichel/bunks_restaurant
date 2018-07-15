@@ -3,8 +3,11 @@
         <transition name="slide" mode="out-in">
             <div v-if="show" key="item-list">
         <div class="row">
-            <div class="col s12">
+            <div class="col s10">
                 <button v-for="category in category_names" @click="displayItems(category)">{{category.name}}</button>
+            </div>
+            <div class="col s1 offset-10">
+                <!--<button class="waves-effect waves-light btn-small yellow" @click="showDeleteBtn">{{show_delete_label}}</button>-->
             </div>
         </div>
                 <h3>{{category_name}}</h3>
@@ -19,7 +22,10 @@
                         <th>Image</th>
                         <th>Description</th>
                         <th>Price</th>
-                        <th>Actions</th>
+                        <th>
+                            Actions
+                            <button class="waves-effect waves-light btn-xs yellow" @click="showDeleteBtn">{{show_delete_label}}</button>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -52,7 +58,10 @@
                                 </div>
                             </div>
                         </td>
-                        <td><button class="btn btn-sm btn-info" @click="editItem(item)">Edit</button> </td>
+                        <td class="actions">
+                            <button class="btn btn-sm btn-info btn-set" @click="editItem(item)">Edit</button>
+                            <button class="btn btn-xs btn-danger btn_x" v-if="show_delete" @click="deleteItem(item)">x</button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -79,7 +88,9 @@
                 showActive:'',
                 item: '',
                 show: true,
-                category_name: ''
+                category_name: '',
+                show_delete: false,
+                show_delete_label: 'Show Delete'
             }
         },
         mounted(){
@@ -105,6 +116,19 @@
             closeForm(){
                 //this.category_names;
                 this.show = true;
+            },
+            showDeleteBtn(){
+                this.show_delete = !this.show_delete;
+                if(this.show_delete){
+                    this.show_delete_label = 'Hide Delete'
+                }else{
+                    this.show_delete_label = 'Show Delete'
+                }
+            },
+            deleteItem(item){
+                this.$store.dispatch('deleteItem', item);
+                toastr.success('Item has been deleted.');
+                axios.delete('api/items/' + item.id);
             }
         }
     }
@@ -172,5 +196,17 @@
             opacity: 0;
         }
 
+    }
+    .btn-set{
+        display: block;
+        margin-left: 10px;
+        float: left;
+    }
+    .btn_x{
+        margin-left: 10px;
+    }
+    td.actions{
+        width: 120px;
+        padding:0;
     }
 </style>

@@ -37,7 +37,55 @@ export const updateItem = (state, item) =>{
     });
 };
 
-export const  getToppings = (state, cat_toppings) =>{
+export const deleteItem = (state, item) =>{
+    state.categories.forEach(cat => {
+        if(cat.id === item.category_id){
+            const index = cat.items.indexOf(item);
+            cat.items.splice(index, 1);
+            return cat;
+        }
+    });
+};
+
+export const addNewItem = (state, item) => {
+    state.categories.forEach(cat => {
+        if(cat.id == item.category_id){
+            cat.items.push(item);
+            state.cat_item = item;
+            return cat;
+        }
+    });
+};
+
+export const addItemPrice = (state, price) =>{
+    state.categories.forEach(cat => {
+        if(cat.id === state.cat_item.category_id){
+            for(let x=0; x<=cat.items.length;x++){
+                if(cat.items[x].id == price.item_id){
+                    cat.items[x].prices.push(price);
+                    state.cat_item = '';
+                    return cat;
+                }
+            }
+        }
+    });
+};
+
+export const addItemSizePrice = (state, item) =>{
+    //console.log('item', item);
+    state.categories.forEach((cat) => {
+        if(cat.id === item.category_id){
+            for(let x=0; x <=cat.items.length; x++){
+                if(cat.items[x].id == item.id){
+                    cat.items[x] = item;
+                    return cat;
+                }
+            }
+        }
+    });
+};
+
+export const getToppings = (state, cat_toppings) =>{
     state.cat_toppings = cat_toppings;
 
 };
@@ -74,3 +122,13 @@ export const updateTopping = (state, item) => {
         }
     });
 };
+
+export const deleteTopping = (state, item_object) =>{
+    state.cat_toppings.forEach(cat => {
+        if(cat.id === item_object.topping__cat_id){
+            const index = cat.topping_items.indexOf(item_object);
+            cat.topping_items.splice(index, 1);
+        }
+    });
+};
+

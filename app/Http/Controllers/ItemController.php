@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Item;
+use App\Price;
+use App\Size;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -20,14 +22,10 @@ class ItemController extends Controller
         return response($cat_list->jsonSerialize());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function getItem($id){
+        $item = Item::find($id);
+
+        return response($item->jsonSerialize());
     }
 
     /**
@@ -51,8 +49,11 @@ class ItemController extends Controller
         }
 
           $item->save();
+        // to get the sizes, and prices table dependent to the item table
+        // within the object array, get the item again.
+        $new_item = Item::find($item->id);
 
-        return response($item->jsonSerialize());
+        return response($new_item->jsonSerialize());
     }
 
 
@@ -91,8 +92,15 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item $item)
+    public function destroy($id) //Request $request, $id
     {
-        //
+        $item = Item::find($id);
+
+        if($item->image_path){
+            @unlink('images/' . $item->image_path);
+        }
+        Price::where('item_id', '=', $id)->delete();
+        Size::where('item_id', '=', $id)->delete();
+        Item::find($id)->delete();
     }
 }
