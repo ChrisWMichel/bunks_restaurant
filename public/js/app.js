@@ -88472,6 +88472,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 image: ''
             },
             send_item: '',
+            send_cat_name: '',
             category_name: 'Choose Category',
             errors: [],
             item_id: '',
@@ -88498,6 +88499,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             fd.append('cat_id', this.item.cat_id);
             fd.append('name', this.item.name);
             fd.append('description', this.item.description);
+
+            this.send_cat_name = this.category_name;
 
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('api/items', fd).then(function (resp) {
                 _this.$store.dispatch('addNewItem', resp.data);
@@ -88659,18 +88662,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "AddSizePrice",
-    props: ['item'],
+    props: ['item', 'cat_name'],
     data: function data() {
         return {
             main_array: [],
             size: '',
             price: '',
-            finished: false
+            finished: false,
+            topping_price: ''
         };
     },
 
@@ -88684,10 +88697,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.size !== '') {
-                this.main_array.push({ size: this.size, price: this.price });
-                if (this.main_array.length > 1) {
+                if (this.topping_price !== '') {
+                    this.main_array.push({ topping: this.topping_price, size: this.size, price: this.price });
+                } else {
+                    this.main_array.push({ size: this.size, price: this.price });
+                }
+
+                if (this.main_array.length > 1 || this.topping_price !== '') {
                     this.finished = true;
                 }
+                this.topping_price = '';
                 this.price = '';
                 this.size = '';
             } else {
@@ -88707,7 +88726,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/size/' + this.item.id, this.main_array).then(function (resp) {
                 // can't retrieve item via SizeController, fixing this problem with this new function:
                 __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('api/getItem/' + _this2.item.id).then(function (item) {
-                    console.log('getItem', item.data);
                     _this2.$store.dispatch('addItemSizePrice', item.data);
                 });
             });
@@ -88717,13 +88735,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         formatPrice: function formatPrice(value) {
             var val = (value / 1).toFixed(2);
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        },
-        getCategories: function getCategories() {
-            var _this3 = this;
-
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('api/category').then(function (resp) {
-                _this3.$store.dispatch('getCategories', resp.data);
-            });
         }
     }
 
@@ -88738,13 +88749,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row", attrs: { id: "whole-page" } }, [
-    _c("div", { staticClass: "col-md-4 ", attrs: { id: "add-price-field" } }, [
+    _c("div", { staticClass: "col-md-6 ", attrs: { id: "add-price-field" } }, [
+      _c("h3", [_vm._v("Category: " + _vm._s(_vm.cat_name))]),
+      _vm._v(" "),
       _c("h2", [_vm._v(_vm._s(_vm.item.name))]),
       _vm._v(" "),
       _c("p", [_vm._v(_vm._s(_vm.item.description))]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "input-field col-md-3" }, [
+        _c("div", { staticClass: "input-field col-md-4" }, [
           _c("input", {
             directives: [
               {
@@ -88769,6 +88782,39 @@ var render = function() {
           _c("label", { attrs: { for: "size" } }, [_vm._v("Size")])
         ])
       ]),
+      _vm._v(" "),
+      _vm.cat_name === "Pizzas"
+        ? _c("div", [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "input-field col-md-3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.topping_price,
+                      expression: "topping_price"
+                    }
+                  ],
+                  attrs: { type: "number", id: "topping_price" },
+                  domProps: { value: _vm.topping_price },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.topping_price = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "topping_price" } }, [
+                  _vm._v("Topping Price")
+                ])
+              ])
+            ])
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "input-field col-md-3" }, [
@@ -89049,7 +89095,7 @@ var render = function() {
               ])
             : _c("app-size-price", {
                 key: "price",
-                attrs: { item: _vm.send_item },
+                attrs: { item: _vm.send_item, cat_name: _vm.send_cat_name },
                 on: {
                   priceAdded: function($event) {
                     _vm.show = true
@@ -89159,7 +89205,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.size-list[data-v-aa931902]{\n    /* float:left;*/\n    width: 70px;\n}\n.ul-size[data-v-aa931902]{\n    text-align: center;\n    list-style: none;\n    padding: 0;\n    margin:0;\n}\n.price-list[data-v-aa931902]{\n    width: 60px;\n    padding: 0;\n    margin:0;\n}\n.center[data-v-aa931902] {\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n}\ntable th[data-v-aa931902]{\n    padding-left: 10px;\n}\ntable td[data-v-aa931902]{\n    padding: 3px;\n    padding-left: 10px;\n}\n.slide-enter[data-v-aa931902]{\n}\n.slide-enter-active[data-v-aa931902]{\n    -webkit-animation: slide-in-data-v-aa931902 200ms ease-out forwards;\n            animation: slide-in-data-v-aa931902 200ms ease-out forwards;\n}\n.slide-leave[data-v-aa931902]{\n}\n.slide-leave-active[data-v-aa931902]{\n    -webkit-animation: slide-out-data-v-aa931902 200ms ease-out forwards;\n            animation: slide-out-data-v-aa931902 200ms ease-out forwards;\n}\n@-webkit-keyframes slide-in-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@keyframes slide-in-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@-webkit-keyframes slide-out-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n@keyframes slide-out-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n.btn-set[data-v-aa931902]{\n    display: block;\n    margin-left: 10px;\n    float: left;\n}\n.btn_x[data-v-aa931902]{\n    margin-left: 10px;\n}\ntd.actions[data-v-aa931902]{\n    width: 120px;\n    padding:0;\n}\n", ""]);
+exports.push([module.i, "\n.size-list[data-v-aa931902]{\n    /* float:left;*/\n    width: 80px;\n}\n.ul-size[data-v-aa931902]{\n    text-align: center;\n    list-style: none;\n    padding: 0;\n    margin:0;\n}\n.price-list[data-v-aa931902]{\n    width: 70px;\n    padding: 0;\n    margin:0;\n}\n.center[data-v-aa931902] {\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n}\ntable th[data-v-aa931902]{\n    padding-left: 10px;\n}\ntable td[data-v-aa931902]{\n    padding: 3px;\n    padding-left: 10px;\n}\n.slide-enter[data-v-aa931902]{\n}\n.slide-enter-active[data-v-aa931902]{\n    -webkit-animation: slide-in-data-v-aa931902 200ms ease-out forwards;\n            animation: slide-in-data-v-aa931902 200ms ease-out forwards;\n}\n.slide-leave[data-v-aa931902]{\n}\n.slide-leave-active[data-v-aa931902]{\n    -webkit-animation: slide-out-data-v-aa931902 200ms ease-out forwards;\n            animation: slide-out-data-v-aa931902 200ms ease-out forwards;\n}\n@-webkit-keyframes slide-in-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@keyframes slide-in-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@-webkit-keyframes slide-out-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n@keyframes slide-out-data-v-aa931902 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n.btn-set[data-v-aa931902]{\n    display: block;\n    margin-left: 10px;\n    float: left;\n}\n.btn_x[data-v-aa931902]{\n    margin-left: 10px;\n}\ntd.actions[data-v-aa931902]{\n    width: 120px;\n    padding:0;\n}\n", ""]);
 
 // exports
 
@@ -89172,6 +89218,9 @@ exports.push([module.i, "\n.size-list[data-v-aa931902]{\n    /* float:left;*/\n 
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditItem__ = __webpack_require__(274);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditItem__);
+//
+//
+//
 //
 //
 //
@@ -89303,7 +89352,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteItem: function deleteItem(item) {
             this.$store.dispatch('deleteItem', item);
             toastr.success('Item has been deleted.');
-            axios.delete('api/items/' + item.id);
+            axios.delete('api/items/' + item.id).then(function (resp) {});
         }
     }
 });
@@ -89394,7 +89443,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n#preview[data-v-5c320390] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n#preview img[data-v-5c320390] {\n    max-width: 100%;\n    max-height: 350px;\n}\n.edit-btn[data-v-5c320390]{\n    float: right;\n    margin-bottom: 10px;\n}\n.size-list[data-v-5c320390]{\n    /* float:left;*/\n    width: 70px;\n}\n\n/*.ul-size{\n    text-align: center;\n    list-style: none;\n    padding: 0;\n    margin:0;\n}*/\n.price-list[data-v-5c320390]{\n    width: 60px;\n    padding: 0;\n    margin-left: -200px;\n}\n.preview[data-v-5c320390] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.preview img[data-v-5c320390] {\n    max-width: 100%;\n    max-height: 350px;\n}\n", ""]);
+exports.push([module.i, "\n#preview[data-v-5c320390] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n#preview img[data-v-5c320390] {\n    max-width: 100%;\n    max-height: 350px;\n}\n.edit-btn[data-v-5c320390]{\n    float: right;\n    margin-bottom: 10px;\n}\n.size-list[data-v-5c320390]{\n    /* float:left;*/\n    width: 70px;\n}\n\n/*.ul-size{\n    text-align: center;\n    list-style: none;\n    padding: 0;\n    margin:0;\n}*/\n.price-list[data-v-5c320390]{\n    width: 60px;\n    padding: 0;\n    /*margin-left: -200px;*/\n}\n.preview[data-v-5c320390] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.preview img[data-v-5c320390] {\n    max-width: 100%;\n    max-height: 350px;\n}\n", ""]);
 
 // exports
 
@@ -89407,6 +89456,8 @@ exports.push([module.i, "\n#preview[data-v-5c320390] {\n    display: -webkit-box
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+//
+//
 //
 //
 //
@@ -89651,54 +89702,71 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "col-sm col-sm-offset-1" },
-                    _vm._l(_vm.item.sizes, function(size) {
-                      return _c("div", [
-                        _c("div", { staticClass: "size-list" }, [
-                          _c("ul", { staticClass: "ul-size" }, [
-                            size !== null
-                              ? _c("li", [
-                                  _c("input", {
-                                    attrs: { type: "text" },
-                                    domProps: { value: size.size },
-                                    on: {
-                                      change: function($event) {
-                                        _vm.updateSize(
-                                          size,
-                                          $event.target.value
-                                        )
+                    [
+                      _vm.item.sizes.length > 0
+                        ? _c("h6", [_vm._v("Size")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm._l(_vm.item.sizes, function(size) {
+                        return _c("div", [
+                          _c("div", { staticClass: "size-list" }, [
+                            _c("ul", { staticClass: "ul-size" }, [
+                              size !== null
+                                ? _c("li", [
+                                    _c("input", {
+                                      attrs: { type: "text" },
+                                      domProps: { value: size.size },
+                                      on: {
+                                        change: function($event) {
+                                          _vm.updateSize(
+                                            size,
+                                            $event.target.value
+                                          )
+                                        }
                                       }
-                                    }
-                                  })
-                                ])
-                              : _vm._e()
+                                    })
+                                  ])
+                                : _vm._e()
+                            ])
                           ])
                         ])
-                      ])
-                    })
+                      })
+                    ],
+                    2
                   ),
                   _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "col-sm" },
-                    _vm._l(_vm.item.prices, function(price) {
-                      return _c("div", [
-                        _c("div", { staticClass: "price-list" }, [
-                          _c("ul", { staticClass: "ul-size text-center" }, [
-                            _c("li", [
-                              _c("input", {
-                                attrs: { type: "text" },
-                                domProps: { value: price.price },
-                                on: {
-                                  change: function($event) {
-                                    _vm.updatePrice(price, $event.target.value)
+                    [
+                      _vm.item.prices.length > 0
+                        ? _c("h6", [_vm._v("Price")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm._l(_vm.item.prices, function(price) {
+                        return _c("div", [
+                          _c("div", { staticClass: "price-list" }, [
+                            _c("ul", { staticClass: "ul-size text-center" }, [
+                              _c("li", [
+                                _c("input", {
+                                  attrs: { type: "text" },
+                                  domProps: { value: price.price },
+                                  on: {
+                                    change: function($event) {
+                                      _vm.updatePrice(
+                                        price,
+                                        $event.target.value
+                                      )
+                                    }
                                   }
-                                }
-                              })
+                                })
+                              ])
                             ])
                           ])
                         ])
-                      ])
-                    })
+                      })
+                    ],
+                    2
                   )
                 ]),
                 _vm._v(" "),
@@ -89854,63 +89922,98 @@ var render = function() {
                                   _c(
                                     "div",
                                     { staticClass: "col" },
-                                    _vm._l(item.sizes, function(size) {
-                                      return _c("div", [
-                                        _c(
-                                          "div",
-                                          { staticClass: "size-list" },
-                                          [
-                                            _c(
-                                              "ul",
-                                              { staticClass: "ul-size" },
-                                              [
-                                                size !== null
-                                                  ? _c("li", [
-                                                      _vm._v(
-                                                        _vm._s(size.size) +
-                                                          " - "
-                                                      )
-                                                    ])
-                                                  : _vm._e()
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ])
-                                    })
+                                    [
+                                      _c("h6", [
+                                        item.sizes.length > 0
+                                          ? _c("span", [_vm._v("Size")])
+                                          : _vm._e(),
+                                        _vm.category_name === "Pizzas"
+                                          ? _c("span", [_vm._v(" - Topping")])
+                                          : _vm._e()
+                                      ]),
+                                      _vm._v(" "),
+                                      _vm._l(item.sizes, function(size) {
+                                        return _c("div", [
+                                          _c(
+                                            "div",
+                                            { staticClass: "size-list" },
+                                            [
+                                              _c(
+                                                "ul",
+                                                { staticClass: "ul-size" },
+                                                [
+                                                  size !== null
+                                                    ? _c("li", [
+                                                        _vm._v(
+                                                          _vm._s(size.size) +
+                                                            " - "
+                                                        ),
+                                                        _vm.category_name ===
+                                                        "Pizzas"
+                                                          ? _c("span", [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  _vm._f(
+                                                                    "currency"
+                                                                  )(
+                                                                    size
+                                                                      .topping_cost
+                                                                      .cost
+                                                                  )
+                                                                )
+                                                              )
+                                                            ])
+                                                          : _vm._e()
+                                                      ])
+                                                    : _vm._e()
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      })
+                                    ],
+                                    2
                                   ),
                                   _vm._v(" "),
                                   _c(
                                     "div",
                                     { staticClass: "col" },
-                                    _vm._l(item.prices, function(price) {
-                                      return _c("div", [
-                                        _c(
-                                          "div",
-                                          { staticClass: "price-list" },
-                                          [
-                                            _c(
-                                              "ul",
-                                              {
-                                                staticClass:
-                                                  "ul-size text-center"
-                                              },
-                                              [
-                                                _c("li", [
-                                                  _vm._v(
-                                                    _vm._s(
-                                                      _vm._f("currency")(
-                                                        price.price
+                                    [
+                                      item.sizes.length > 0
+                                        ? _c("h6", [_vm._v("Price")])
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm._l(item.prices, function(price) {
+                                        return _c("div", [
+                                          _c(
+                                            "div",
+                                            { staticClass: "price-list" },
+                                            [
+                                              _c(
+                                                "ul",
+                                                {
+                                                  staticClass:
+                                                    "ul-size text-center"
+                                                },
+                                                [
+                                                  _c("li", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm._f("currency")(
+                                                          price.price
+                                                        )
                                                       )
                                                     )
-                                                  )
-                                                ])
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ])
-                                    })
+                                                  ])
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      })
+                                    ],
+                                    2
                                   )
                                 ])
                               ]),

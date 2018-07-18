@@ -35,19 +35,22 @@
                             <img v-if="item.image_path" :src="image_url + item.image_path" width="150" class="center"/>
                         </td>
                         <td>{{item.description}}</td>
+
                         <td style="width: 180px;">
 
                             <div class="row">
                                 <div class="col">
+                                    <h6><span v-if="item.sizes.length > 0">Size</span><span v-if="category_name === 'Pizzas'"> - Topping</span></h6>
                                     <div v-for="size in item.sizes">
                                         <div class="size-list">
                                             <ul class="ul-size">
-                                                <li v-if="size !== null">{{size.size}} - </li>
+                                                <li v-if="size !== null">{{size.size}} - <span v-if="category_name === 'Pizzas'">{{size.topping_cost.cost | currency}}</span> </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col">
+                                    <h6 v-if="item.sizes.length > 0">Price</h6>
                                     <div v-for="price in item.prices">
                                         <div class="price-list">
                                             <ul class="ul-size text-center">
@@ -128,7 +131,8 @@
             deleteItem(item){
                 this.$store.dispatch('deleteItem', item);
                 toastr.success('Item has been deleted.');
-                axios.delete('api/items/' + item.id);
+                axios.delete('api/items/' + item.id).then(resp => {
+                })
             }
         }
     }
@@ -137,7 +141,7 @@
 <style scoped>
     .size-list{
         /* float:left;*/
-        width: 70px;
+        width: 80px;
     }
 
     .ul-size{
@@ -148,7 +152,7 @@
     }
 
     .price-list{
-        width: 60px;
+        width: 70px;
         padding: 0;
         margin:0;
     }

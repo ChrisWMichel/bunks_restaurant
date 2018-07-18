@@ -49,7 +49,7 @@
         </form>
         </div>
 
-        <app-size-price v-else key="price" :item="send_item" @priceAdded="show = true"></app-size-price>
+        <app-size-price v-else key="price" :item="send_item" :cat_name="send_cat_name" @priceAdded="show = true"></app-size-price>
     </transition>
     </div>
 </template>
@@ -73,6 +73,7 @@
                     image: ''
                 },
                 send_item:'',
+                send_cat_name: '',
                 category_name: 'Choose Category',
                 errors:[],
                 item_id: '',
@@ -96,6 +97,8 @@
                 fd.append('cat_id', this.item.cat_id);
                 fd.append('name', this.item.name);
                 fd.append('description', this.item.description);
+
+                this.send_cat_name = this.category_name;
 
                 axios.post('api/items', fd)
                     .then(resp => {

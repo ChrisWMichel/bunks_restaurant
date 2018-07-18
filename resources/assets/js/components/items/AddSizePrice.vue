@@ -1,13 +1,22 @@
 <template>
     <div class="row" id="whole-page">
-        <div class="col-md-4 " id="add-price-field">
+        <div class="col-md-6 " id="add-price-field">
+            <h3>Category: {{cat_name}}</h3>
             <h2>{{item.name}}</h2>
             <p>{{item.description}}</p>
 
             <div class="row">
-                <div class="input-field col-md-3">
+                <div class="input-field col-md-4">
                     <input type="text" v-model="size" id="size" placeholder="none"/>
                     <label for="size">Size</label>
+                </div>
+            </div>
+            <div v-if="cat_name === 'Pizzas'">
+                <div class="row">
+                    <div class="input-field col-md-3">
+                        <input type="number" v-model="topping_price" id="topping_price"/>
+                        <label for="topping_price">Topping Price</label>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -43,13 +52,14 @@
 
     export default {
         name: "AddSizePrice",
-        props:['item'],
+        props:['item', 'cat_name'],
         data(){
             return{
                 main_array:[],
                 size:'',
                 price:'',
-                finished: false
+                finished: false,
+                topping_price: ''
             }
         },
         computed:{
@@ -61,10 +71,16 @@
         methods:{
             addPrice(){
                 if(this.size !== ''){
-                    this.main_array.push({size:this.size, price:this.price});
-                    if(this.main_array.length > 1){
+                    if(this.topping_price !== ''){
+                        this.main_array.push({topping: this.topping_price, size:this.size, price:this.price});
+                    }else{
+                        this.main_array.push({size:this.size, price:this.price});
+                    }
+
+                    if(this.main_array.length > 1 || this.topping_price !== ''){
                         this.finished = true;
                     }
+                    this.topping_price = '';
                     this.price = '';
                     this.size = '';
                 }else{
@@ -84,7 +100,6 @@
                     .then(resp => {
                         // can't retrieve item via SizeController, fixing this problem with this new function:
                         axios.get('api/getItem/' + this.item.id).then(item =>{
-                            console.log('getItem', item.data);
                             this.$store.dispatch('addItemSizePrice', item.data);
                         });
                     });
@@ -95,11 +110,7 @@
                 let val = (value/1).toFixed(2);
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             },
-            getCategories(){
-                axios.get('api/category').then(resp => {
-                    this.$store.dispatch('getCategories', resp.data);
-                })
-            }
+
         },
 
     }

@@ -6,6 +6,7 @@ use App\Category;
 use App\Item;
 use App\Price;
 use App\Size;
+use App\Topping_Cost;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -100,7 +101,12 @@ class ItemController extends Controller
             @unlink('images/' . $item->image_path);
         }
         Price::where('item_id', '=', $id)->delete();
+        $sizes = Size::where('item_id', '=', $id)->get();
+        foreach($sizes as $size){
+            Topping_Cost::where('size_id', '=', $size->id)->delete();
+        }
         Size::where('item_id', '=', $id)->delete();
         Item::find($id)->delete();
+
     }
 }

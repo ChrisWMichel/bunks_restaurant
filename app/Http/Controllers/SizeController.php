@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Item;
 use App\Price;
 use App\Size;
+use App\Topping_Cost;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -47,21 +48,56 @@ class SizeController extends Controller
              print_r($x);
          }
 
-        for($x = 0; $x <= $count; $x++){
-            $price = new Price();
-            $price->item_id = $item_id;
-            $price->price = $request[$x]['price'];
-            $price->save();
+         if(!empty($request[0]['topping'])){
+             for($x = 0; $x <= $count; $x++){
+                 $price = new Price();
+                 $price->item_id = $item_id;
+                 $price->price = $request[$x]['price'];
+                 $price->save();
 
-            $size = new Size();
-            $size->item_id = $item_id;
-            $size->size = $request[$x]['size'];
-            $size->save();
-        }
-        $item = Item::find($item_id);
+                 $size = new Size();
+                 $size->item_id = $item_id;
+                 $size->size = $request[$x]['size'];
+                 $size->save();
+
+                 $topping = new Topping_Cost();
+                 $topping->size_id = $size->id;
+                 $topping->cost = $request[$x]['topping'];
+                 $topping->save();
+
+             }
+             //$this->addToppingPrice($count, $request);
+         }else{
+             for($x = 0; $x <= $count; $x++){
+                 $price = new Price();
+                 $price->item_id = $item_id;
+                 $price->price = $request[$x]['price'];
+                 $price->save();
+
+                 $size = new Size();
+                 $size->item_id = $item_id;
+                 $size->size = $request[$x]['size'];
+                 $size->save();
+             }
+         }
+
+
+       // $item = Item::find($item_id);
 
         //return response(['item_id'=>$item_id]); //->jsonSerialize()
-        $this->sendDataBack($item);
+    }
+
+    public function addToppingPrice($count, $request){
+        $sizes = Size::orderBy('id', 'desc')->take($count)->get();
+        $x = 0;
+        foreach($sizes as $size){
+
+            $topping = new Topping_Cost();
+            $topping->size_id = $size->id;
+            $topping->cost = $request[$x]['topping'];
+            $topping->save();
+            $x++;
+        }
     }
 
     public function updateSize(Request $request)
@@ -73,10 +109,6 @@ class SizeController extends Controller
             $size->update(['size' => $val['size']]);
         }
 
-    }
-
-    protected function sendDataBack($item){
-        return \response($item->jsonSerialize());
     }
 
     /**

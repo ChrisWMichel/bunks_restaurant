@@ -34,6 +34,7 @@
                         <textarea v-model="item.description" id="cat_description" class="materialize-textarea" ></textarea>
                     </div>
                     <div class="col-sm col-sm-offset-1">
+                        <h6 v-if="item.sizes.length > 0">Size</h6>
                         <div v-for="size in item.sizes">
                             <div class="size-list">
                                 <ul class="ul-size">
@@ -43,6 +44,7 @@
                         </div>
                     </div>
                     <div class="col-sm">
+                        <h6 v-if="item.prices.length > 0">Price</h6>
                         <div v-for="price in item.prices">
                             <div class="price-list">
                                 <ul class="ul-size text-center">
@@ -87,7 +89,8 @@
         },
         computed:{
             imageExist(){
-                return this.item.image_path
+                return this.item.image_path;
+
             }
         },
         methods:{
@@ -164,7 +167,7 @@
     .price-list{
         width: 60px;
         padding: 0;
-        margin-left: -200px;
+        /*margin-left: -200px;*/
     }
     .preview {
         display: flex;
