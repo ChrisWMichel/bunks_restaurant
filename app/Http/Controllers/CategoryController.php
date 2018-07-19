@@ -43,7 +43,9 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->save();
 
-        return response($category->jsonSerialize());
+        $categories = Category::all();
+
+        return response($categories->jsonSerialize());
     }
 
     /**

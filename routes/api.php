@@ -32,6 +32,7 @@ if($this->middleware('IsAdmin')){
 
     Route::resource('/topping_cat', 'ToppingCatController');
     Route::resource('/topping_items', 'ToppingItemController');
+    Route::post('/updat_topping_price', 'ToppingCostController@updatePrice');
 }
 
 

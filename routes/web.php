@@ -11,9 +11,6 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
 
 Auth::routes();
 
@@ -38,7 +35,8 @@ Route::post('reset/password', 'LogginCredController@SendResetPassword')->name('s
 Route::get('member/verify/{token}', 'LogginCredController@receiveResetPassword')->name('verify');
 Route::post('member/reset', 'LogginCredController@resetPassword')->name('reset');
 
-Route::get('/', 'HomeController@index');
+//Route::get('/', 'HomeController@index');
+Route::get('/', 'CustomerController@index')->name('home');
 
 
 

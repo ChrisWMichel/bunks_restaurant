@@ -67,9 +67,13 @@ class ToppingCostController extends Controller
      * @param  \App\Topping_Cost  $topping_Cost
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Topping_Cost $topping_Cost)
+    public function updatePrice(Request $request)
     {
-        //
+        foreach ($request->input() as $val){
+            $topping = Topping_Cost::find($val['id']);
+
+            $topping->update(['cost' => $val['topping_cost']]);
+        }
     }
 
     /**

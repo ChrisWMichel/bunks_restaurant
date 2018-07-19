@@ -7,6 +7,11 @@ export const  getCategories = (state, categories) =>{
 
 };
 
+export const addCategory = (state, category) => {
+    state.categories = category;
+
+};
+
 export const updateCategory = (state, category) =>{
     state.categories.forEach((cat) =>{
         if(cat.id === category.id){
@@ -102,7 +107,6 @@ export const updateToppingCat = (state, category) =>{
 export const addTopping = (state, item) => {
     state.cat_toppings.forEach((x) => {
         if(x.id === item.topping__cat_id){
-            console.log('still working');
             x.topping_items.push(item);
             return x;
         }

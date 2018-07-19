@@ -7,6 +7,14 @@ export const  getCategories = ({commit}, categories) =>{
     commit('getCategories', categories);
 };
 
+export const addCategory = ({commit}, category) =>{
+    axios.post('api/category', category)
+        .then(resp => {
+                commit('addCategory', resp.data);
+        });
+
+};
+
 export const updateCategory = ({commit}, category) =>{
     commit('updateCategory', category);
 };

@@ -34,17 +34,26 @@
                         <textarea v-model="item.description" id="cat_description" class="materialize-textarea" ></textarea>
                     </div>
                     <div class="col-sm col-sm-offset-1">
-                        <h6 v-if="item.sizes.length > 0">Size</h6>
+                        <h6 v-if="item.sizes.length > 0">Size   <span v-if="item.sizes[0].topping_cost !== null">&nbsp;&nbsp;  - &nbsp;&nbsp;&nbsp;&nbsp;Topping</span></h6>
                         <div v-for="size in item.sizes">
                             <div class="size-list">
                                 <ul class="ul-size">
-                                    <li v-if="size !== null"><input type="text"  @change="updateSize(size, $event.target.value)"  :value="size.size"/></li>
+                                    <!--<div class="row">-->
+                                        <li v-if="size !== null" >
+                                            <input type="text" class="size-input" @change="updateSize(size, $event.target.value)"  :value="size.size"/>
+                                            <!--<div v-if="size.topping_cost !== null" class="col">-->
+                                                <input v-if="size.topping_cost !== null" class="topping-input"  type="text" @change="updateToppingPrice(size.topping_cost, $event.target.value)"  :value="size.topping_cost.cost"/>
+                                            <!--</div>-->
+
+                                        </li>
+                                    <!--</div>-->
+
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm">
-                        <h6 v-if="item.prices.length > 0">Price</h6>
+                        <h6 class="price-list" v-if="item.prices.length > 0">Price</h6>
                         <div v-for="price in item.prices">
                             <div class="price-list">
                                 <ul class="ul-size text-center">
@@ -82,6 +91,7 @@
                 new_size:'',
                 size_array: [],
                 price_array: [],
+                topping_array:[],
                 new_image: '',
                 save_data: false,
                 gif: 'images/gif/loading.gif'
@@ -104,6 +114,9 @@
                 }
                 if(this.price_array.length > 0){
                     axios.post('api/update_prices', this.price_array)
+                }
+                if(this.topping_array.length > 0){
+                    axios.post('api/updat_topping_price', this.topping_array)
                 }
                 let fd = new FormData();
                 fd.append('image', this.new_image);
@@ -132,6 +145,9 @@
             updatePrice(price, value){
                 this.price_array.push({'id': price.id, 'price': value});
                 //console.log('price', this.price_array);
+            },
+            updateToppingPrice(topping, value){
+                this.topping_array.push({'id': topping.id, 'topping_cost': value})
             }
         }
     }
@@ -152,22 +168,26 @@
         float: right;
         margin-bottom: 10px;
     }
-    .size-list{
-        /* float:left;*/
+    /*.size-list{
+        !* float:left;*!
         width: 70px;
-    }
-
-    /*.ul-size{
-        text-align: center;
-        list-style: none;
-        padding: 0;
-        margin:0;
     }*/
+
+    .size-input{
+        /*float: left;*/
+        width: 60px;
+    }
+    .topping-input {
+        /*display: inline-block;*/
+       /* float: right;*/
+        width:30px;
+        margin-left: 10px;
+    }
 
     .price-list{
         width: 60px;
         padding: 0;
-        /*margin-left: -200px;*/
+        margin-left: -100px;
     }
     .preview {
         display: flex;
