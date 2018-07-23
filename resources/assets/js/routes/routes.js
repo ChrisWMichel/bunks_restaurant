@@ -5,6 +5,8 @@ import CreateItem from '../components/items/ItemCreate'
 import ItemsList from '../components/items/ListItems'
 import ToppingPage from '../components/toppings/ToppingPage'
 
+//import MenuItems from '../components/public/MenuItems'
+
 
 export const routes =[
     {path: '/dashboard', name:'dashboard', component: Dashboard},
@@ -13,4 +15,6 @@ export const routes =[
     {path: '/create_item', name: 'create_item', component:CreateItem},
     {path:'/list_items', name: 'list_items', component:ItemsList},
     {path:'/topping_page', name: 'topping_page', component:ToppingPage},
+
+    //{path: '/menu_items', name: 'menu_items', component:{public_side:MenuItems}}
 ];

@@ -2,7 +2,7 @@
     <div>
         <h2 class="page-header">Categories</h2>
 
-        <form @submit.prevent="addCategory">
+        <form>
             <div class="row">
                 <div class="input-field col-md-6">
                     <input type="text" v-model="category.name" id="cat_name"/>
@@ -19,7 +19,7 @@
 
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-5">
-                    <button type="submit" class="btn btn-primary" :disabled="!isValidForm">Add</button>
+                    <button type="button" class="btn btn-primary" @click="addCategory()" :disabled="!isValidForm">Add</button>
                 </div>
             </div>
 
@@ -36,7 +36,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="category in allCategories">
+            <tr v-for="category in getCategories">
 
 
                 <td v-if="!edit_category || category_id !== category.id">{{category.name}}</td>
@@ -80,7 +80,6 @@
                     name: '',
                     description:''
                 },
-                allCategories:[],
                 errors: [],
                 category_id: '',
                 edit_category: false,
@@ -88,33 +87,26 @@
                 check_status: {},
                 stop_delete: true,
                 message: '',
-
             }
-        },
-        created(){
-            this.getCategories();
         },
         computed:{
             isValidForm(){
                 return this.category.name;
             },
+            getCategories(){
+                return this.$store.state.categories;
+            },
 
         },
         methods:{
             addCategory(){
-                axios.post('/api/category', this.category)
-                    .then(resp => {
-                        this.allCategories.push(resp.data);
-                        this.category.name = '';
-                        this.category.description = '';
+                this.$store.dispatch('addCategory', {'name': this.category.name, 'description': this.category.description});
+                this.category.name = '';
+                this.category.description = '';
 
-                        toastr.success('New category added!');
+                toastr.success('New category added!');
+            },
 
-                    })
-            },
-            getCategories(){
-                this.allCategories = this.$store.state.categories;
-            },
             editCategory(category_id){
                 this.category_id = category_id;
                 this.edit_category = true;

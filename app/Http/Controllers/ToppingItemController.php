@@ -86,8 +86,8 @@ class ToppingItemController extends Controller
      * @param  \App\Topping_Item  $topping_Item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Topping_Item $topping_Item)
+    public function destroy($id)
     {
-        //
+        Topping_Item::find($id)->delete();
     }
 }

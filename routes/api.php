@@ -23,6 +23,8 @@ if($this->middleware('IsAdmin')){
     Route::resource('category', 'CategoryController');
     Route::resource('items', 'ItemController');
     Route::post('update_item/{id}', 'ItemController@updateItem');
+    // can't retrieve item via SizeController, fixing this problem with this new function- in AddSizePrice.vue
+    Route::get('getItem/{id}', 'ItemController@getItem');
     Route::resource('price', 'PriceController');
     Route::post('update_prices', 'PriceController@updatePrices');
     Route::post('/size/{id}', 'SizeController@storeSizePrice');
@@ -30,6 +32,7 @@ if($this->middleware('IsAdmin')){
 
     Route::resource('/topping_cat', 'ToppingCatController');
     Route::resource('/topping_items', 'ToppingItemController');
+    Route::post('/updat_topping_price', 'ToppingCostController@updatePrice');
 }
 
 
