@@ -6,9 +6,6 @@
             <div class="col s10">
                 <button v-for="category in category_names" @click="displayItems(category)">{{category.name}}</button>
             </div>
-            <div class="col s1 offset-10">
-                <!--<button class="waves-effect waves-light btn-small yellow" @click="showDeleteBtn">{{show_delete_label}}</button>-->
-            </div>
         </div>
                 <h3>{{category_name}}</h3>
         <hr>

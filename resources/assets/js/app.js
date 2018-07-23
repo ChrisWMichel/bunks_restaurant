@@ -37,7 +37,6 @@ Vue.filter('currency', (value)=>{
     return '$' + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 });
 
-
 Vue.component('app-admin', require('./components/admin/AppAdmin.vue'));
 Vue.component('app-public', require('./components/public/PublicSide.vue'));
 
