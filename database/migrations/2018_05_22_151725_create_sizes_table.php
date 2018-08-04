@@ -15,8 +15,8 @@ class CreateSizesTable extends Migration
     {
         Schema::create('sizes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('item_id')->unsigned();
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+            $table->integer('price_id')->unsigned();
+            $table->foreign('price_id')->references('id')->on('prices')->onDelete('cascade');
             $table->string('size');
             $table->timestamps();
         });

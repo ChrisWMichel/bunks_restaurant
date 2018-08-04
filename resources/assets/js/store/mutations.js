@@ -4,7 +4,6 @@ export const uploadAdmins = (state, admins) =>{
 
 export const  getCategories = (state, categories) =>{
     state.categories = categories;
-
 };
 
 export const addCategory = (state, category) => {
@@ -78,7 +77,7 @@ export const addItemPrice = (state, price) =>{
 
 export const addItemSizePrice = (state, item) =>{
     //console.log('item', item);
-    state.categories.forEach((cat) => {
+    /*state.categories.forEach((cat) => {
         if(cat.id === item.category_id){
             for(let x=0; x <=cat.items.length; x++){
                 if(cat.items[x].id == item.id){
@@ -87,7 +86,7 @@ export const addItemSizePrice = (state, item) =>{
                 }
             }
         }
-    });
+    });*/
 };
 
 export const getToppings = (state, cat_toppings) =>{

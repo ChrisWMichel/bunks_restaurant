@@ -37,17 +37,20 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <h6><span v-if="item.sizes.length > 0">Size</span><span v-if="category_name === 'Pizzas'"> - Topping</span></h6>
-                                    <div v-for="size in item.sizes">
-                                        <div class="size-list">
-                                            <ul class="ul-size">
-                                                <li v-if="size !== null">{{size.size}} - <span v-if="category_name === 'Pizzas'">{{size.topping_cost.cost | currency}}</span> </li>
-                                            </ul>
+                                    <h6><span v-if="item.prices[0].size.length > 0">Size</span><span v-if="category_name === 'Pizzas'"> - Topping</span></h6>
+                                    <div v-for="size in item.prices">
+                                        <div v-for="data in size.size">
+                                            <div class="size-list">
+                                                <ul class="ul-size">
+                                                    <li v-if="size !== null">{{data.size}} - <span v-if="category_name === 'Pizzas'">{{data.topping_cost.cost | currency}}</span> </li>
+                                                </ul>
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <h6 v-if="item.sizes.length > 0">Price</h6>
+                                    <h6 v-if="item.prices[0].size.length > 0">Price</h6>
                                     <div v-for="price in item.prices">
                                         <div class="price-list">
                                             <ul class="ul-size text-center">
@@ -107,10 +110,11 @@
                 this.category_name = category.name;
                 this.items = '';
                 this.items = category.items;
-                //console.log(category.name);
+                //console.log('items', this.items);
             },
             editItem(item){
                 this.show = false;
+                console.log('item', item);
                 this.item = item;
             },
             closeForm(){
