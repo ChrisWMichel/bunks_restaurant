@@ -56,7 +56,7 @@ class SizeController extends Controller
                  $price->save();
 
                  $size = new Size();
-                 $size->item_id = $item_id;
+                 $size->price_id = $price->id;
                  $size->size = $request[$x]['size'];
                  $size->save();
 
@@ -75,12 +75,11 @@ class SizeController extends Controller
                  $price->save();
 
                  $size = new Size();
-                 $size->item_id = $item_id;
+                 $size->price_id = $price->id;
                  $size->size = $request[$x]['size'];
                  $size->save();
              }
          }
-
 
        // $item = Item::find($item_id);
 

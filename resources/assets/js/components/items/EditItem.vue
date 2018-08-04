@@ -34,22 +34,25 @@
                         <textarea v-model="item.description" id="cat_description" class="materialize-textarea" ></textarea>
                     </div>
                     <div class="col-sm col-sm-offset-1">
-                        <h6 v-if="item.sizes.length > 0">Size   <span v-if="item.sizes[0].topping_cost !== null">&nbsp;&nbsp;  - &nbsp;&nbsp;&nbsp;&nbsp;Topping</span></h6>
-                        <div v-for="size in item.sizes">
-                            <div class="size-list">
-                                <ul class="ul-size">
-                                    <!--<div class="row">-->
+                        <h6 v-if="item.prices[0].size.length > 0">Size   <span v-if="item.prices[0].size[0].topping_cost !== null">&nbsp;&nbsp;  - &nbsp;&nbsp;&nbsp;&nbsp;Topping</span></h6>
+                        <div v-for="size in item.prices">
+                            <div v-for="data in size.size">
+                                <div class="size-list">
+                                    <ul class="ul-size">
+                                        <!--<div class="row">-->
                                         <li v-if="size !== null" >
-                                            <input type="text" class="size-input" @change="updateSize(size, $event.target.value)"  :value="size.size"/>
+                                            <input type="text" class="size-input" @change="updateSize(data.id, $event.target.value)"  :value="data.size"/>
                                             <!--<div v-if="size.topping_cost !== null" class="col">-->
-                                                <input v-if="size.topping_cost !== null" class="topping-input"  type="text" @change="updateToppingPrice(size.topping_cost, $event.target.value)"  :value="size.topping_cost.cost"/>
+                                            <input v-if="data.topping_cost !== null" class="topping-input"  type="text" @change="updateToppingPrice(data.topping_cost, $event.target.value)"  :value="data.topping_cost.cost"/>
                                             <!--</div>-->
 
                                         </li>
-                                    <!--</div>-->
+                                        <!--</div>-->
 
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="col-sm">
@@ -138,9 +141,10 @@
                 this.url = URL.createObjectURL(this.new_image);
                 //console.log(this.new_image);
             },
-            updateSize(size, value){
-                this.size_array.push({'id': size.id, 'size': value});
-                //console.log('size', this.size_array);
+            updateSize(id, value){
+                //console.log('size', size);
+                this.size_array.push({'id': id, 'size': value});
+
             },
             updatePrice(price, value){
                 this.price_array.push({'id': price.id, 'price': value});

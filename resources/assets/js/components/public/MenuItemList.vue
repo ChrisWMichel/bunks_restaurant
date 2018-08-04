@@ -27,7 +27,14 @@
                                 <div v-for="price in item.prices">
                                     <div class="price-list">
                                         <ul class="ul-size text-center">
-                                            <li>{{price.price | currency}}</li>
+                                            <li>
+                                                <form @click.prevent="addToCart(price.id)">
+                                                    <input type="number" v-model="quantity" class="input-qantity" value="1" />
+                                                    {{price.price | currency}}
+                                                    <button class="btn btn-xs" >Add</button>
+                                                </form>
+
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -47,16 +54,25 @@
         data(){
             return{
                 image_url: '/images/',
+                quantity: 1,
             }
         },
         computed: {
             getItems() {
                 return this.$store.state.cat_item;
             },
+        },
+        methods:{
+            addToCart(priceID){
+                console.log('cat_name', this.category_name);
+                console.log('priceID', priceID);
+            }
         }
     }
 </script>
 
 <style scoped>
-
+.input-qantity{
+    width: 40px;
+}
 </style>
