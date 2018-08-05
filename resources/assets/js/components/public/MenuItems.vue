@@ -1,19 +1,30 @@
 <template>
     <div>
-   <!-- <div>{{getItems.name}}</div>-->
+       <!--<div class="top-page">-->
+           <div class="row">
+               <div class="col s10">
+                   <button v-for="category in getCatNames" @click="displayItems(category)">{{category.name}}</button>
+               </div>
+           </div>
+
         <div class="row">
-            <div class="col s10">
-                <button v-for="category in getCatNames" @click="displayItems(category)">{{category.name}}</button>
+            <div class="col">
+                <h3>{{getItems.name}}</h3>
             </div>
+            <div class="col">
+                <button v-if="item_count !== null" class="btn-warning btn-large">({{item_count}} items) Checkout</button>
+            </div>
+
         </div>
 
-        <h3>{{getItems.name}}</h3>
-       <p>{{getItems.description}}</p>
+           <p>{{getItems.description}}</p>
+       <!--</div>-->
+
 
         <hr>
         <transition name="fade" mode="out-in">
-            <app-menu-item-list :category_name="category_name" v-if="show" key="first"></app-menu-item-list>
-            <app-menu-item-list :category_name="category_name" v-else key="second"></app-menu-item-list>
+            <app-menu-item-list @itemAdded="itemCount" :category_name="category_name" v-if="show" key="first"></app-menu-item-list>
+            <app-menu-item-list @itemAdded="itemCount" :category_name="category_name" v-else key="second"></app-menu-item-list>
         </transition>
 
 
@@ -31,7 +42,7 @@
         },
         data(){
             return{
-
+                item_count:null,
                 category_name: '',
                 show: true
             }
@@ -42,7 +53,7 @@
             },
             getCatNames(){
                 return this.$store.state.categories;
-            },
+            }
 
         },
         methods:{
@@ -50,7 +61,9 @@
                 this.$store.state.cat_item = cat;
                 this.category_name = cat.name;
                 this.show = !this.show;
-
+            },
+            itemCount(){
+               this.item_count = this.$store.getters.getItemCount;
             }
         }
     }
@@ -91,6 +104,12 @@
     .fade-leave-active{
         transition: opacity .5s;
         opacity: 0;
+    }
+    .top-page{
+        position: fixed;
+        overflow: hidden;
+        top: 70px; right: 0; bottom: 60px; left: 200px;
+        padding-bottom: 30px !important;
     }
 
 

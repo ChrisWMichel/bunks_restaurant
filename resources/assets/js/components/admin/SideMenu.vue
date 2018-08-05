@@ -57,7 +57,6 @@
             },
             getCategories(){
                 axios.get('api/category').then(resp => {
-                    console.log('category', resp.data);
                     this.$store.dispatch('getCategories', resp.data);
                 })
             },

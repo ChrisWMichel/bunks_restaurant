@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-//import admin from './modules/admin'
-//import items from './modules/items'
+import cart from './modules/cart'
 
 import * as actions from './actions'
 import * as getters from './getters'
@@ -17,14 +16,14 @@ export const store = new Vuex.Store({
         cat_item:'',
         cat_toppings: [],
         item_toppings: [],
-        edit_topping: []
+        edit_topping: [],
+
     },
     getters,
     mutations,
     actions,
     modules:{
-        /*admin,
-        items*/
+        cart
     }
 
 });

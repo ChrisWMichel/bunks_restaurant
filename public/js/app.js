@@ -89904,7 +89904,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        //this.category_names;
         this.displayItems(this.$store.state.categories[0]);
     },
 
@@ -89918,7 +89917,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.category_name = category.name;
             this.items = '';
             this.items = category.items;
-            //console.log('items', this.items);
         },
         editItem: function editItem(item) {
             this.show = false;
@@ -89926,7 +89924,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.item = item;
         },
         closeForm: function closeForm() {
-            //this.category_names;
             this.show = true;
         },
         showDeleteBtn: function showDeleteBtn() {
@@ -90178,22 +90175,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.$store.commit('updateItem', resp.data);
                 _this.$emit('close_form');
                 _this.save_data = false;
-                //console.log(this.$store.state.categories);
             });
         },
         onFileSelected: function onFileSelected() {
             this.item.image_path = '';
             this.new_image = this.$refs.file.files[0];
             this.url = URL.createObjectURL(this.new_image);
-            //console.log(this.new_image);
         },
         updateSize: function updateSize(id, value) {
-            //console.log('size', size);
             this.size_array.push({ 'id': id, 'size': value });
         },
         updatePrice: function updatePrice(price, value) {
             this.price_array.push({ 'id': price.id, 'price': value });
-            //console.log('price', this.price_array);
         },
         updateToppingPrice: function updateToppingPrice(topping, value) {
             this.topping_array.push({ 'id': topping.id, 'topping_cost': value });
@@ -92416,14 +92409,14 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(346);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__getters__ = __webpack_require__(347);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__getters___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__getters__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mutations__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_cart__ = __webpack_require__(496);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__getters__ = __webpack_require__(347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__getters___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__getters__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mutations__ = __webpack_require__(348);
 
 
-//import admin from './modules/admin'
-//import items from './modules/items'
+
 
 
 
@@ -92440,13 +92433,13 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         cat_toppings: [],
         item_toppings: [],
         edit_topping: []
+
     },
-    getters: __WEBPACK_IMPORTED_MODULE_3__getters__,
-    mutations: __WEBPACK_IMPORTED_MODULE_4__mutations__,
-    actions: __WEBPACK_IMPORTED_MODULE_2__actions__,
+    getters: __WEBPACK_IMPORTED_MODULE_4__getters__,
+    mutations: __WEBPACK_IMPORTED_MODULE_5__mutations__,
+    actions: __WEBPACK_IMPORTED_MODULE_3__actions__,
     modules: {
-        /*admin,
-        items*/
+        cart: __WEBPACK_IMPORTED_MODULE_2__modules_cart__["a" /* default */]
     }
 
 });
@@ -92669,16 +92662,16 @@ var addItemPrice = function addItemPrice(state, price) {
 
 var addItemSizePrice = function addItemSizePrice(state, item) {
     //console.log('item', item);
-    /*state.categories.forEach((cat) => {
-        if(cat.id === item.category_id){
-            for(let x=0; x <=cat.items.length; x++){
-                if(cat.items[x].id == item.id){
+    state.categories.forEach(function (cat) {
+        if (cat.id === item.category_id) {
+            for (var x = 0; x <= cat.items.length; x++) {
+                if (cat.items[x].id == item.id) {
                     cat.items[x] = item;
                     return cat;
                 }
             }
         }
-    });*/
+    });
 };
 
 var getToppings = function getToppings(state, cat_toppings) {
@@ -103852,7 +103845,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.get('api/category').then(function (resp) {
-                console.log('category', resp.data);
                 _this.$store.dispatch('getCategories', resp.data);
             });
         },
@@ -104525,7 +104517,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.size-list[data-v-7220bc25]{\n    /* float:left;*/\n    width: 80px;\n}\n.ul-size[data-v-7220bc25]{\n    text-align: center;\n    list-style: none;\n    padding: 0;\n    margin:0;\n}\n.price-list[data-v-7220bc25]{\n    width: 70px;\n    padding: 0;\n    margin:0;\n}\n.center[data-v-7220bc25] {\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n}\n.fade-enter[data-v-7220bc25]{\n    opacity: 0;\n}\n.fade-enter-active[data-v-7220bc25]{\n    -webkit-transition: opacity .5s;\n    transition: opacity .5s;\n}\n.fade-leave[data-v-7220bc25]{\n}\n.fade-leave-active[data-v-7220bc25]{\n    -webkit-transition: opacity .5s;\n    transition: opacity .5s;\n    opacity: 0;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.size-list[data-v-7220bc25]{\n    /* float:left;*/\n    width: 80px;\n}\n.ul-size[data-v-7220bc25]{\n    text-align: center;\n    list-style: none;\n    padding: 0;\n    margin:0;\n}\n.price-list[data-v-7220bc25]{\n    width: 70px;\n    padding: 0;\n    margin:0;\n}\n.center[data-v-7220bc25] {\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n}\n.fade-enter[data-v-7220bc25]{\n    opacity: 0;\n}\n.fade-enter-active[data-v-7220bc25]{\n    -webkit-transition: opacity .5s;\n    transition: opacity .5s;\n}\n.fade-leave[data-v-7220bc25]{\n}\n.fade-leave-active[data-v-7220bc25]{\n    -webkit-transition: opacity .5s;\n    transition: opacity .5s;\n    opacity: 0;\n}\n.top-page[data-v-7220bc25]{\n    position: fixed;\n    overflow: hidden;\n    top: 70px; right: 0; bottom: 60px; left: 200px;\n    padding-bottom: 30px !important;\n}\n\n\n", ""]);
 
 // exports
 
@@ -104561,6 +104553,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -104571,7 +104574,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-
+            item_count: null,
             category_name: '',
             show: true
         };
@@ -104590,6 +104593,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.state.cat_item = cat;
             this.category_name = cat.name;
             this.show = !this.show;
+        },
+        itemCount: function itemCount() {
+            this.item_count = this.$store.getters.getItemCount;
         }
     }
 });
@@ -104680,7 +104686,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.input-qantity[data-v-f036e108]{\r\n    width: 40px;\n}\r\n", ""]);
+exports.push([module.i, "\n.input-qantity[data-v-f036e108]{\r\n    width: 20px;\n}\n.add-btn[data-v-f036e108]{\r\n        /*padding: -10px -10px;*/\r\n        font-size: 10px;\n}\n.center-text[data-v-f036e108]{\r\n        text-align: right;\r\n        margin-right: 10px;\n}\n.col[data-v-f036e108]{\r\n        /*border: 1px solid black;*/\n}\n.col-left[data-v-f036e108]{\r\n        float: left;\n}\n.col-right[data-v-f036e108]{\r\n        float: right;\n}\n.price-title[data-v-f036e108]{\r\n        margin-left: 30px;\n}\n.size-title[data-v-f036e108]{\r\n        margin-right: 20px;\n}\n.size-spacing[data-v-f036e108]{\r\n        margin-bottom: 50px;\r\n        margin-top: 20px;\n}\n.align-title[data-v-f036e108]{\r\n        padding-top: 30px;\n}\ninput [type='number'][data-v-f036e108]{\r\n        -webkit-appearance: textfield;\r\n        -moz-appearance: textfield;\r\n        appearance: textfield;\n}\ninput[type=number][data-v-f036e108]::-webkit-inner-spin-button,\r\ninput[type=number][data-v-f036e108]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    margin: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -104740,6 +104746,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "MenuItemList",
@@ -104747,7 +104761,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             image_url: '/images/',
-            quantity: 1
+            quantity: '1'
         };
     },
 
@@ -104757,9 +104771,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        addToCart: function addToCart(priceID) {
-            console.log('cat_name', this.category_name);
-            console.log('priceID', priceID);
+        changeQuantity: function changeQuantity(qty) {
+            this.quantity = qty;
+        },
+        addToCart: function addToCart(data, item_name) {
+            var cart = {
+                quantity: this.quantity,
+                item_name: item_name,
+                price: data.price,
+                size: null,
+                topping_cost: null
+            };
+            if (data.size.length > 0) {
+                cart.size = data.size[0].size;
+                if (data.size[0].topping_cost !== null) {
+                    cart.topping_cost = data.size[0].topping_cost.cost;
+                }
+            }
+            this.$store.dispatch('addItemToCart', cart);
+            this.$emit('itemAdded');
         }
     }
 });
@@ -104781,60 +104811,79 @@ var render = function() {
             "div",
             { staticClass: "card", class: { "card-left": index % 2 === 0 } },
             [
-              _c("div", { staticClass: "card-image" }, [
-                item.image_path
-                  ? _c("img", {
-                      attrs: { src: _vm.image_url + item.image_path }
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("span", { staticClass: "card-title" }, [
-                  _vm._v(_vm._s(item.name))
-                ])
-              ]),
+              item.image_path
+                ? _c("div", [
+                    _c("div", { staticClass: "card-image" }, [
+                      _c("img", {
+                        attrs: { src: _vm.image_url + item.image_path }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "card-title" }, [
+                        _vm._v(_vm._s(item.name))
+                      ])
+                    ])
+                  ])
+                : _c("div", [
+                    _c(
+                      "div",
+                      { staticClass: "card-title center-align align-title" },
+                      [_vm._v(_vm._s(item.name))]
+                    )
+                  ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-content" }, [
                 _c("p", [_vm._v(_vm._s(item.description))])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-action" }, [
-                _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "row " }, [
                   _c(
                     "div",
-                    { staticClass: "col" },
+                    { staticClass: "col center-text" },
                     [
                       _c("h6", [
-                        item.sizes.length > 0
-                          ? _c("span", [_vm._v("Size")])
+                        item.prices[0].size.length > 0
+                          ? _c("span", { staticClass: "size-title" }, [
+                              _vm._v("Size")
+                            ])
                           : _vm._e(),
                         _vm.category_name === "Pizzas"
                           ? _c("span", [_vm._v(" - Topping")])
                           : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _vm._l(item.sizes, function(size) {
-                        return _c("div", [
-                          _c("div", { staticClass: "size-list" }, [
-                            _c("ul", { staticClass: "ul-size" }, [
-                              size !== null
-                                ? _c("li", [
-                                    _vm._v(_vm._s(size.size) + " - "),
-                                    _vm.category_name === "Pizzas"
-                                      ? _c("span", [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm._f("currency")(
-                                                size.topping_cost.cost
-                                              )
-                                            )
-                                          )
-                                        ])
-                                      : _vm._e()
-                                  ])
-                                : _vm._e()
+                      _vm._l(item.prices, function(size) {
+                        return _c(
+                          "div",
+                          _vm._l(size.size, function(data) {
+                            return _c("div", [
+                              _c("div", { staticClass: "size-list" }, [
+                                _c("ul", { staticClass: "ul-size " }, [
+                                  size !== null
+                                    ? _c(
+                                        "li",
+                                        { staticClass: "size-spacing" },
+                                        [
+                                          _vm._v(_vm._s(data.size) + " - "),
+                                          _vm.category_name === "Pizzas"
+                                            ? _c("span", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm._f("currency")(
+                                                      data.topping_cost.cost
+                                                    )
+                                                  )
+                                                )
+                                              ])
+                                            : _vm._e()
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ])
+                              ])
                             ])
-                          ])
-                        ])
+                          })
+                        )
                       })
                     ],
                     2
@@ -104844,14 +104893,16 @@ var render = function() {
                     "div",
                     { staticClass: "col" },
                     [
-                      item.sizes.length > 0
-                        ? _c("h6", [_vm._v("Price")])
+                      item.prices[0].size.length > 0
+                        ? _c("h6", { staticClass: "price-title" }, [
+                            _vm._v("Price")
+                          ])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm._l(item.prices, function(price) {
                         return _c("div", [
-                          _c("div", { staticClass: "price-list" }, [
-                            _c("ul", { staticClass: "ul-size text-center" }, [
+                          _c("div", { staticClass: "price-list  col-left" }, [
+                            _c("ul", { staticClass: "ul-size" }, [
                               _c("li", [
                                 _c(
                                   "form",
@@ -104859,29 +104910,19 @@ var render = function() {
                                     on: {
                                       click: function($event) {
                                         $event.preventDefault()
-                                        _vm.addToCart(price.id)
+                                        _vm.addToCart(price, item.name)
                                       }
                                     }
                                   },
                                   [
                                     _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.quantity,
-                                          expression: "quantity"
-                                        }
-                                      ],
                                       staticClass: "input-qantity",
                                       attrs: { type: "number", value: "1" },
-                                      domProps: { value: _vm.quantity },
                                       on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.quantity = $event.target.value
+                                        change: function($event) {
+                                          _vm.changeQuantity(
+                                            $event.target.value
+                                          )
                                         }
                                       }
                                     }),
@@ -104894,7 +104935,7 @@ var render = function() {
                                     ),
                                     _c(
                                       "button",
-                                      { staticClass: "btn btn-xs" },
+                                      { staticClass: "btn btn-xs add-btn" },
                                       [_vm._v("Add")]
                                     )
                                   ]
@@ -104957,7 +104998,19 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("h3", [_vm._v(_vm._s(_vm.getItems.name))]),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("h3", [_vm._v(_vm._s(_vm.getItems.name))])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _vm.item_count !== null
+            ? _c("button", { staticClass: "btn-warning btn-large" }, [
+                _vm._v("(" + _vm._s(_vm.item_count) + " items) Checkout")
+              ])
+            : _vm._e()
+        ])
+      ]),
       _vm._v(" "),
       _c("p", [_vm._v(_vm._s(_vm.getItems.description))]),
       _vm._v(" "),
@@ -104970,11 +105023,13 @@ var render = function() {
           _vm.show
             ? _c("app-menu-item-list", {
                 key: "first",
-                attrs: { category_name: _vm.category_name }
+                attrs: { category_name: _vm.category_name },
+                on: { itemAdded: _vm.itemCount }
               })
             : _c("app-menu-item-list", {
                 key: "second",
-                attrs: { category_name: _vm.category_name }
+                attrs: { category_name: _vm.category_name },
+                on: { itemAdded: _vm.itemCount }
               })
         ],
         1
@@ -105042,6 +105097,38 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 495 */,
+/* 496 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    //namespaced: true,
+    state: {
+        cart: []
+    },
+    getters: {
+        getItemCount: function getItemCount(state) {
+            return state.cart.length;
+        }
+    },
+    mutations: {
+        addItemToCart: function addItemToCart(state, item) {
+            state.cart.push(item);
+        }
+    },
+    actions: {
+        addItemToCart: function addItemToCart(_ref, item) {
+            var commit = _ref.commit;
+
+            commit('addItemToCart', item);
+        }
+    }
+});
 
 /***/ })
 /******/ ]);
