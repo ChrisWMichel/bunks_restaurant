@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <div v-for="(item, index) in getItems.items">
             <div class="col-lg-5 col-sm-12 col-md-6">
                 <div class="card" :class="{ 'card-left': index % 2 === 0}">
@@ -36,10 +37,11 @@
                                     <div class="price-list  col-left">
                                         <ul class="ul-size">
                                             <li>
-                                                <form @click.prevent="addToCart(price, item.name)">
-                                                    <input type="number" class="input-qantity" @change="changeQuantity($event.target.value)" value="1" />
+                                                <form >
+                                                    <input :disabled="category_name === 'Pizzas' ? true : false" type="number" class="input-qantity" @change.prevent="changeQuantity($event.target.value)" value="1" />
+
                                                     {{price.price | currency}}
-                                                    <button class="btn btn-xs add-btn" >Add</button>
+                                                    <button :disabled="!$store.state.login_status" class="btn btn-xs add-btn" @click.prevent="addToCart(price, item.name)">Add</button>
                                                 </form>
 
                                             </li>
@@ -52,17 +54,25 @@
                 </div>
             </div>
         </div>
+        <app-add-toppings @form_closed="toppingsAdded" :item="item"></app-add-toppings>
     </div>
 </template>
 
 <script>
+    import AddToppings from './cart/AddToppings'
+
     export default {
         name: "MenuItemList",
         props:['category_name'],
+        components:{
+            appAddToppings: AddToppings
+        },
         data(){
             return{
                 image_url: '/images/',
                 quantity: '1',
+                item: '',
+                cart:[]
             }
         },
         computed: {
@@ -76,21 +86,42 @@
             },
 
             addToCart(data, item_name){
-                let cart = {
+                let id = this.$store.getters.getItemCount + 1;
+                this.cart = {
+                    id: id,
                     quantity: this.quantity,
                     item_name: item_name,
                     price: data.price,
                     size: null,
-                    topping_cost: null
+                    topping_cost: 0,
+                    toppings: [],
+                    total_topping_cost: 0
                 };
+
+
                 if(data.size.length > 0){
-                    cart.size = data.size[0].size;
+                    this.cart.size = data.size[0].size;
                     if(data.size[0].topping_cost !== null){
-                        cart.topping_cost = data.size[0].topping_cost.cost;
+                        this.cart.topping_cost = data.size[0].topping_cost.cost;
                     }
                 }
-                this.$store.dispatch('addItemToCart', cart);
+
+                if(this.category_name === 'Pizzas'){
+                    this.item = this.cart;
+                    $('#addToppings').modal();
+                }else{
+                    this.$store.dispatch('addItemToCart', this.cart);
+                    this.$emit('itemAdded');
+                    toastr.success(item_name + ' , has been addedd to your cart.');
+                }
+                this.quantity = 1;
+
+
+            },
+            toppingsAdded(){
                 this.$emit('itemAdded');
+                toastr.success('Your pizza has been added to your cart.');
+                console.log(this.$store.state.cart);
             }
         }
     }

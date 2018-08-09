@@ -3,12 +3,14 @@
 export default {
     //namespaced: true,
     state:{
-        cart: []
+        cart: [],
+        cat_name: ''
     },
     getters:{
         getItemCount(state){
             return state.cart.length;
-        }
+        },
+
     },
     mutations:{
         addItemToCart(state, item){
