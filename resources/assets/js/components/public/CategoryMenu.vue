@@ -26,6 +26,7 @@
         methods:{
             catSelected(category){
                 this.$store.state.cat_item = category;
+                this.$store.state.cat_name = category.name;
                 this.$emit('receivedCategory');
             }
         }

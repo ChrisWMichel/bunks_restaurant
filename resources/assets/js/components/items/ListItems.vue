@@ -97,7 +97,6 @@
             }
         },
         mounted(){
-            //this.category_names;
             this.displayItems(this.$store.state.categories[0]);
         },
         computed:{
@@ -110,7 +109,6 @@
                 this.category_name = category.name;
                 this.items = '';
                 this.items = category.items;
-                //console.log('items', this.items);
             },
             editItem(item){
                 this.show = false;
@@ -118,7 +116,6 @@
                 this.item = item;
             },
             closeForm(){
-                //this.category_names;
                 this.show = true;
             },
             showDeleteBtn(){

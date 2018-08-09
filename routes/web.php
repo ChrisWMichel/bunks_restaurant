@@ -18,6 +18,10 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
+Route::get('/login_status', function (){
+    return auth()->user();
+});
+
 Route::group(['middleware' => 'IsAdmin'], function (){
 
     Route::get('/admin', 'AdminController@index')->name('admin');

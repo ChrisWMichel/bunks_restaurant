@@ -43,6 +43,8 @@
         },
         created(){
             this.getCategories();
+            this.getToppings();
+            this.loginStatus();
         },
         methods:{
             getCategories(){
@@ -54,6 +56,16 @@
             ShowItems(){
                 this.display_cat = !this.display_cat;
                 this.display_items = !this.display_items;
+            },
+            getToppings(){
+                axios.get('api/topping_cat').then(resp => {
+                    this.$store.dispatch('getToppings', resp.data);
+                })
+            },
+            loginStatus(){
+                axios.get('login_status').then(resp => {
+                    this.$store.state.login_status = resp.data;
+                })
             }
         }
     }

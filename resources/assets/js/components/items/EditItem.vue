@@ -103,7 +103,6 @@
         computed:{
             imageExist(){
                 return this.item.image_path;
-
             }
         },
         methods:{
@@ -131,24 +130,19 @@
                         this.$store.commit('updateItem', resp.data);
                         this.$emit('close_form');
                         this.save_data = false;
-                        //console.log(this.$store.state.categories);
-
                     })
             },
             onFileSelected(){
                 this.item.image_path = '';
                 this.new_image = this.$refs.file.files[0];
                 this.url = URL.createObjectURL(this.new_image);
-                //console.log(this.new_image);
             },
             updateSize(id, value){
-                //console.log('size', size);
                 this.size_array.push({'id': id, 'size': value});
 
             },
             updatePrice(price, value){
                 this.price_array.push({'id': price.id, 'price': value});
-                //console.log('price', this.price_array);
             },
             updateToppingPrice(topping, value){
                 this.topping_array.push({'id': topping.id, 'topping_cost': value})
