@@ -45,6 +45,7 @@
             this.getCategories();
             this.getToppings();
             this.loginStatus();
+            this.biz_info();
         },
         methods:{
             getCategories(){
@@ -66,6 +67,9 @@
                 axios.get('login_status').then(resp => {
                     this.$store.state.login_status = resp.data;
                 })
+            },
+            biz_info(){
+                this.$store.dispatch('getBizInfo');
             }
         }
     }

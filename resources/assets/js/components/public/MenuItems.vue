@@ -34,7 +34,7 @@
             </transition>
         </div>
         <div v-if="show_cart">
-            <app-cart @toggle_cart="showCart"></app-cart>
+            <app-cart @toggle_cart="showCart" @update_count="itemCount"></app-cart>
         </div>
 
 
@@ -67,7 +67,7 @@
             },
             getCatNames(){
                 return this.$store.state.categories;
-            }
+            },
 
         },
         methods:{
@@ -76,13 +76,13 @@
                 this.category_name = cat.name;
                 this.show = !this.show;
             },
-            itemCount(){
-               this.item_count = this.$store.getters.getItemCount;
-            },
             showCart(){
-                console.log(this.$store.state.cart);
+                //console.log(this.$store.state.cart);
                this.show_cart = !this.show_cart;
-            }
+            },
+            itemCount(){
+                this.item_count = this.$store.getters.getItemCount;
+            },
         }
     }
 </script>

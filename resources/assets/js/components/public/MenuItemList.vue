@@ -33,15 +33,15 @@
                             </div>
                             <div class="col">
                                 <h6 v-if="item.prices[0].size.length > 0" class="price-title">Price</h6>
-                                <div v-for="price in item.prices">
+                                <div v-for="data in item.prices">
                                     <div class="price-list  col-left">
                                         <ul class="ul-size">
                                             <li>
                                                 <form >
                                                     <input :disabled="category_name === 'Pizzas' ? true : false" type="number" class="input-qantity" @change.prevent="changeQuantity($event.target.value)" value="1" />
 
-                                                    {{price.price | currency}}
-                                                    <button :disabled="!$store.state.login_status" class="btn btn-xs add-btn" @click.prevent="addToCart(price, item.name)">Add</button>
+                                                    {{data.price | currency}}
+                                                    <button :disabled="!$store.state.login_status" class="btn btn-xs add-btn" @click.prevent="addToCart(data, item.name)">Add</button>
                                                 </form>
 
                                             </li>
@@ -70,8 +70,9 @@
         data(){
             return{
                 image_url: '/images/',
-                quantity: '1',
+                quantity: 1,
                 item: '',
+
                 cart:[]
             }
         },
@@ -79,44 +80,57 @@
             getItems() {
                 return this.$store.state.cat_item;
             },
+            itemCount(){
+                return this.$store.getters.getItemCount;
+            }
         },
         methods:{
             changeQuantity(qty){
                 this.quantity = qty;
             },
-
             addToCart(data, item_name){
-                let id = this.$store.getters.getItemCount + 1;
-                this.cart = {
-                    id: id,
-                    quantity: this.quantity,
-                    item_name: item_name,
-                    price: data.price,
-                    size: null,
-                    topping_cost: 0,
-                    toppings: [],
-                    total_topping_cost: 0
-                };
+                // check for duplicates
+                if(this.category_name !== 'Pizzas' ){
+                     this.$store.dispatch('checkForDuplicates', {data: data, item_name: item_name, quantity: this.quantity}); //Number(this.quantity)
 
+                     if(this.$store.getters.getCheckDuplicate){
+                         toastr.success('Quantity of ' + item_name + ' has been updated.');
+                     }
+                }
+                if(!this.$store.getters.getCheckDuplicate){
+                    let id = this.itemCount + 1;
+                    this.cart = {
+                        id: id,
+                        item_id: data.item_id,
+                        quantity: this.quantity,
+                        item_name: item_name,
+                        price: data.price,
+                        size: null,
+                        topping_cost: 0,
+                        toppings: [],
+                        total_topping_cost: 0,
+                        total_item_cost: 0
+                    };
 
-                if(data.size.length > 0){
-                    this.cart.size = data.size[0].size;
-                    if(data.size[0].topping_cost !== null){
-                        this.cart.topping_cost = data.size[0].topping_cost.cost;
+                    if(data.size.length > 0){
+                        this.cart.size = data.size[0].size;
+                        if(data.size[0].topping_cost !== null){
+                            this.cart.topping_cost = data.size[0].topping_cost.cost;
+                        }
                     }
+
+                    if(this.category_name === 'Pizzas'){
+                        this.item = this.cart;
+                        $('#addToppings').modal();
+                    }else{
+                        this.cart.total_item_cost = this.quantity * data.price;
+
+                        this.$store.dispatch('addItemToCart', this.cart);
+                        this.$emit('itemAdded');
+                        toastr.success(item_name + ' , has been addedd to your cart.');
+                    }
+                    this.quantity = 1;
                 }
-
-                if(this.category_name === 'Pizzas'){
-                    this.item = this.cart;
-                    $('#addToppings').modal();
-                }else{
-                    this.$store.dispatch('addItemToCart', this.cart);
-                    this.$emit('itemAdded');
-                    toastr.success(item_name + ' , has been addedd to your cart.');
-                }
-                this.quantity = 1;
-
-
             },
             toppingsAdded(){
                 this.$emit('itemAdded');
