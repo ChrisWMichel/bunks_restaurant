@@ -92489,7 +92489,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\ninput [type='number'][data-v-f8564c86]{\n    -webkit-appearance: textfield;\n    -moz-appearance: textfield;\n    appearance: textfield;\n}\ninput[type=number][data-v-f8564c86]::-webkit-inner-spin-button,\ninput[type=number][data-v-f8564c86]::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n}\n.input-qantity[data-v-f8564c86]{\n    width: 20px;\n}\n", ""]);
 
 // exports
 
@@ -92539,24 +92539,62 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "ShowCart",
     data: function data() {
         return {
             topping_count: 0,
-            top_total: 0
+            top_total: 0,
+            sales_tax: this.$store.getters.getSalesTax,
+            total_cost: 0
         };
     },
 
     computed: {
         items: function items() {
             return this.$store.state.cart;
+        },
+        tax_sum: function tax_sum() {
+            var _this = this;
+
+            this.total_cost = 0;
+            this.items.cart.forEach(function (item) {
+                _this.total_cost += item.total_item_cost;
+            });
+            return this.total_cost * this.sales_tax;
         }
     },
     methods: {
         hideCart: function hideCart() {
             this.$emit('toggle_cart');
+        },
+        removeItem: function removeItem(item_id, index) {
+            this.$store.dispatch('removeItem', { item_id: item_id, index: index });
+            this.$emit('update_count');
+        },
+        changeQty: function changeQty(qty, item, index) {
+            item.total_item_cost = item.price * qty;
+            item.quantity = qty;
+            this.$store.dispatch('updateQuantity', { item: item, index: index });
         }
     }
 });
@@ -92584,44 +92622,99 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.items.cart, function(item) {
-            return _c("tr", { key: item.id }, [
-              _c("td", [_vm._v(_vm._s(item.quantity))]),
-              _vm._v(" "),
-              item.toppings.length > 0
-                ? _c(
-                    "td",
-                    [
-                      _vm._v(_vm._s(item.item_name)),
-                      _c("br"),
-                      _vm._v(" "),
-                      _vm._l(item.toppings, function(topping) {
-                        return _c("span", [
-                          _vm._v(_vm._s(topping.name) + ",  ")
-                        ])
-                      })
-                    ],
-                    2
+          [
+            _vm._l(_vm.items.cart, function(item, index) {
+              return _c("tr", { key: item.id }, [
+                _c("td", [
+                  _c("input", {
+                    staticClass: "input-qantity",
+                    attrs: { type: "number" },
+                    domProps: { value: item.quantity },
+                    on: {
+                      change: function($event) {
+                        _vm.changeQty($event.target.value, item, index)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("button", { staticClass: "btn-xs" }, [_vm._v("update")])
+                ]),
+                _vm._v(" "),
+                item.toppings.length > 0
+                  ? _c(
+                      "td",
+                      [
+                        _vm._v(_vm._s(item.item_name)),
+                        _c("br"),
+                        _vm._v(" "),
+                        _vm._l(item.toppings, function(topping) {
+                          return _c("span", [
+                            _vm._v(_vm._s(topping.name) + ",  ")
+                          ])
+                        })
+                      ],
+                      2
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                item.toppings.length == 0
+                  ? _c("td", [_vm._v(_vm._s(item.item_name))])
+                  : _vm._e(),
+                _vm._v(" "),
+                item.size
+                  ? _c("td", [_vm._v(_vm._s(item.size))])
+                  : _c("td", [_vm._v("n/a")]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(_vm._s(_vm._f("currency")(item.total_item_cost)))
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn-xs btn-danger",
+                      on: {
+                        click: function($event) {
+                          _vm.removeItem(item.id, index)
+                        }
+                      }
+                    },
+                    [_vm._v("X")]
                   )
-                : _vm._e(),
+                ])
+              ])
+            }),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", [_vm._v(" ")]),
               _vm._v(" "),
-              item.toppings.length == 0
-                ? _c("td", [_vm._v(_vm._s(item.item_name))])
-                : _vm._e(),
-              _vm._v(" "),
-              item.size
-                ? _c("td", [_vm._v(_vm._s(item.size))])
-                : _c("td", [_vm._v("n/a")]),
+              _c("td", [_vm._v(" ")]),
               _vm._v(" "),
               _c("td", [
-                _vm._v(
-                  _vm._s(
-                    _vm._f("currency")(item.price + item.total_topping_cost)
+                _vm._v("Sales tax (" + _vm._s(_vm.sales_tax * 100) + "%)")
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(_vm._f("currency")(_vm.tax_sum)))])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", [_vm._v(" ")]),
+              _vm._v(" "),
+              _c("td", [_vm._v(" ")]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _c("td", [
+                _c("b", [
+                  _vm._v(
+                    _vm._s(_vm._f("currency")(_vm.tax_sum + _vm.total_cost))
                   )
-                )
+                ])
               ])
             ])
-          })
+          ],
+          2
         )
       ]
     )
@@ -92643,6 +92736,12 @@ var staticRenderFns = [
         _c("th", [_vm._v("Price")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("b", [_vm._v("Total")])])
   }
 ]
 render._withStripped = true
@@ -92710,16 +92809,76 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     //namespaced: true,
     state: {
         cart: [],
-        cat_name: ''
+        cat_name: '',
+        sales_tax: 0,
+        biz_info: [],
+        check_duplicate: false,
+        item_id_records: []
     },
     getters: {
         getItemCount: function getItemCount(state) {
             return state.cart.length;
+        },
+        getSalesTax: function getSalesTax(state) {
+            return state.sales_tax;
+        },
+        getCheckDuplicate: function getCheckDuplicate(state) {
+            return state.check_duplicate;
         }
     },
     mutations: {
         addItemToCart: function addItemToCart(state, item) {
             state.cart.push(item);
+        },
+        removeItem: function removeItem(state, item) {
+            state.cart.splice(item.index, 1);
+            /*let index = state.item_id_records.map((x)=>{return x}).indexOf(item.item_id);
+            state.item_id_records.splice(index, 1);
+            console.log(state.item_id_records);*/
+        },
+        updateQuantity: function updateQuantity(state, item) {
+            Vue.set(state.cart, item.index, item.item);
+        },
+        setBizInfo: function setBizInfo(state, info) {
+            state.sales_tax = info.sales_tax;
+            state.biz_info = info;
+        },
+        checkForDuplicates: function checkForDuplicates(state, data) {
+            if (state.cart.length === 0) {
+                state.item_id_records.push(data.data.item_id);
+                state.check_duplicate = false;
+            } else {
+                var item_id = state.item_id_records.find(function (id) {
+                    return id === data.data.item_id;
+                });
+                if (!item_id) {
+                    state.item_id_records.push(data.data.item_id);
+                    console.log('new_record', state.item_id_records);
+                    state.check_duplicate = false;
+                } else {
+                    var item = state.cart.find(function (obj) {
+                        return obj.item_id === data.data.item_id;
+                    });
+
+                    if (item.size !== null && data.data.size.length > 0) {
+                        var item_size = state.cart.find(function (size) {
+                            return size.size === data.data.size[0].size;
+                        });
+
+                        if (item_size && item_size.item_id === data.data.item_id) {
+                            item_size.quantity += Number(data.quantity);
+                            item_size.total_item_cost = item_size.price * item_size.quantity;
+                            state.check_duplicate = true;
+                        } else {
+                            state.check_duplicate = false;
+                        }
+                    } else {
+                        item.quantity += Number(data.quantity);
+                        item.total_item_cost = item.price * item.quantity;
+                        state.check_duplicate = true;
+                    }
+                }
+            }
         }
     },
     actions: {
@@ -92727,6 +92886,28 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var commit = _ref.commit;
 
             commit('addItemToCart', item);
+        },
+        removeItem: function removeItem(_ref2, index) {
+            var commit = _ref2.commit;
+
+            commit('removeItem', index);
+        },
+        updateQuantity: function updateQuantity(_ref3, item) {
+            var commit = _ref3.commit;
+
+            commit('updateQuantity', item);
+        },
+        getBizInfo: function getBizInfo(_ref4) {
+            var commit = _ref4.commit;
+
+            axios.get('api/biz_info').then(function (resp) {
+                commit('setBizInfo', resp.data);
+            });
+        },
+        checkForDuplicates: function checkForDuplicates(_ref5, data) {
+            var commit = _ref5.commit;
+
+            commit('checkForDuplicates', data);
         }
     }
 });
@@ -104534,6 +104715,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.getCategories();
         this.getToppings();
         this.loginStatus();
+        this.biz_info();
     },
 
     methods: {
@@ -104561,6 +104743,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('login_status').then(function (resp) {
                 _this3.$store.state.login_status = resp.data;
             });
+        },
+        biz_info: function biz_info() {
+            this.$store.dispatch('getBizInfo');
         }
     }
 });
@@ -104914,12 +105099,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.category_name = cat.name;
             this.show = !this.show;
         },
+        showCart: function showCart() {
+            //console.log(this.$store.state.cart);
+            this.show_cart = !this.show_cart;
+        },
         itemCount: function itemCount() {
             this.item_count = this.$store.getters.getItemCount;
-        },
-        showCart: function showCart() {
-            console.log(this.$store.state.cart);
-            this.show_cart = !this.show_cart;
         }
     }
 });
@@ -105095,8 +105280,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             image_url: '/images/',
-            quantity: '1',
+            quantity: 1,
             item: '',
+
             cart: []
         };
     },
@@ -105104,6 +105290,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         getItems: function getItems() {
             return this.$store.state.cat_item;
+        },
+        itemCount: function itemCount() {
+            return this.$store.getters.getItemCount;
         }
     },
     methods: {
@@ -105111,34 +105300,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.quantity = qty;
         },
         addToCart: function addToCart(data, item_name) {
-            var id = this.$store.getters.getItemCount + 1;
-            this.cart = {
-                id: id,
-                quantity: this.quantity,
-                item_name: item_name,
-                price: data.price,
-                size: null,
-                topping_cost: 0,
-                toppings: [],
-                total_topping_cost: 0
-            };
+            // check for duplicates
+            if (this.category_name !== 'Pizzas') {
+                this.$store.dispatch('checkForDuplicates', { data: data, item_name: item_name, quantity: this.quantity }); //Number(this.quantity)
 
-            if (data.size.length > 0) {
-                this.cart.size = data.size[0].size;
-                if (data.size[0].topping_cost !== null) {
-                    this.cart.topping_cost = data.size[0].topping_cost.cost;
+                if (this.$store.getters.getCheckDuplicate) {
+                    toastr.success('Quantity of ' + item_name + ' has been updated.');
                 }
             }
+            if (!this.$store.getters.getCheckDuplicate) {
+                var id = this.itemCount + 1;
+                this.cart = {
+                    id: id,
+                    item_id: data.item_id,
+                    quantity: this.quantity,
+                    item_name: item_name,
+                    price: data.price,
+                    size: null,
+                    topping_cost: 0,
+                    toppings: [],
+                    total_topping_cost: 0,
+                    total_item_cost: 0
+                };
 
-            if (this.category_name === 'Pizzas') {
-                this.item = this.cart;
-                $('#addToppings').modal();
-            } else {
-                this.$store.dispatch('addItemToCart', this.cart);
-                this.$emit('itemAdded');
-                toastr.success(item_name + ' , has been addedd to your cart.');
+                if (data.size.length > 0) {
+                    this.cart.size = data.size[0].size;
+                    if (data.size[0].topping_cost !== null) {
+                        this.cart.topping_cost = data.size[0].topping_cost.cost;
+                    }
+                }
+
+                if (this.category_name === 'Pizzas') {
+                    this.item = this.cart;
+                    $('#addToppings').modal();
+                } else {
+                    this.cart.total_item_cost = this.quantity * data.price;
+
+                    this.$store.dispatch('addItemToCart', this.cart);
+                    this.$emit('itemAdded');
+                    toastr.success(item_name + ' , has been addedd to your cart.');
+                }
+                this.quantity = 1;
             }
-            this.quantity = 1;
         },
         toppingsAdded: function toppingsAdded() {
             this.$emit('itemAdded');
@@ -105308,17 +105511,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             for (var x = 0; x < this.selected.length; ++x) {
 
                 if (this.item.toppings[x].double) {
-                    //this.$store.state.total_topping_cost =+  this.item.topping_cost * 2;
                     total += parseInt(this.item.topping_cost * 2);
-                    console.log('double', total);
                 } else {
                     total += parseInt(this.item.topping_cost);
-                    console.log('single', total);
                 }
-                console.log('total', total);
             }
 
             this.item.total_topping_cost = total;
+            this.item.total_item_cost = total + this.item.price;
 
             this.$store.dispatch('addItemToCart', this.item);
 
@@ -105564,7 +105764,7 @@ var render = function() {
                             ])
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm._l(item.prices, function(price) {
+                        _vm._l(item.prices, function(data) {
                           return _c("div", [
                             _c("div", { staticClass: "price-list  col-left" }, [
                               _c("ul", { staticClass: "ul-size" }, [
@@ -105591,9 +105791,7 @@ var render = function() {
                                     }),
                                     _vm._v(
                                       "\n\n                                                " +
-                                        _vm._s(
-                                          _vm._f("currency")(price.price)
-                                        ) +
+                                        _vm._s(_vm._f("currency")(data.price)) +
                                         "\n                                                "
                                     ),
                                     _c(
@@ -105607,7 +105805,7 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             $event.preventDefault()
-                                            _vm.addToCart(price, item.name)
+                                            _vm.addToCart(data, item.name)
                                           }
                                         }
                                       },
@@ -105741,7 +105939,15 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _vm.show_cart
-      ? _c("div", [_c("app-cart", { on: { toggle_cart: _vm.showCart } })], 1)
+      ? _c(
+          "div",
+          [
+            _c("app-cart", {
+              on: { toggle_cart: _vm.showCart, update_count: _vm.itemCount }
+            })
+          ],
+          1
+        )
       : _vm._e()
   ])
 }

@@ -62,19 +62,14 @@
                 for(let x=0; x < this.selected.length; ++x){
 
                     if(this.item.toppings[x].double){
-                        //this.$store.state.total_topping_cost =+  this.item.topping_cost * 2;
                         total +=  parseInt(this.item.topping_cost * 2);
-                        console.log('double', total);
                     }else{
                         total += parseInt(this.item.topping_cost);
-                        console.log('single', total);
                     }
-                    console.log('total', total);
                 }
 
-
-
                 this.item.total_topping_cost = total;
+                this.item.total_item_cost = total + this.item.price;
 
                 this.$store.dispatch('addItemToCart', this.item);
 

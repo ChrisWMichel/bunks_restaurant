@@ -36,3 +36,4 @@ if($this->middleware('IsAdmin')){
 }
 
 
+    Route::get('biz_info', 'BusinessInfoController@index');
