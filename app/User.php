@@ -17,7 +17,7 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname', 'lastname', 'active',  'email', 'password', 'role_id', 'email_token'
     ];
-    public $with = ['role'];
+    public $with = ['role', 'orders'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -34,6 +34,10 @@ class User extends Authenticatable
 
     public function role(){
         return $this->belongsTo(Role::class);
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
     }
 
     public function isAdmin(){

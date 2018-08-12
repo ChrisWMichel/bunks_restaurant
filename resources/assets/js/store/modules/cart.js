@@ -8,7 +8,8 @@ export default {
         sales_tax: 0,
         biz_info: [],
         check_duplicate: false,
-        item_id_records: []
+        item_id_records: [],
+        checkout_note: '',
     },
     getters:{
         getItemCount(state){
@@ -48,7 +49,6 @@ export default {
                 });
                 if(!item_id){
                     state.item_id_records.push(data.data.item_id);
-                    console.log('new_record', state.item_id_records);
                     state.check_duplicate = false;
                 }else{
                     let item = state.cart.find((obj) => {return obj.item_id === data.data.item_id});
@@ -70,7 +70,7 @@ export default {
                     }
                 }
             }
-        }
+        },
     },
     actions:{
         addItemToCart({commit}, item) {
@@ -89,6 +89,14 @@ export default {
         },
         checkForDuplicates({commit}, data){
             commit('checkForDuplicates', data);
+        },
+        checkout({commit, state, getters}, payload){
+            const user = getters.getUser;
+           // console.log('vuex', user);
+            axios.post('api/checkout', {cart: state.cart, note: payload.note, total_cost: payload.total_cost, user_id:user.id})
+                .then(resp => {
+                    console.log(resp);
+                })
         }
     }
 }

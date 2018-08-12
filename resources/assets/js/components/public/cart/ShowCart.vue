@@ -9,8 +9,8 @@
                 <thead>
                 <tr>
                     <th>Qnty</th>
-                    <th>Item</th>
                     <th>Size</th>
+                    <th>Item</th>
                     <th>Price</th>
                 </tr>
                 </thead>
@@ -21,15 +21,14 @@
                             <button class="btn-xs">update</button>
 
                         </td>
+                        <td v-if="item.size">{{item.size}}</td>
+
+                        <td v-else>n/a</td>
 
                         <td v-if="item.toppings.length > 0"
                             >{{item.item_name}}<br> <span v-for="topping in item.toppings">{{topping.name}}, &nbsp;</span> </td>
 
                         <td v-if="item.toppings.length == 0">{{item.item_name}}</td>
-
-                        <td v-if="item.size">{{item.size}}</td>
-
-                        <td v-else>n/a</td>
 
                         <td>{{item.total_item_cost | currency}}</td>
 
@@ -47,10 +46,17 @@
                         <td><b>Total</b></td>
                         <td><b>{{tax_sum  + total_cost | currency}}</b></td>
                     </tr>
-
-
                 </tbody>
             </table>
+        <div class="row">
+            <div class="col-8">
+                <textarea v-model="checkout_note" placeholder="Notes"></textarea>
+            </div>
+            <div class="col-2 col-lg-offset-1">
+                <button class="btn btn-large" @click="checkout">Purchase</button>
+            </div>
+        </div>
+
 
     </div>
 </template>
@@ -63,7 +69,8 @@
                 topping_count: 0,
                 top_total: 0,
                 sales_tax: this.$store.getters.getSalesTax,
-                total_cost: 0
+                total_cost: 0,
+                checkout_note: '',
             }
         },
         computed:{
@@ -90,6 +97,10 @@
                 item.total_item_cost = item.price * qty;
                 item.quantity = qty;
                 this.$store.dispatch('updateQuantity', {item: item, index: index});
+            },
+            checkout(){
+
+                this.$store.dispatch('checkout',{note: this.checkout_note, total_cost: this.total_cost + this.tax_sum});
             }
         }
     }

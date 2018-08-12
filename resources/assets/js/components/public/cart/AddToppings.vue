@@ -2,7 +2,7 @@
     <div id="addToppings" class="modal">
 
         <div class="modal-content">
-            <h3>Add Toppings<span class="topping-cost">&nbsp; topping cost - {{item.topping_cost | currency}} (price doubles with bold).</span></h3>
+            <h3>Add Toppings<span class="topping-cost">&nbsp; topping cost - {{item.topping_cost | currency}} (price doubles in blue).</span></h3>
 
             <div class="row">
                 <div v-for="category in categories" class="col">
@@ -55,7 +55,7 @@
             closeForm(){
                 //console.log('cart', this.item);
                 $('#addToppings').modal('hide');
-
+                console.log('selected', this.selected);
                 this.item.toppings = this.selected;
                 let total = 0;
 
@@ -87,5 +87,6 @@
     }
     .bold_name{
         font-weight: bolder;
+        color:blue;
     }
 </style>

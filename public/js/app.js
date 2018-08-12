@@ -92557,6 +92557,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "ShowCart",
@@ -92565,7 +92571,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             topping_count: 0,
             top_total: 0,
             sales_tax: this.$store.getters.getSalesTax,
-            total_cost: 0
+            total_cost: 0,
+            checkout_note: ''
         };
     },
 
@@ -92595,6 +92602,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             item.total_item_cost = item.price * qty;
             item.quantity = qty;
             this.$store.dispatch('updateQuantity', { item: item, index: index });
+        },
+        checkout: function checkout() {
+
+            this.$store.dispatch('checkout', { note: this.checkout_note, total_cost: this.total_cost + this.tax_sum });
         }
     }
 });
@@ -92640,6 +92651,10 @@ var render = function() {
                   _c("button", { staticClass: "btn-xs" }, [_vm._v("update")])
                 ]),
                 _vm._v(" "),
+                item.size
+                  ? _c("td", [_vm._v(_vm._s(item.size))])
+                  : _c("td", [_vm._v("n/a")]),
+                _vm._v(" "),
                 item.toppings.length > 0
                   ? _c(
                       "td",
@@ -92660,10 +92675,6 @@ var render = function() {
                 item.toppings.length == 0
                   ? _c("td", [_vm._v(_vm._s(item.item_name))])
                   : _vm._e(),
-                _vm._v(" "),
-                item.size
-                  ? _c("td", [_vm._v(_vm._s(item.size))])
-                  : _c("td", [_vm._v("n/a")]),
                 _vm._v(" "),
                 _c("td", [
                   _vm._v(_vm._s(_vm._f("currency")(item.total_item_cost)))
@@ -92717,7 +92728,40 @@ var render = function() {
           2
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-8" }, [
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.checkout_note,
+              expression: "checkout_note"
+            }
+          ],
+          attrs: { placeholder: "Notes" },
+          domProps: { value: _vm.checkout_note },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.checkout_note = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-2 col-lg-offset-1" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-large", on: { click: _vm.checkout } },
+          [_vm._v("Purchase")]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -92729,9 +92773,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Qnty")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Item")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Size")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Item")]),
         _vm._v(" "),
         _c("th", [_vm._v("Price")])
       ])
@@ -92765,7 +92809,6 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_cart__ = __webpack_require__(351);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions__ = __webpack_require__(352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__getters__ = __webpack_require__(353);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__getters___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__getters__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mutations__ = __webpack_require__(354);
 
 
@@ -92813,7 +92856,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         sales_tax: 0,
         biz_info: [],
         check_duplicate: false,
-        item_id_records: []
+        item_id_records: [],
+        checkout_note: ''
     },
     getters: {
         getItemCount: function getItemCount(state) {
@@ -92853,7 +92897,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
                 });
                 if (!item_id) {
                     state.item_id_records.push(data.data.item_id);
-                    console.log('new_record', state.item_id_records);
                     state.check_duplicate = false;
                 } else {
                     var item = state.cart.find(function (obj) {
@@ -92908,6 +92951,17 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var commit = _ref5.commit;
 
             commit('checkForDuplicates', data);
+        },
+        checkout: function checkout(_ref6, payload) {
+            var commit = _ref6.commit,
+                state = _ref6.state,
+                getters = _ref6.getters;
+
+            var user = getters.getUser;
+            // console.log('vuex', user);
+            axios.post('api/checkout', { cart: state.cart, note: payload.note, total_cost: payload.total_cost, user_id: user.id }).then(function (resp) {
+                console.log(resp);
+            });
         }
     }
 });
@@ -93027,9 +93081,16 @@ var deleteTopping = function deleteTopping(_ref15, item) {
 
 /***/ }),
 /* 353 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
 
+var getUser = function getUser(state) {
+
+    return state.login_status;
+};
 
 /***/ }),
 /* 354 */
@@ -105300,6 +105361,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.quantity = qty;
         },
         addToCart: function addToCart(data, item_name) {
+            console.log('data', data);
             // check for duplicates
             if (this.category_name !== 'Pizzas') {
                 this.$store.dispatch('checkForDuplicates', { data: data, item_name: item_name, quantity: this.quantity }); //Number(this.quantity)
@@ -105317,6 +105379,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     item_name: item_name,
                     price: data.price,
                     size: null,
+                    size_id: null,
                     topping_cost: 0,
                     toppings: [],
                     total_topping_cost: 0,
@@ -105325,6 +105388,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 if (data.size.length > 0) {
                     this.cart.size = data.size[0].size;
+                    this.cart.size_id = data.size[0].id;
+                    //console.log('size_id', this.cart.size_id)
                     if (data.size[0].topping_cost !== null) {
                         this.cart.topping_cost = data.size[0].topping_cost.cost;
                     }
@@ -105437,7 +105502,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.topping-cost[data-v-bdff9406]{\n    font-size: 14px;\n}\n.bold_name[data-v-bdff9406]{\n    font-weight: bolder;\n}\n", ""]);
+exports.push([module.i, "\n.topping-cost[data-v-bdff9406]{\n    font-size: 14px;\n}\n.bold_name[data-v-bdff9406]{\n    font-weight: bolder;\n    color:blue;\n}\n", ""]);
 
 // exports
 
@@ -105504,7 +105569,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         closeForm: function closeForm() {
             //console.log('cart', this.item);
             $('#addToppings').modal('hide');
-
+            console.log('selected', this.selected);
             this.item.toppings = this.selected;
             var total = 0;
 
@@ -105544,7 +105609,7 @@ var render = function() {
           _vm._v(
             "  topping cost - " +
               _vm._s(_vm._f("currency")(_vm.item.topping_cost)) +
-              " (price doubles with bold)."
+              " (price doubles in blue)."
           )
         ])
       ]),
