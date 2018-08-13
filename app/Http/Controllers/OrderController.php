@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Item;
 use App\order;
 use App\OrderHistory;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class OrderController extends Controller
 {
+
+    public function index()
+    {
+        return view('employee.index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,14 +50,14 @@ class OrderController extends Controller
         //return response($items);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function getOrders()
     {
-        //
+        //$orders = Order::Where('complete', '=', 0)->get();
+        //$item = Item::all();
+        $orders = User::where('orders.complete', '=', 0)->get();
+
+        return $orders;
     }
 
     /**

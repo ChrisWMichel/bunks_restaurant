@@ -15,7 +15,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'active',  'email', 'password', 'role_id', 'email_token'
+        'firstname', 'lastname', 'active',  'email', 'password', 'role_id', 'email_token',
+        'address', 'city', 'state', 'zipcode', 'phone'
     ];
     public $with = ['role', 'orders'];
 
@@ -41,8 +42,15 @@ class User extends Authenticatable
     }
 
     public function isAdmin(){
-
         if($this->role->name == 'administrator'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function isEmployee(){
+        if($this->role->name == 'employee'){
             return true;
         }else{
             return false;

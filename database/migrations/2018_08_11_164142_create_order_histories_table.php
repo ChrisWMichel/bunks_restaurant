@@ -19,6 +19,7 @@ class CreateOrderHistoriesTable extends Migration
             $table->foreign('order_id')->references('id')->on('orders');
             $table->integer('item_id')->unsigned();
             $table->foreign('item_id')->references('id')->on('items');
+            $table->integer('size_id')->unsigned();
             $table->integer('quantity')->unsigned();
             $table->timestamps();
         });

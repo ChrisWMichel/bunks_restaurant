@@ -41,7 +41,7 @@
                                                     <input :disabled="category_name === 'Pizzas' ? true : false" type="number" class="input-qantity" @change.prevent="changeQuantity($event.target.value)" value="1" />
 
                                                     {{data.price | currency}}
-                                                    <button :disabled="!$store.state.login_status" class="btn btn-xs add-btn" @click.prevent="addToCart(data, item.name)">Add</button>
+                                                    <button :disabled="!$store.state.user" class="btn btn-xs add-btn" @click.prevent="addToCart(data, item.name)">Add</button>
                                                 </form>
 
                                             </li>

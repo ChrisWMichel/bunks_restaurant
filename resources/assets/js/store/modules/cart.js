@@ -93,10 +93,12 @@ export default {
         checkout({commit, state, getters}, payload){
             const user = getters.getUser;
            // console.log('vuex', user);
-            axios.post('api/checkout', {cart: state.cart, note: payload.note, total_cost: payload.total_cost, user_id:user.id})
-                .then(resp => {
-                    console.log(resp);
-                })
+            axios.post('api/checkout', {cart: state.cart, note: payload.note, total_cost: payload.total_cost, user_id:user.id});
+        },
+        getOrders({commit}){
+            axios.get('api/get_orders').then(resp => {
+                console.log(resp.data);
+            })
         }
     }
 }

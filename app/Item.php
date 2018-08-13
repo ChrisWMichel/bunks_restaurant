@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     protected $guarded = [];
-    public $with = ['prices'];
+    public $with = ['prices', 'orderHistorys'];
 
     public function category(){
         return $this->belongsTo(Category::class);
@@ -15,10 +15,6 @@ class Item extends Model
 
     public function prices(){
         return $this->hasMany(Price::class);
-    }
-
-    public function orderHistorys(){
-        return $this->hasMany(OrderHistory::class);
     }
 
     public static function randNum(){
