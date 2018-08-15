@@ -17,6 +17,7 @@ class Item extends Model
         return $this->hasMany(Price::class);
     }
 
+
     public static function randNum(){
         return str_random(10);
     }

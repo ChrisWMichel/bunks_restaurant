@@ -41,7 +41,7 @@
                                                     <input :disabled="category_name === 'Pizzas' ? true : false" type="number" class="input-qantity" @change.prevent="changeQuantity($event.target.value)" value="1" />
 
                                                     {{data.price | currency}}
-                                                    <button :disabled="!$store.state.login_status" class="btn btn-xs add-btn" @click.prevent="addToCart(data, item.name)">Add</button>
+                                                    <button :disabled="!$store.state.user" class="btn btn-xs add-btn" @click.prevent="addToCart(data, item.name)">Add</button>
                                                 </form>
 
                                             </li>
@@ -89,6 +89,7 @@
                 this.quantity = qty;
             },
             addToCart(data, item_name){
+                console.log('data', data);
                 // check for duplicates
                 if(this.category_name !== 'Pizzas' ){
                      this.$store.dispatch('checkForDuplicates', {data: data, item_name: item_name, quantity: this.quantity}); //Number(this.quantity)
@@ -106,6 +107,7 @@
                         item_name: item_name,
                         price: data.price,
                         size: null,
+                        size_id: null,
                         topping_cost: 0,
                         toppings: [],
                         total_topping_cost: 0,
@@ -114,6 +116,8 @@
 
                     if(data.size.length > 0){
                         this.cart.size = data.size[0].size;
+                        this.cart.size_id = data.size[0].id;
+                        //console.log('size_id', this.cart.size_id)
                         if(data.size[0].topping_cost !== null){
                             this.cart.topping_cost = data.size[0].topping_cost.cost;
                         }

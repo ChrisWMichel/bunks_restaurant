@@ -18,6 +18,11 @@ class CreateUsersTable extends Migration
             $table->integer('role_id');
             $table->string('firstname');
             $table->string('lastname');
+            $table->string('address');
+            $table->string('city')->default('Harvard');
+            $table->string('state')->default('IL');
+            $table->string('zipcode')->default('60033');
+            $table->string('phone');
             $table->string('email')->unique();
             $table->string('email_token')->nullable();
             $table->string('password');

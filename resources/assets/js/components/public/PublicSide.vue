@@ -65,7 +65,7 @@
             },
             loginStatus(){
                 axios.get('login_status').then(resp => {
-                    this.$store.state.login_status = resp.data;
+                    this.$store.state.user = resp.data;
                 })
             },
             biz_info(){

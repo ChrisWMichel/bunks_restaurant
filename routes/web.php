@@ -26,9 +26,13 @@ Route::group(['middleware' => 'IsAdmin'], function (){
 
     Route::get('/admin', 'AdminController@index')->name('admin');
 
+});
+Route::group(['middleware' => 'IsEmployee'], function (){
 
+    Route::get('/incoming_orders', 'OrderController@index')->name('incoming');
 
 });
+
 Route::post('/notify-admin', 'AdminController@notifyNewAdmin');
 
 //Route::get('verify-admin/{token}', 'AdminController@receiveResetPassword')->name('verifyAdmin');
@@ -39,8 +43,5 @@ Route::post('reset/password', 'LogginCredController@SendResetPassword')->name('s
 Route::get('member/verify/{token}', 'LogginCredController@receiveResetPassword')->name('verify');
 Route::post('member/reset', 'LogginCredController@resetPassword')->name('reset');
 
-//Route::get('/', 'HomeController@index');
 Route::get('/', 'CustomerController@index')->name('home');
-
-
 

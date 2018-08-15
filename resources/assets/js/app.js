@@ -39,6 +39,7 @@ Vue.filter('currency', (value)=>{
 
 Vue.component('app-admin', require('./components/admin/AppAdmin.vue'));
 Vue.component('app-public', require('./components/public/PublicSide.vue'));
+Vue.component('app-incoming-orders', require('./components/employee/IncomingOrders'));
 
 const app = new Vue({
     el: '#app',

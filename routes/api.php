@@ -35,5 +35,10 @@ if($this->middleware('IsAdmin')){
     Route::post('/updat_topping_price', 'ToppingCostController@updatePrice');
 }
 
+    Route::post('/checkout', 'OrderController@checkout');
 
     Route::get('biz_info', 'BusinessInfoController@index');
+
+if($this->middleware('isEmployee')){
+    Route::get('/get_orders', 'OrderController@getOrders');
+}

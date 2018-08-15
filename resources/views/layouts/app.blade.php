@@ -84,6 +84,10 @@
                                             <a class="dropdown-item" href="{{ route('admin') }}">Admin
                                             </a>
                                     @endif
+                                    @if(auth()->user()->isEmployee())
+                                        <a class="dropdown-item" href="{{ route('incoming') }}">Orders
+                                        </a>
+                                    @endif
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

@@ -59023,7 +59023,7 @@ module.exports = "/images/bunks_filter2.jpg?5349f8844353ecf60f474dda1226efc2";
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(219);
-module.exports = __webpack_require__(505);
+module.exports = __webpack_require__(510);
 
 
 /***/ }),
@@ -59076,6 +59076,7 @@ Vue.filter('currency', function (value) {
 
 Vue.component('app-admin', __webpack_require__(469));
 Vue.component('app-public', __webpack_require__(479));
+Vue.component('app-incoming-orders', __webpack_require__(505));
 
 var app = new Vue({
     el: '#app',
@@ -92557,6 +92558,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "ShowCart",
@@ -92565,7 +92572,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             topping_count: 0,
             top_total: 0,
             sales_tax: this.$store.getters.getSalesTax,
-            total_cost: 0
+            total_cost: 0,
+            checkout_note: ''
         };
     },
 
@@ -92595,6 +92603,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             item.total_item_cost = item.price * qty;
             item.quantity = qty;
             this.$store.dispatch('updateQuantity', { item: item, index: index });
+        },
+        checkout: function checkout() {
+
+            this.$store.dispatch('checkout', { note: this.checkout_note, total_cost: this.total_cost + this.tax_sum });
         }
     }
 });
@@ -92640,6 +92652,10 @@ var render = function() {
                   _c("button", { staticClass: "btn-xs" }, [_vm._v("update")])
                 ]),
                 _vm._v(" "),
+                item.size
+                  ? _c("td", [_vm._v(_vm._s(item.size))])
+                  : _c("td", [_vm._v("n/a")]),
+                _vm._v(" "),
                 item.toppings.length > 0
                   ? _c(
                       "td",
@@ -92660,10 +92676,6 @@ var render = function() {
                 item.toppings.length == 0
                   ? _c("td", [_vm._v(_vm._s(item.item_name))])
                   : _vm._e(),
-                _vm._v(" "),
-                item.size
-                  ? _c("td", [_vm._v(_vm._s(item.size))])
-                  : _c("td", [_vm._v("n/a")]),
                 _vm._v(" "),
                 _c("td", [
                   _vm._v(_vm._s(_vm._f("currency")(item.total_item_cost)))
@@ -92717,7 +92729,40 @@ var render = function() {
           2
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-8" }, [
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.checkout_note,
+              expression: "checkout_note"
+            }
+          ],
+          attrs: { placeholder: "Notes" },
+          domProps: { value: _vm.checkout_note },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.checkout_note = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-2 col-lg-offset-1" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-large", on: { click: _vm.checkout } },
+          [_vm._v("Purchase")]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -92729,9 +92774,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Qnty")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Item")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Size")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Item")]),
         _vm._v(" "),
         _c("th", [_vm._v("Price")])
       ])
@@ -92765,7 +92810,6 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_cart__ = __webpack_require__(351);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions__ = __webpack_require__(352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__getters__ = __webpack_require__(353);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__getters___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__getters__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mutations__ = __webpack_require__(354);
 
 
@@ -92786,7 +92830,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         cat_toppings: [],
         item_toppings: [],
         edit_topping: [],
-        login_status: ''
+        user: ''
 
     },
     getters: __WEBPACK_IMPORTED_MODULE_4__getters__,
@@ -92813,7 +92857,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         sales_tax: 0,
         biz_info: [],
         check_duplicate: false,
-        item_id_records: []
+        item_id_records: [],
+        checkout_note: ''
     },
     getters: {
         getItemCount: function getItemCount(state) {
@@ -92853,7 +92898,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
                 });
                 if (!item_id) {
                     state.item_id_records.push(data.data.item_id);
-                    console.log('new_record', state.item_id_records);
                     state.check_duplicate = false;
                 } else {
                     var item = state.cart.find(function (obj) {
@@ -92908,6 +92952,22 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var commit = _ref5.commit;
 
             commit('checkForDuplicates', data);
+        },
+        checkout: function checkout(_ref6, payload) {
+            var commit = _ref6.commit,
+                state = _ref6.state,
+                getters = _ref6.getters;
+
+            var user = getters.getUser;
+            // console.log('vuex', user);
+            axios.post('api/checkout', { cart: state.cart, note: payload.note, total_cost: payload.total_cost, user_id: user.id });
+        },
+        getOrders: function getOrders(_ref7) {
+            var commit = _ref7.commit;
+
+            axios.get('api/get_orders').then(function (resp) {
+                console.log(resp.data);
+            });
         }
     }
 });
@@ -93027,9 +93087,16 @@ var deleteTopping = function deleteTopping(_ref15, item) {
 
 /***/ }),
 /* 353 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
 
+var getUser = function getUser(state) {
+
+    return state.login_status;
+};
 
 /***/ }),
 /* 354 */
@@ -104741,7 +104808,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             axios.get('login_status').then(function (resp) {
-                _this3.$store.state.login_status = resp.data;
+                _this3.$store.state.user = resp.data;
             });
         },
         biz_info: function biz_info() {
@@ -105300,6 +105367,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.quantity = qty;
         },
         addToCart: function addToCart(data, item_name) {
+            console.log('data', data);
             // check for duplicates
             if (this.category_name !== 'Pizzas') {
                 this.$store.dispatch('checkForDuplicates', { data: data, item_name: item_name, quantity: this.quantity }); //Number(this.quantity)
@@ -105317,6 +105385,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     item_name: item_name,
                     price: data.price,
                     size: null,
+                    size_id: null,
                     topping_cost: 0,
                     toppings: [],
                     total_topping_cost: 0,
@@ -105325,6 +105394,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 if (data.size.length > 0) {
                     this.cart.size = data.size[0].size;
+                    this.cart.size_id = data.size[0].id;
+                    //console.log('size_id', this.cart.size_id)
                     if (data.size[0].topping_cost !== null) {
                         this.cart.topping_cost = data.size[0].topping_cost.cost;
                     }
@@ -105437,7 +105508,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.topping-cost[data-v-bdff9406]{\n    font-size: 14px;\n}\n.bold_name[data-v-bdff9406]{\n    font-weight: bolder;\n}\n", ""]);
+exports.push([module.i, "\n.topping-cost[data-v-bdff9406]{\n    font-size: 14px;\n}\n.bold_name[data-v-bdff9406]{\n    font-weight: bolder;\n    color:blue;\n}\n", ""]);
 
 // exports
 
@@ -105504,7 +105575,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         closeForm: function closeForm() {
             //console.log('cart', this.item);
             $('#addToppings').modal('hide');
-
+            console.log('selected', this.selected);
             this.item.toppings = this.selected;
             var total = 0;
 
@@ -105544,7 +105615,7 @@ var render = function() {
           _vm._v(
             "  topping cost - " +
               _vm._s(_vm._f("currency")(_vm.item.topping_cost)) +
-              " (price doubles with bold)."
+              " (price doubles in blue)."
           )
         ])
       ]),
@@ -105799,8 +105870,7 @@ var render = function() {
                                       {
                                         staticClass: "btn btn-xs add-btn",
                                         attrs: {
-                                          disabled: !_vm.$store.state
-                                            .login_status
+                                          disabled: !_vm.$store.state.user
                                         },
                                         on: {
                                           click: function($event) {
@@ -106016,6 +106086,153 @@ if (false) {
 
 /***/ }),
 /* 505 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(506)
+}
+var normalizeComponent = __webpack_require__(6)
+/* script */
+var __vue_script__ = __webpack_require__(508)
+/* template */
+var __vue_template__ = __webpack_require__(509)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-6500ee32"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\employee\\IncomingOrders.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6500ee32", Component.options)
+  } else {
+    hotAPI.reload("data-v-6500ee32", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 506 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(507);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("726a9679", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6500ee32\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./IncomingOrders.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6500ee32\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./IncomingOrders.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 507 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 508 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "IncomingOrders",
+    data: function data() {
+        return {};
+    },
+    created: function created() {
+        this.getOrders();
+    },
+
+    methods: {
+        getOrders: function getOrders() {
+            this.$store.dispatch('getOrders');
+        }
+    }
+});
+
+/***/ }),
+/* 509 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h2", [_vm._v("Incoming Orders")])])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6500ee32", module.exports)
+  }
+}
+
+/***/ }),
+/* 510 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
