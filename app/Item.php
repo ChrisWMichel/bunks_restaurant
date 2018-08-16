@@ -16,7 +16,9 @@ class Item extends Model
     public function prices(){
         return $this->hasMany(Price::class);
     }
-
+    public function orderHistorys(){
+        return $this->hasMany(OrderHistory::class);
+    }
 
     public static function randNum(){
         return str_random(10);

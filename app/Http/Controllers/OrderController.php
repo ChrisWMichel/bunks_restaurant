@@ -53,10 +53,7 @@ class OrderController extends Controller
 
     public function getOrders()
     {
-        $orders = Order::Where('complete', '=', 0)->get();
-        //$item = Item::all();
-       // $orders = User::where('orders.complete', '=', 0)->get();
-        //$orders = User::all();
+        $orders = Order::where('complete', '=', 0)->with('user')->with('orderHistories')->get();
 
         return $orders;
     }

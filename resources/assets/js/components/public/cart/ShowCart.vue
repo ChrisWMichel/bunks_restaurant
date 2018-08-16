@@ -4,7 +4,25 @@
         <h2>Cart</h2>
         <button @click="hideCart">Go Back</button>
         <hr/>
+        <form @change="delivery">
+            <input type="radio"  checked value="pickup" id="one" v-model="picked">
+            <label for="one" :class="{'bold-lable': picked === 'pickup'}">Pick Up</label>
 
+            <input type="radio" id="two" value="deliver" v-model="picked">
+            <label for="two" :class="{'bold-lable': picked === 'deliver'}">Delivered</label>
+        </form>
+        <transition name="slide">
+        <div v-if="address_form">
+            <div class="row">
+                <div class="col-2 col-lg-offset-2">
+
+                        <app-address-form @closeForm="address_form=false"></app-address-form>
+
+                </div>
+            </div>
+        </div>
+        </transition>
+        <br>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
@@ -62,8 +80,13 @@
 </template>
 
 <script>
+    import AddressForm from './AddressForm'
+
     export default {
         name: "ShowCart",
+        components:{
+            appAddressForm: AddressForm
+        },
         data(){
             return{
                 topping_count: 0,
@@ -71,6 +94,8 @@
                 sales_tax: this.$store.getters.getSalesTax,
                 total_cost: 0,
                 checkout_note: '',
+                picked: 'pickup',
+                address_form: false,
             }
         },
         computed:{
@@ -83,7 +108,8 @@
                     this.total_cost += item.total_item_cost;
                 });
                 return this.total_cost * this.sales_tax;
-            }
+            },
+
         },
         methods:{
             hideCart(){
@@ -101,7 +127,17 @@
             checkout(){
 
                 this.$store.dispatch('checkout',{note: this.checkout_note, total_cost: this.total_cost + this.tax_sum});
-            }
+            },
+            delivery(){
+                if(this.$store.state.user.address === null){
+                    if(this.picked === 'deliver'){
+                        this.address_form = true;
+                    }
+                } else {
+                    this.address_form = false;
+                }
+            },
+
         }
     }
 </script>
@@ -118,7 +154,47 @@
         -webkit-appearance: none;
         margin: 0;
     }
+
     .input-qantity{
         width: 20px;
     }
+    .slide-enter{
+
+    }
+    .slide-enter-active{
+        animation: slide-in 200ms ease-out forwards;
+    }
+    .slide-leave{
+
+    }
+    .slide-leave-active{
+        animation: slide-out 200ms ease-out forwards;
+    }
+    @keyframes slide-in {
+        from{
+            transform: translateY(-30px);
+            opacity: 0;
+        }
+        to{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    @keyframes slide-out {
+        from{
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to{
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+    }
+
+    .bold-lable{
+        color: green;
+    }
+
+
 </style>

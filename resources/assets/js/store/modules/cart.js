@@ -10,6 +10,7 @@ export default {
         check_duplicate: false,
         item_id_records: [],
         checkout_note: '',
+        active_orders:[]
     },
     getters:{
         getItemCount(state){
@@ -20,6 +21,9 @@ export default {
         },
         getCheckDuplicate(state){
             return state.check_duplicate;
+        },
+        getActiveOrders(state){
+            return state.active_orders;
         }
     },
     mutations:{
@@ -71,6 +75,12 @@ export default {
                 }
             }
         },
+        getOrders(state, orders){
+            state.active_orders = orders;
+        },
+        updateAddress(state, user){
+            state.user = user;
+        }
     },
     actions:{
         addItemToCart({commit}, item) {
@@ -98,7 +108,16 @@ export default {
         getOrders({commit}){
             axios.get('api/get_orders').then(resp => {
                 console.log(resp.data);
+                commit('getOrders', resp.data);
             })
+        },
+        updateAddress({commit, state, getters}, address){
+
+            axios.post('api/update_address/' + address.user_id, {address: address.address, city: address.city})
+                .then(resp =>{
+                    console.log('commit', resp.data);
+                    commit('updateAddress', resp.data);
+                })
         }
     }
 }

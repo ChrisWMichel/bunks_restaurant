@@ -12,7 +12,7 @@
                 <h3>{{getItems.name}}</h3>
             </div>
             <div class="col">
-                <div v-if="$store.state.login_status">
+                <div v-if="$store.state.user">
                     <button v-if="item_count !== null" @click="showCart" class="btn-warning btn-large"><span class="newline">({{item_count}} items)</span> Checkout</button>
                 </div>
                 <div v-else>

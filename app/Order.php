@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $guarded = [];
-    public $with = ['orderHistories'];
+    //public $with = ['orderHistories'];
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -16,4 +16,6 @@ class Order extends Model
     public function orderHistories(){
         return $this->hasMany(OrderHistory::class);
     }
+
+
 }
