@@ -35,7 +35,6 @@
         },
         methods:{
             addAddress(){
-                console.log('user', this.$store.state.user);
                 this.$store.dispatch('updateAddress', this.address)
                 this.$emit('closeForm');
             }

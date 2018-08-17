@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Mail\ConfirmOrder;
 use App\order;
+use App\OrderedToppings;
 use App\OrderHistory;
 use App\User;
 use Illuminate\Http\Request;
@@ -35,6 +37,8 @@ class OrderController extends Controller
         $order->user_id = $user_id;
         $order->notes = $note;
         $order->total = $total_cost;
+        $order->pickup = $request->pickup == 'pickup' ? 1:0;
+        //if($request->pickup == 'pickup')
         $order->save();
 
         $count = count($items);
@@ -46,8 +50,21 @@ class OrderController extends Controller
             $order_history->size_id = $items[$x]['size_id'];
             $order_history->quantity = $items[$x]['quantity'] ;
             $order_history->save();
+
+            if(count($items[$x]['toppings']) > 0){
+                for($y = 0; $y < count($items[$x]['toppings']); $y++){
+                    $ordered_toppings = new OrderedToppings();
+                    $ordered_toppings->order_history_id = $order_history->id;
+                    $ordered_toppings->topping =$items[$x]['toppings'][$y]['name'];
+                    $ordered_toppings->save();
+                }
+            }
+
         }
-        //return response($items);
+
+        $order = Order::where('id', $order->id)->with('user')->with('orderHistories')->get();
+        return response($order);
+        //Mail::to($order->user)->send(new ConfirmOrder($order));
     }
 
 

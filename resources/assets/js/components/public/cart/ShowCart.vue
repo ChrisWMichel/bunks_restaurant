@@ -1,38 +1,40 @@
 <template>
 
     <div>
-        <h2>Cart</h2>
-        <button @click="hideCart">Go Back</button>
-        <hr/>
-        <form @change="delivery">
-            <input type="radio"  checked value="pickup" id="one" v-model="picked">
-            <label for="one" :class="{'bold-lable': picked === 'pickup'}">Pick Up</label>
+        <transition name="fade" mode="out-in">
+            <div v-if="show" key="cart">
+                <h2>Cart</h2>
+                <button @click="hideCart">Go Back</button>
+                <hr/>
+                <form @change="delivery">
+                    <input type="radio"  checked value="pickup" id="one" v-model="picked">
+                    <label for="one" :class="{'bold-lable': picked === 'pickup'}">Pick Up</label>
 
-            <input type="radio" id="two" value="deliver" v-model="picked">
-            <label for="two" :class="{'bold-lable': picked === 'deliver'}">Delivered</label>
-        </form>
-        <transition name="slide">
-        <div v-if="address_form">
-            <div class="row">
-                <div class="col-2 col-lg-offset-2">
+                    <input type="radio" id="two" value="deliver" v-model="picked">
+                    <label for="two" :class="{'bold-lable': picked === 'deliver'}">Delivered</label>
+                </form>
+                <transition name="slide">
+                    <div v-if="address_form">
+                        <div class="row">
+                            <div class="col-2 col-lg-offset-2">
 
-                        <app-address-form @closeForm="address_form=false"></app-address-form>
+                                <app-address-form @closeForm="address_form=false"></app-address-form>
 
-                </div>
-            </div>
-        </div>
-        </transition>
-        <br>
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>Qnty</th>
-                    <th>Size</th>
-                    <th>Item</th>
-                    <th>Price</th>
-                </tr>
-                </thead>
-                <tbody>
+                            </div>
+                        </div>
+                    </div>
+                </transition>
+                <br>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Qnty</th>
+                        <th>Size</th>
+                        <th>Item</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     <tr v-for="(item, index) in items.cart" :key="item.id">
                         <td>
                             <input type="number" class="input-qantity" @change="changeQty($event.target.value, item, index)" :value="item.quantity" />
@@ -44,7 +46,7 @@
                         <td v-else>n/a</td>
 
                         <td v-if="item.toppings.length > 0"
-                            >{{item.item_name}}<br> <span v-for="topping in item.toppings">{{topping.name}}, &nbsp;</span> </td>
+                        >{{item.item_name}}<br> <span v-for="topping in item.toppings">{{topping.name}}, &nbsp;</span> </td>
 
                         <td v-if="item.toppings.length == 0">{{item.item_name}}</td>
 
@@ -64,16 +66,23 @@
                         <td><b>Total</b></td>
                         <td><b>{{tax_sum  + total_cost | currency}}</b></td>
                     </tr>
-                </tbody>
-            </table>
-        <div class="row">
-            <div class="col-8">
-                <textarea v-model="checkout_note" placeholder="Notes"></textarea>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-8">
+                        <textarea v-model="checkout_note" placeholder="Notes"></textarea>
+                    </div>
+                    <div class="col-2 col-lg-offset-1">
+                        <button class="btn btn-large" @click="checkout">Purchase</button>
+                    </div>
+                </div>
             </div>
-            <div class="col-2 col-lg-offset-1">
-                <button class="btn btn-large" @click="checkout">Purchase</button>
+            <div v-else key="message">
+                <h3>Your order has been placed. Please check your email for confirmation</h3>
             </div>
-        </div>
+        </transition>
+
+
 
 
     </div>
@@ -96,6 +105,7 @@
                 checkout_note: '',
                 picked: 'pickup',
                 address_form: false,
+                show: true
             }
         },
         computed:{
@@ -125,8 +135,8 @@
                 this.$store.dispatch('updateQuantity', {item: item, index: index});
             },
             checkout(){
-
-                this.$store.dispatch('checkout',{note: this.checkout_note, total_cost: this.total_cost + this.tax_sum});
+                this.show = false;
+                this.$store.dispatch('checkout',{pickup: this.picked, note: this.checkout_note, total_cost: this.total_cost + this.tax_sum});
             },
             delivery(){
                 if(this.$store.state.user.address === null){
@@ -189,11 +199,24 @@
             transform: translateY(20px);
             opacity: 0;
         }
-
     }
 
     .bold-lable{
         color: green;
+    }
+
+    .fade-enter{
+        opacity: 0;
+    }
+    .fade-enter-active{
+        transition: opacity .5s;
+    }
+    .fade-leave{
+
+    }
+    .fade-leave-active{
+        transition: opacity .5s;
+        opacity: 0;
     }
 
 

@@ -92490,7 +92490,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\ninput [type='number'][data-v-f8564c86]{\n    -webkit-appearance: textfield;\n    -moz-appearance: textfield;\n    appearance: textfield;\n}\ninput[type=number][data-v-f8564c86]::-webkit-inner-spin-button,\ninput[type=number][data-v-f8564c86]::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n}\n.input-qantity[data-v-f8564c86]{\n    width: 20px;\n}\n.slide-enter[data-v-f8564c86]{\n}\n.slide-enter-active[data-v-f8564c86]{\n    -webkit-animation: slide-in-data-v-f8564c86 200ms ease-out forwards;\n            animation: slide-in-data-v-f8564c86 200ms ease-out forwards;\n}\n.slide-leave[data-v-f8564c86]{\n}\n.slide-leave-active[data-v-f8564c86]{\n    -webkit-animation: slide-out-data-v-f8564c86 200ms ease-out forwards;\n            animation: slide-out-data-v-f8564c86 200ms ease-out forwards;\n}\n@-webkit-keyframes slide-in-data-v-f8564c86 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@keyframes slide-in-data-v-f8564c86 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@-webkit-keyframes slide-out-data-v-f8564c86 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n@keyframes slide-out-data-v-f8564c86 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n.bold-lable[data-v-f8564c86]{\n    color: green;\n}\n\n\n", ""]);
+exports.push([module.i, "\ninput [type='number'][data-v-f8564c86]{\n    -webkit-appearance: textfield;\n    -moz-appearance: textfield;\n    appearance: textfield;\n}\ninput[type=number][data-v-f8564c86]::-webkit-inner-spin-button,\ninput[type=number][data-v-f8564c86]::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n}\n.input-qantity[data-v-f8564c86]{\n    width: 20px;\n}\n.slide-enter[data-v-f8564c86]{\n}\n.slide-enter-active[data-v-f8564c86]{\n    -webkit-animation: slide-in-data-v-f8564c86 200ms ease-out forwards;\n            animation: slide-in-data-v-f8564c86 200ms ease-out forwards;\n}\n.slide-leave[data-v-f8564c86]{\n}\n.slide-leave-active[data-v-f8564c86]{\n    -webkit-animation: slide-out-data-v-f8564c86 200ms ease-out forwards;\n            animation: slide-out-data-v-f8564c86 200ms ease-out forwards;\n}\n@-webkit-keyframes slide-in-data-v-f8564c86 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@keyframes slide-in-data-v-f8564c86 {\nfrom{\n        -webkit-transform: translateY(-30px);\n                transform: translateY(-30px);\n        opacity: 0;\n}\nto{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\n}\n@-webkit-keyframes slide-out-data-v-f8564c86 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n@keyframes slide-out-data-v-f8564c86 {\nfrom{\n        -webkit-transform: translateY(0);\n                transform: translateY(0);\n        opacity: 1;\n}\nto{\n        -webkit-transform: translateY(20px);\n                transform: translateY(20px);\n        opacity: 0;\n}\n}\n.bold-lable[data-v-f8564c86]{\n    color: green;\n}\n.fade-enter[data-v-f8564c86]{\n    opacity: 0;\n}\n.fade-enter-active[data-v-f8564c86]{\n    -webkit-transition: opacity .5s;\n    transition: opacity .5s;\n}\n.fade-leave[data-v-f8564c86]{\n}\n.fade-leave-active[data-v-f8564c86]{\n    -webkit-transition: opacity .5s;\n    transition: opacity .5s;\n    opacity: 0;\n}\n\n\n", ""]);
 
 // exports
 
@@ -92503,6 +92503,15 @@ exports.push([module.i, "\ninput [type='number'][data-v-f8564c86]{\n    -webkit-
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddressForm__ = __webpack_require__(512);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddressForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddressForm__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -92600,7 +92609,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             total_cost: 0,
             checkout_note: '',
             picked: 'pickup',
-            address_form: false
+            address_form: false,
+            show: true
         };
     },
 
@@ -92632,8 +92642,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.dispatch('updateQuantity', { item: item, index: index });
         },
         checkout: function checkout() {
-
-            this.$store.dispatch('checkout', { note: this.checkout_note, total_cost: this.total_cost + this.tax_sum });
+            this.show = false;
+            this.$store.dispatch('checkout', { pickup: this.picked, note: this.checkout_note, total_cost: this.total_cost + this.tax_sum });
         },
         delivery: function delivery() {
             if (this.$store.state.user.address === null) {
@@ -92658,258 +92668,291 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h2", [_vm._v("Cart")]),
-      _vm._v(" "),
-      _c("button", { on: { click: _vm.hideCart } }, [_vm._v("Go Back")]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("form", { on: { change: _vm.delivery } }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.picked,
-              expression: "picked"
-            }
-          ],
-          attrs: { type: "radio", checked: "", value: "pickup", id: "one" },
-          domProps: { checked: _vm._q(_vm.picked, "pickup") },
-          on: {
-            change: function($event) {
-              _vm.picked = "pickup"
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            class: { "bold-lable": _vm.picked === "pickup" },
-            attrs: { for: "one" }
-          },
-          [_vm._v("Pick Up")]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.picked,
-              expression: "picked"
-            }
-          ],
-          attrs: { type: "radio", id: "two", value: "deliver" },
-          domProps: { checked: _vm._q(_vm.picked, "deliver") },
-          on: {
-            change: function($event) {
-              _vm.picked = "deliver"
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            class: { "bold-lable": _vm.picked === "deliver" },
-            attrs: { for: "two" }
-          },
-          [_vm._v("Delivered")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("transition", { attrs: { name: "slide" } }, [
-        _vm.address_form
-          ? _c("div", [
-              _c("div", { staticClass: "row" }, [
+      _c("transition", { attrs: { name: "fade", mode: "out-in" } }, [
+        _vm.show
+          ? _c(
+              "div",
+              { key: "cart" },
+              [
+                _c("h2", [_vm._v("Cart")]),
+                _vm._v(" "),
+                _c("button", { on: { click: _vm.hideCart } }, [
+                  _vm._v("Go Back")
+                ]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("form", { on: { change: _vm.delivery } }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.picked,
+                        expression: "picked"
+                      }
+                    ],
+                    attrs: {
+                      type: "radio",
+                      checked: "",
+                      value: "pickup",
+                      id: "one"
+                    },
+                    domProps: { checked: _vm._q(_vm.picked, "pickup") },
+                    on: {
+                      change: function($event) {
+                        _vm.picked = "pickup"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      class: { "bold-lable": _vm.picked === "pickup" },
+                      attrs: { for: "one" }
+                    },
+                    [_vm._v("Pick Up")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.picked,
+                        expression: "picked"
+                      }
+                    ],
+                    attrs: { type: "radio", id: "two", value: "deliver" },
+                    domProps: { checked: _vm._q(_vm.picked, "deliver") },
+                    on: {
+                      change: function($event) {
+                        _vm.picked = "deliver"
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      class: { "bold-lable": _vm.picked === "deliver" },
+                      attrs: { for: "two" }
+                    },
+                    [_vm._v("Delivered")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("transition", { attrs: { name: "slide" } }, [
+                  _vm.address_form
+                    ? _c("div", [
+                        _c("div", { staticClass: "row" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-2 col-lg-offset-2" },
+                            [
+                              _c("app-address-form", {
+                                on: {
+                                  closeForm: function($event) {
+                                    _vm.address_form = false
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ])
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
                 _c(
-                  "div",
-                  { staticClass: "col-2 col-lg-offset-2" },
+                  "table",
+                  {
+                    staticClass:
+                      "table table-striped table-bordered table-hover"
+                  },
                   [
-                    _c("app-address-form", {
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v("Qnty")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Size")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Item")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Price")])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      [
+                        _vm._l(_vm.items.cart, function(item, index) {
+                          return _c("tr", { key: item.id }, [
+                            _c("td", [
+                              _c("input", {
+                                staticClass: "input-qantity",
+                                attrs: { type: "number" },
+                                domProps: { value: item.quantity },
+                                on: {
+                                  change: function($event) {
+                                    _vm.changeQty(
+                                      $event.target.value,
+                                      item,
+                                      index
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("button", { staticClass: "btn-xs" }, [
+                                _vm._v("update")
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            item.size
+                              ? _c("td", [_vm._v(_vm._s(item.size))])
+                              : _c("td", [_vm._v("n/a")]),
+                            _vm._v(" "),
+                            item.toppings.length > 0
+                              ? _c(
+                                  "td",
+                                  [
+                                    _vm._v(_vm._s(item.item_name)),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    _vm._l(item.toppings, function(topping) {
+                                      return _c("span", [
+                                        _vm._v(_vm._s(topping.name) + ",  ")
+                                      ])
+                                    })
+                                  ],
+                                  2
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            item.toppings.length == 0
+                              ? _c("td", [_vm._v(_vm._s(item.item_name))])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm._f("currency")(item.total_item_cost))
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn-xs btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.removeItem(item.id, index)
+                                    }
+                                  }
+                                },
+                                [_vm._v("X")]
+                              )
+                            ])
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td", [_vm._v(" ")]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(" ")]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "Sales tax (" + _vm._s(_vm.sales_tax * 100) + "%)"
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(_vm._f("currency")(_vm.tax_sum)))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("td", [_vm._v(" ")]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(" ")]),
+                          _vm._v(" "),
+                          _c("td", [_c("b", [_vm._v("Total")])]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("b", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("currency")(
+                                    _vm.tax_sum + _vm.total_cost
+                                  )
+                                )
+                              )
+                            ])
+                          ])
+                        ])
+                      ],
+                      2
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-8" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.checkout_note,
+                          expression: "checkout_note"
+                        }
+                      ],
+                      attrs: { placeholder: "Notes" },
+                      domProps: { value: _vm.checkout_note },
                       on: {
-                        closeForm: function($event) {
-                          _vm.address_form = false
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.checkout_note = $event.target.value
                         }
                       }
                     })
-                  ],
-                  1
-                )
-              ])
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "table table-striped table-bordered table-hover" },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            [
-              _vm._l(_vm.items.cart, function(item, index) {
-                return _c("tr", { key: item.id }, [
-                  _c("td", [
-                    _c("input", {
-                      staticClass: "input-qantity",
-                      attrs: { type: "number" },
-                      domProps: { value: item.quantity },
-                      on: {
-                        change: function($event) {
-                          _vm.changeQty($event.target.value, item, index)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("button", { staticClass: "btn-xs" }, [_vm._v("update")])
                   ]),
                   _vm._v(" "),
-                  item.size
-                    ? _c("td", [_vm._v(_vm._s(item.size))])
-                    : _c("td", [_vm._v("n/a")]),
-                  _vm._v(" "),
-                  item.toppings.length > 0
-                    ? _c(
-                        "td",
-                        [
-                          _vm._v(_vm._s(item.item_name)),
-                          _c("br"),
-                          _vm._v(" "),
-                          _vm._l(item.toppings, function(topping) {
-                            return _c("span", [
-                              _vm._v(_vm._s(topping.name) + ",  ")
-                            ])
-                          })
-                        ],
-                        2
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  item.toppings.length == 0
-                    ? _c("td", [_vm._v(_vm._s(item.item_name))])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("td", [
-                    _vm._v(_vm._s(_vm._f("currency")(item.total_item_cost)))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
+                  _c("div", { staticClass: "col-2 col-lg-offset-1" }, [
                     _c(
                       "button",
                       {
-                        staticClass: "btn-xs btn-danger",
-                        on: {
-                          click: function($event) {
-                            _vm.removeItem(item.id, index)
-                          }
-                        }
+                        staticClass: "btn btn-large",
+                        on: { click: _vm.checkout }
                       },
-                      [_vm._v("X")]
+                      [_vm._v("Purchase")]
                     )
                   ])
                 ])
-              }),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v(" ")]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" ")]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v("Sales tax (" + _vm._s(_vm.sales_tax * 100) + "%)")
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm._f("currency")(_vm.tax_sum)))])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v(" ")]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" ")]),
-                _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
-                _c("td", [
-                  _c("b", [
-                    _vm._v(
-                      _vm._s(_vm._f("currency")(_vm.tax_sum + _vm.total_cost))
-                    )
-                  ])
-                ])
+              ],
+              1
+            )
+          : _c("div", { key: "message" }, [
+              _c("h3", [
+                _vm._v(
+                  "Your order has been placed. Please check your email for confirmation"
+                )
               ])
-            ],
-            2
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-8" }, [
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.checkout_note,
-                expression: "checkout_note"
-              }
-            ],
-            attrs: { placeholder: "Notes" },
-            domProps: { value: _vm.checkout_note },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.checkout_note = $event.target.value
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-2 col-lg-offset-1" }, [
-          _c(
-            "button",
-            { staticClass: "btn btn-large", on: { click: _vm.checkout } },
-            [_vm._v("Purchase")]
-          )
-        ])
+            ])
       ])
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Qnty")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Size")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Item")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Price")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("b", [_vm._v("Total")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -93090,8 +93133,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
                 getters = _ref6.getters;
 
             var user = getters.getUser;
-            // console.log('vuex', user);
-            axios.post('api/checkout', { cart: state.cart, note: payload.note, total_cost: payload.total_cost, user_id: user.id });
+
+            axios.post('api/checkout', { pickup: payload.pickup, cart: state.cart, note: payload.note, total_cost: payload.total_cost, user_id: user.id }).then(function (resp) {
+                console.log('order', resp.data);
+            });
         },
         getOrders: function getOrders(_ref7) {
             var commit = _ref7.commit;
@@ -93108,7 +93153,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 
 
             axios.post('api/update_address/' + address.user_id, { address: address.address, city: address.city }).then(function (resp) {
-                console.log('commit', resp.data);
                 commit('updateAddress', resp.data);
             });
         }
@@ -93238,7 +93282,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var getUser = function getUser(state) {
 
-    return state.login_status;
+    return state.user;
 };
 
 /***/ }),
@@ -105536,7 +105580,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     total_topping_cost: 0,
                     total_item_cost: 0
                 };
-
+                console.log('toppings', this.cart.toppings);
                 if (data.size.length > 0) {
                     this.cart.size = data.size[0].size;
                     this.cart.size_id = data.size[0].id;
@@ -106499,7 +106543,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -106548,7 +106592,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         addAddress: function addAddress() {
-            console.log('user', this.$store.state.user);
             this.$store.dispatch('updateAddress', this.address);
             this.$emit('closeForm');
         }
