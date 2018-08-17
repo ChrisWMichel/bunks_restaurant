@@ -38,7 +38,7 @@ class User extends Authenticatable
     }
 
     public function orders(){
-        return $this->hasMany(Order::class)->where('complete', 0);
+        return $this->hasMany(Order::class);
     }
 
     public function isAdmin(){

@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
         cat_toppings: [],
         item_toppings: [],
         edit_topping: [],
-        user: ''
+        user: {}
 
     },
     getters,

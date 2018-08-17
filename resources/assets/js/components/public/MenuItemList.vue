@@ -37,7 +37,7 @@
                                     <div class="price-list  col-left">
                                         <ul class="ul-size">
                                             <li>
-                                                <form >
+                                                <form>
                                                     <input :disabled="category_name === 'Pizzas' ? true : false" type="number" class="input-qantity" @change.prevent="changeQuantity($event.target.value)" value="1" />
 
                                                     {{data.price | currency}}
@@ -113,7 +113,7 @@
                         total_topping_cost: 0,
                         total_item_cost: 0
                     };
-
+                    console.log('toppings', this.cart.toppings);
                     if(data.size.length > 0){
                         this.cart.size = data.size[0].size;
                         this.cart.size_id = data.size[0].id;

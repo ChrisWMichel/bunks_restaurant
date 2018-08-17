@@ -42,3 +42,5 @@ if($this->middleware('IsAdmin')){
 if($this->middleware('isEmployee')){
     Route::get('/get_orders', 'OrderController@getOrders');
 }
+
+Route::post('update_address/{id}', 'UserController@updateAddress');
