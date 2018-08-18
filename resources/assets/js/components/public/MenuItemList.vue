@@ -89,7 +89,7 @@
                 this.quantity = qty;
             },
             addToCart(data, item_name){
-                console.log('data', data);
+                //console.log('data', data);
                 // check for duplicates
                 if(this.category_name !== 'Pizzas' ){
                      this.$store.dispatch('checkForDuplicates', {data: data, item_name: item_name, quantity: this.quantity}); //Number(this.quantity)
@@ -113,7 +113,7 @@
                         total_topping_cost: 0,
                         total_item_cost: 0
                     };
-                    console.log('toppings', this.cart.toppings);
+
                     if(data.size.length > 0){
                         this.cart.size = data.size[0].size;
                         this.cart.size_id = data.size[0].id;
@@ -139,7 +139,7 @@
             toppingsAdded(){
                 this.$emit('itemAdded');
                 toastr.success('Your pizza has been added to your cart.');
-                console.log(this.$store.state.cart);
+               // console.log(this.$store.state.cart);
             }
         }
     }
