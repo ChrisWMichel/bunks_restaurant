@@ -12,10 +12,12 @@ class ConfirmOrder extends Mailable
     use Queueable, SerializesModels;
 
    public $order;
+   public $order_history;
 
-    public function __construct($order)
+    public function __construct($order, $order_history)
     {
         $this->order = $order;
+        $this->order_history = $order_history;
     }
 
     /**

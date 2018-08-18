@@ -9,6 +9,7 @@ use App\OrderedToppings;
 use App\OrderHistory;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Response;
 
 class OrderController extends Controller
@@ -49,6 +50,7 @@ class OrderController extends Controller
             $order_history->item_id = $items[$x]['item_id'];
             $order_history->size_id = $items[$x]['size_id'];
             $order_history->quantity = $items[$x]['quantity'] ;
+            $order_history->toppings_cost = $items[$x]['total_topping_cost'];
             $order_history->save();
 
             if(count($items[$x]['toppings']) > 0){
@@ -62,9 +64,12 @@ class OrderController extends Controller
 
         }
 
-        $order = Order::where('id', $order->id)->with('user')->with('orderHistories')->get();
+        $order = Order::where('id', $order->id)->with('user')->first();
+        $order_history = OrderHistory::where('order_id', $order->id)->get();
+
+        Mail::to($order->user->email)->send(new ConfirmOrder($order, $order_history));
+
         return response($order);
-        //Mail::to($order->user)->send(new ConfirmOrder($order));
     }
 
 

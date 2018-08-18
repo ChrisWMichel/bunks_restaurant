@@ -55,7 +55,7 @@
             closeForm(){
                 //console.log('cart', this.item);
                 $('#addToppings').modal('hide');
-                console.log('selected', this.selected);
+
                 this.item.toppings = this.selected;
                 let total = 0;
 
