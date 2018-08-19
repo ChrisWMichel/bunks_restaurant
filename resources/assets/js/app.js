@@ -8,7 +8,7 @@ import {routes} from "./routes/routes";
 import {store} from './store/store'
 import BootstrapVue from 'bootstrap-vue'
 import Materialize from 'materialize-css'
-
+import moment from 'moment'
 //import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(Materialize);
 Vue.use(BootstrapVue);
@@ -35,6 +35,10 @@ const router = new VueRouter({
 Vue.filter('currency', (value)=>{
     let val = (value/1).toFixed(2);
     return '$' + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+});
+
+Vue.filter('formatTime', (value) =>{
+    return moment(String(value)).format('hh:mm')
 });
 
 Vue.component('app-admin', require('./components/admin/AppAdmin.vue'));

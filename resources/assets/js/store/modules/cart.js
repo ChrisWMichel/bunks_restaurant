@@ -80,6 +80,9 @@ export default {
         },
         updateAddress(state, user){
             state.user = user;
+        },
+        finishedOrder(state, index){
+            state.active_orders.splice(index, 1);
         }
     },
     actions:{
@@ -117,6 +120,11 @@ export default {
                 .then(resp =>{
                     commit('updateAddress', resp.data);
                 })
+        },
+        finishedOrder({commit}, payload){
+            axios.post('api/order_complete/' + payload.order_id).then(resp =>{
+                commit('finishedOrder', payload.index);
+            });
         }
     }
 }

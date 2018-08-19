@@ -11,6 +11,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Response;
+use Pusher\Laravel\Facades\Pusher;
 
 class OrderController extends Controller
 {
@@ -67,15 +68,13 @@ class OrderController extends Controller
         $order = Order::where('id', $order->id)->with('user')->first();
         $order_history = OrderHistory::where('order_id', $order->id)->get();
 
-        Mail::to($order->user->email)->send(new ConfirmOrder($order, $order_history));
-
-        return response($order);
+        //Mail::to($order->user->email)->send(new ConfirmOrder($order, $order_history));
     }
 
 
     public function getOrders()
     {
-        $orders = Order::where('complete', '=', 0)->with('user')->with('orderHistories')->get();
+        $orders = Order::where('complete', '=', 0)->with('user')->with('orderHistories')->orderBy('created_at', 'desc')->get();
 
         return $orders;
     }
@@ -86,9 +85,11 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function orderComplete($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->complete = 1;
+        $order->update();
     }
 
     /**

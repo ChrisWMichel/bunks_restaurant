@@ -6,7 +6,7 @@
                 <div class="card" :class="{ 'card-left': index % 2 === 0}">
                    <div  v-if="item.image_path" >
                        <div class="card-image">
-                           <img :src="image_url + item.image_path"/>
+                           <img :src="image_url + item.image_path" class="image-width"/>
                            <span class="card-title">{{item.name}}</span>
                        </div>
                    </div>
@@ -72,7 +72,6 @@
                 image_url: '/images/',
                 quantity: 1,
                 item: '',
-
                 cart:[]
             }
         },
@@ -178,6 +177,9 @@
     }
     .align-title{
         padding-top: 30px;
+    }
+    .image-width, .card{
+        max-width: 300px;
     }
     input [type='number']{
         -webkit-appearance: textfield;

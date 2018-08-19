@@ -59038,6 +59038,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_bootstrap_vue__ = __webpack_require__(360);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_materialize_css__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_materialize_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_materialize_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_moment__);
 //import 'bootstrap/dist/css/bootstrap.css'
 //import 'bootstrap-vue/dist/bootstrap-vue.css'
 __webpack_require__(220);
@@ -59072,6 +59074,10 @@ var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
 Vue.filter('currency', function (value) {
     var val = (value / 1).toFixed(2);
     return '$' + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+});
+
+Vue.filter('formatTime', function (value) {
+    return __WEBPACK_IMPORTED_MODULE_5_moment___default()(String(value)).format('hh:mm');
 });
 
 Vue.component('app-admin', __webpack_require__(474));
@@ -93350,6 +93356,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         },
         updateAddress: function updateAddress(state, user) {
             state.user = user;
+        },
+        finishedOrder: function finishedOrder(state, index) {
+            state.active_orders.splice(index, 1);
         }
     },
     actions: {
@@ -93405,6 +93414,13 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 
             axios.post('api/update_address/' + address.user_id, { address: address.address, city: address.city }).then(function (resp) {
                 commit('updateAddress', resp.data);
+            });
+        },
+        finishedOrder: function finishedOrder(_ref9, payload) {
+            var commit = _ref9.commit;
+
+            axios.post('api/order_complete/' + payload.order_id).then(function (resp) {
+                commit('finishedOrder', payload.index);
             });
         }
     }
@@ -105702,7 +105718,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.input-qantity[data-v-f036e108]{\r\n    width: 20px;\n}\n.add-btn[data-v-f036e108]{\r\n        /*padding: -10px -10px;*/\r\n        font-size: 10px;\n}\n.center-text[data-v-f036e108]{\r\n        text-align: right;\r\n        margin-right: 10px;\n}\n.col[data-v-f036e108]{\r\n        /*border: 1px solid black;*/\n}\n.col-left[data-v-f036e108]{\r\n        float: left;\n}\n.col-right[data-v-f036e108]{\r\n        float: right;\n}\n.price-title[data-v-f036e108]{\r\n        margin-left: 30px;\n}\n.size-title[data-v-f036e108]{\r\n        margin-right: 20px;\n}\n.size-spacing[data-v-f036e108]{\r\n        margin-bottom: 50px;\r\n        margin-top: 20px;\n}\n.align-title[data-v-f036e108]{\r\n        padding-top: 30px;\n}\ninput [type='number'][data-v-f036e108]{\r\n        -webkit-appearance: textfield;\r\n        -moz-appearance: textfield;\r\n        appearance: textfield;\n}\ninput[type=number][data-v-f036e108]::-webkit-inner-spin-button,\r\ninput[type=number][data-v-f036e108]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    margin: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.input-qantity[data-v-f036e108]{\r\n    width: 20px;\n}\n.add-btn[data-v-f036e108]{\r\n        /*padding: -10px -10px;*/\r\n        font-size: 10px;\n}\n.center-text[data-v-f036e108]{\r\n        text-align: right;\r\n        margin-right: 10px;\n}\n.col[data-v-f036e108]{\r\n        /*border: 1px solid black;*/\n}\n.col-left[data-v-f036e108]{\r\n        float: left;\n}\n.col-right[data-v-f036e108]{\r\n        float: right;\n}\n.price-title[data-v-f036e108]{\r\n        margin-left: 30px;\n}\n.size-title[data-v-f036e108]{\r\n        margin-right: 20px;\n}\n.size-spacing[data-v-f036e108]{\r\n        margin-bottom: 50px;\r\n        margin-top: 20px;\n}\n.align-title[data-v-f036e108]{\r\n        padding-top: 30px;\n}\n.image-width[data-v-f036e108], .card[data-v-f036e108]{\r\n        max-width: 300px;\n}\ninput [type='number'][data-v-f036e108]{\r\n        -webkit-appearance: textfield;\r\n        -moz-appearance: textfield;\r\n        appearance: textfield;\n}\ninput[type=number][data-v-f036e108]::-webkit-inner-spin-button,\r\ninput[type=number][data-v-f036e108]::-webkit-outer-spin-button {\r\n    -webkit-appearance: none;\r\n    margin: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -105789,7 +105805,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             image_url: '/images/',
             quantity: 1,
             item: '',
-
             cart: []
         };
     },
@@ -106191,6 +106206,7 @@ var render = function() {
                   ? _c("div", [
                       _c("div", { staticClass: "card-image" }, [
                         _c("img", {
+                          staticClass: "image-width",
                           attrs: { src: _vm.image_url + item.image_path }
                         }),
                         _vm._v(" "),
@@ -106610,7 +106626,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.list-item[data-v-6500ee32] {\n     display: inline-block;\n     margin-right: 10px;\n}\n.list-enter-active[data-v-6500ee32], .list-leave-active[data-v-6500ee32] {\n     -webkit-transition: all 1s;\n     transition: all 1s;\n}\n.list-enter[data-v-6500ee32], .list-leave-to[data-v-6500ee32] /* .list-leave-active below version 2.1.8 */ {\n     opacity: 0;\n     -webkit-transform: translateX(30px);\n             transform: translateX(30px);\n}\n.btn-complete[data-v-6500ee32]{\n    float: right;\n}\n.card-body[data-v-6500ee32]{\n     color: #000;\n}\n.card[data-v-6500ee32]{\n     width: 100%;\n}\n", ""]);
 
 // exports
 
@@ -106621,6 +106637,73 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -106660,6 +106743,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getOrders: function getOrders() {
             this.$store.dispatch('getOrders');
             //console.log('active_orders', this.$store.getters.getActiveOrders);
+        },
+        orderFinished: function orderFinished(index, order_id) {
+            this.$store.dispatch('finishedOrder', { index: index, order_id: order_id });
         }
     }
 });
@@ -106672,26 +106758,238 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("h2", [_vm._v("Incoming Orders")]),
+  return _c(
+    "div",
+    [
+      _c("h2", [_vm._v("Incoming Orders: " + _vm._s(_vm.orders.length))]),
       _vm._v(" "),
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-footer" })
-      ])
-    ])
-  }
-]
+      _c(
+        "transition-group",
+        { attrs: { name: "list", tag: "p" } },
+        _vm._l(_vm.orders, function(order, index) {
+          return _c("div", { key: order.id, staticClass: "list-item" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-lg-12" }, [
+                _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "card-header" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-4" }, [
+                        _c("h4", [
+                          _vm._v(
+                            "Customer: " +
+                              _vm._s(order.user.firstname) +
+                              " " +
+                              _vm._s(order.user.lastname)
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-4 col-lg-offset-1" }, [
+                        _c("h4", [
+                          _vm._v(
+                            "Order placed at: " +
+                              _vm._s(_vm._f("formatTime")(order.created_at))
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    order.pickup
+                      ? _c("div", [
+                          _c("h3", [_vm._v("This order is for pickup.")])
+                        ])
+                      : _c("div", [
+                          _c("h3", [_vm._v("This order is for delivery:")]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(order.user.address)
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(order.user.city) +
+                                "\n                                "
+                            )
+                          ])
+                        ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    order.notes
+                      ? _c("div", [
+                          _c("p", [
+                            _c("b", [_vm._v("Message:")]),
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(order.notes) +
+                                "\n                                "
+                            )
+                          ])
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "table",
+                      {
+                        staticClass:
+                          "table table-striped table-bordered table-hover"
+                      },
+                      [
+                        _c("thead", [
+                          _c("tr", [
+                            _c("th", [_vm._v("Qnty")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Item")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Size")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Price")])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          [
+                            _vm._l(order.order_histories, function(item) {
+                              return _c(
+                                "tr",
+                                { key: item.id },
+                                [
+                                  _c("td", [_vm._v(_vm._s(item.quantity))]),
+                                  _vm._v(" "),
+                                  item.ordered_toppings.length > 0
+                                    ? _c(
+                                        "td",
+                                        [
+                                          _vm._v(
+                                            "\n                                        " +
+                                              _vm._s(item.item.name)
+                                          ),
+                                          _c("br"),
+                                          _vm._v(
+                                            "\n                                        - "
+                                          ),
+                                          _vm._l(
+                                            item.ordered_toppings,
+                                            function(topping) {
+                                              return _c("span", [
+                                                _vm._v(
+                                                  _vm._s(topping.topping) +
+                                                    ",  "
+                                                )
+                                              ])
+                                            }
+                                          ),
+                                          _vm._v(
+                                            "\n                                        (" +
+                                              _vm._s(
+                                                _vm._f("currency")(
+                                                  item.toppings_cost
+                                                )
+                                              ) +
+                                              ")\n                                    "
+                                          )
+                                        ],
+                                        2
+                                      )
+                                    : _c("td", [
+                                        _vm._v(
+                                          "\n                                        " +
+                                            _vm._s(item.item.name) +
+                                            "\n                                    "
+                                        )
+                                      ]),
+                                  _vm._v(" "),
+                                  item.size_id === null
+                                    ? _c("td", [_vm._v("n/a")])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item.size_id === null
+                                    ? _c("td", [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm._f("currency")(
+                                              item.item.prices[0].price *
+                                                item.quantity
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm._l(item.item.prices, function(price) {
+                                    return item.size_id !== null &&
+                                      price.size[0].id === item.size_id
+                                      ? _c("td", [
+                                          _vm._v(_vm._s(price.size[0].size))
+                                        ])
+                                      : _vm._e()
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._l(item.item.prices, function(price) {
+                                    return item.size_id !== null &&
+                                      price.size[0].id === item.size_id
+                                      ? _c("td", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("currency")(
+                                                price.price * item.quantity
+                                              )
+                                            )
+                                          )
+                                        ])
+                                      : _vm._e()
+                                  })
+                                ],
+                                2
+                              )
+                            }),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", [_vm._v(" ")]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(" ")]),
+                              _vm._v(" "),
+                              _c("td", [_c("b", [_vm._v("Total w/ tax")])]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("b", [_vm._v("$" + _vm._s(order.total))])
+                              ])
+                            ])
+                          ],
+                          2
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn-large btn-complete",
+                        on: {
+                          click: function($event) {
+                            _vm.orderFinished(index, order.id)
+                          }
+                        }
+                      },
+                      [_vm._v("Complete")]
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ])
+        })
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
