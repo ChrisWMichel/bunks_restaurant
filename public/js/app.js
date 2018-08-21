@@ -59055,6 +59055,8 @@ window.Vue = __webpack_require__(56);
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_materialize_css___default.a);
 Vue.use(__WEBPACK_IMPORTED_MODULE_3_bootstrap_vue__["a" /* default */]);
 
+Vue.use(Autocomplete);
+
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
@@ -86659,6 +86661,9 @@ if (inBrowser && window.Vue) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_toppings_ToppingPage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_toppings_ToppingPage__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_public_cart_ShowCart__ = __webpack_require__(186);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_public_cart_ShowCart___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_public_cart_ShowCart__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_admin_NewEmployee__ = __webpack_require__(517);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_admin_NewEmployee___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_admin_NewEmployee__);
+
 
 
 
@@ -86670,7 +86675,7 @@ if (inBrowser && window.Vue) {
 //import MenuItems from '../components/public/MenuItems'
 
 
-var routes = [{ path: '/dashboard', name: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_0__components_admin_Dashboard___default.a }, { path: '/new-admin', name: 'new-admin', component: __WEBPACK_IMPORTED_MODULE_1__components_admin_NewAdmin___default.a }, { path: '/categories', name: 'categories', component: __WEBPACK_IMPORTED_MODULE_2__components_admin_Categories___default.a }, { path: '/create_item', name: 'create_item', component: __WEBPACK_IMPORTED_MODULE_3__components_items_ItemCreate___default.a }, { path: '/list_items', name: 'list_items', component: __WEBPACK_IMPORTED_MODULE_4__components_items_ListItems___default.a }, { path: '/topping_page', name: 'topping_page', component: __WEBPACK_IMPORTED_MODULE_5__components_toppings_ToppingPage___default.a }, { path: '/cart', name: 'show_cart', component: __WEBPACK_IMPORTED_MODULE_6__components_public_cart_ShowCart___default.a }];
+var routes = [{ path: '/dashboard', name: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_0__components_admin_Dashboard___default.a }, { path: '/new-admin', name: 'new-admin', component: __WEBPACK_IMPORTED_MODULE_1__components_admin_NewAdmin___default.a }, { path: '/new_employee', name: 'new-employee', component: __WEBPACK_IMPORTED_MODULE_7__components_admin_NewEmployee___default.a }, { path: '/categories', name: 'categories', component: __WEBPACK_IMPORTED_MODULE_2__components_admin_Categories___default.a }, { path: '/create_item', name: 'create_item', component: __WEBPACK_IMPORTED_MODULE_3__components_items_ItemCreate___default.a }, { path: '/list_items', name: 'list_items', component: __WEBPACK_IMPORTED_MODULE_4__components_items_ListItems___default.a }, { path: '/topping_page', name: 'topping_page', component: __WEBPACK_IMPORTED_MODULE_5__components_toppings_ToppingPage___default.a }, { path: '/cart', name: 'show_cart', component: __WEBPACK_IMPORTED_MODULE_6__components_public_cart_ShowCart___default.a }];
 
 /***/ }),
 /* 247 */
@@ -93282,7 +93287,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         check_duplicate: false,
         item_id_records: [],
         checkout_note: '',
-        active_orders: []
+        active_orders: [],
+        order_count: 0
     },
     getters: {
         getItemCount: function getItemCount(state) {
@@ -93402,7 +93408,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var commit = _ref7.commit;
 
             axios.get('api/get_orders').then(function (resp) {
-                console.log(resp.data);
+                //console.log(resp.data);
                 commit('getOrders', resp.data);
             });
         },
@@ -104819,6 +104825,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "SideMenu",
@@ -104947,17 +104960,53 @@ var render = function() {
           _vm._m(1),
           _vm._m(2),
           _vm._v(" "),
-          _c(
-            "router-link",
-            {
-              attrs: {
-                tag: "li",
-                to: { name: "new-admin" },
-                "active-class": "active"
-              }
-            },
-            [_c("a", [_vm._v("Create Admin")])]
-          )
+          _c("li", [
+            _c(
+              "a",
+              {
+                attrs: {
+                  href: "#createEmployee",
+                  "data-toggle": "collapse",
+                  "aria-expanded": "false"
+                }
+              },
+              [_vm._v("Employees")]
+            ),
+            _vm._v(" "),
+            _c(
+              "ul",
+              {
+                staticClass: "collapse list-unstyled",
+                attrs: { id: "createEmployee" }
+              },
+              [
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      tag: "li",
+                      to: { name: "new-admin" },
+                      "active-class": "active"
+                    }
+                  },
+                  [_c("a", [_vm._v("Create Admin")])]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      tag: "li",
+                      to: { name: "new-employee" },
+                      "active-class": "active"
+                    }
+                  },
+                  [_c("a", [_vm._v("Create Employee")])]
+                )
+              ],
+              1
+            )
+          ])
         ],
         1
       )
@@ -106626,7 +106675,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.list-item[data-v-6500ee32] {\n     display: inline-block;\n     margin-right: 10px;\n}\n.list-enter-active[data-v-6500ee32], .list-leave-active[data-v-6500ee32] {\n     -webkit-transition: all 1s;\n     transition: all 1s;\n}\n.list-enter[data-v-6500ee32], .list-leave-to[data-v-6500ee32] /* .list-leave-active below version 2.1.8 */ {\n     opacity: 0;\n     -webkit-transform: translateX(30px);\n             transform: translateX(30px);\n}\n.btn-complete[data-v-6500ee32]{\n    float: right;\n}\n.card-body[data-v-6500ee32]{\n     color: #000;\n}\n.card[data-v-6500ee32]{\n     width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.list-item[data-v-6500ee32] {\n     display: inline-block;\n     margin-right: 10px;\n}\n.list-enter-active[data-v-6500ee32], .list-leave-active[data-v-6500ee32] {\n     -webkit-transition: all 1s;\n     transition: all 1s;\n}\n.list-enter[data-v-6500ee32], .list-leave-to[data-v-6500ee32] /* .list-leave-active below version 2.1.8 */ {\n     opacity: 0;\n     -webkit-transform: translateX(30px);\n             transform: translateX(30px);\n}\n.btn-complete[data-v-6500ee32]{\n    float: right;\n}\n.card-body[data-v-6500ee32]{\n     color: #000;\n}\n.card[data-v-6500ee32]{\n     width: 800px;\n     /*display: inline-block;*/\n}\n", ""]);
 
 // exports
 
@@ -106722,16 +106771,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "IncomingOrders",
     data: function data() {
         return {
-            //orders: this.$store.getters.getActiveOrders
+            order_count: 0
         };
     },
     created: function created() {
+        var _this = this;
+
         this.getOrders();
+
+        setInterval(function () {
+            _this.getOrders();
+        }, 30000);
     },
 
     computed: {
@@ -106742,6 +106798,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         getOrders: function getOrders() {
             this.$store.dispatch('getOrders');
+            if (this.order_count < this.orders.length) {
+                var audio = new Audio('the-calling.mp3');
+                audio.play();
+                console.log('sound off');
+            }
+            this.order_count = this.orders.length;
             //console.log('active_orders', this.$store.getters.getActiveOrders);
         },
         orderFinished: function orderFinished(index, order_id) {
@@ -107004,6 +107066,163 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 516 */,
+/* 517 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(518)
+}
+var normalizeComponent = __webpack_require__(6)
+/* script */
+var __vue_script__ = __webpack_require__(520)
+/* template */
+var __vue_template__ = __webpack_require__(521)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-597f7f0c"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\admin\\NewEmployee.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-597f7f0c", Component.options)
+  } else {
+    hotAPI.reload("data-v-597f7f0c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 518 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(519);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("2cf71d59", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-597f7f0c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NewEmployee.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-597f7f0c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NewEmployee.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 519 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 520 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "NewEmployee",
+    data: function data() {
+        return {
+            item: { id: 9, name: 'Lion', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.' },
+            items: [],
+            template: ItemTemplate
+        };
+    },
+
+    methods: {}
+
+});
+
+/***/ }),
+/* 521 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("h3", [_vm._v("Add New Employee")]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "Have the employee register on the website. Once they've completed that, enter their name in the search field."
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-597f7f0c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

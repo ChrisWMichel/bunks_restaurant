@@ -13,7 +13,7 @@ import moment from 'moment'
 Vue.use(Materialize);
 Vue.use(BootstrapVue);
 
-
+Vue.use(Autocomplete);
 
 Vue.use(VueRouter);
 

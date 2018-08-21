@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import cart from './modules/cart'
+import admin from './modules/admin'
 
 import * as actions from './actions'
 import * as getters from './getters'
@@ -24,7 +25,8 @@ export const store = new Vuex.Store({
     mutations,
     actions,
     modules:{
-        cart
+        cart,
+        admin
     }
 
 });

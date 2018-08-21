@@ -29,7 +29,14 @@
                     </ul>
 
                 <li><a href="#">Customers</a></li>
-                <router-link tag="li" :to="{name: 'new-admin'}" active-class="active"><a>Create Admin</a></router-link>
+
+                <li>
+                    <a href="#createEmployee" data-toggle="collapse" aria-expanded="false">Employees</a>
+                    <ul class="collapse list-unstyled" id="createEmployee">
+                        <router-link tag="li" :to="{name: 'new-admin'}" active-class="active"><a>Create Admin</a></router-link>
+                        <router-link tag="li" :to="{name: 'new-employee'}" active-class="active"><a>Create Employee</a></router-link>
+                    </ul>
+                </li>
 
             </ul>
         </nav>

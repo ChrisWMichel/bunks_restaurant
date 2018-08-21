@@ -10,7 +10,8 @@ export default {
         check_duplicate: false,
         item_id_records: [],
         checkout_note: '',
-        active_orders:[]
+        active_orders:[],
+        order_count: 0,
     },
     getters:{
         getItemCount(state){
@@ -110,7 +111,7 @@ export default {
         },
         getOrders({commit}){
             axios.get('api/get_orders').then(resp => {
-                console.log(resp.data);
+                //console.log(resp.data);
                 commit('getOrders', resp.data);
             })
         },

@@ -80,6 +80,7 @@
 
             </div>
         </transition-group>
+
     </div>
 </template>
 
@@ -88,11 +89,15 @@
         name: "IncomingOrders",
         data(){
             return{
-                //orders: this.$store.getters.getActiveOrders
+                order_count: 0
             }
         },
         created(){
             this.getOrders();
+
+            setInterval(()=>{
+                this.getOrders();
+            }, 30000);
         },
         computed:{
             orders(){
@@ -102,11 +107,18 @@
         methods:{
             getOrders(){
                this.$store.dispatch('getOrders');
+               if(this.order_count < this.orders.length){
+                   const audio = new Audio('the-calling.mp3');
+                   audio.play();
+                   console.log('sound off');
+               }
+                this.order_count = this.orders.length;
                //console.log('active_orders', this.$store.getters.getActiveOrders);
             },
             orderFinished(index, order_id){
                 this.$store.dispatch('finishedOrder', {index, order_id});
-            }
+            },
+
         }
     }
 </script>
@@ -130,6 +142,7 @@
         color: #000;
     }
     .card{
-        width: 100%;
+        width: 800px;
+        /*display: inline-block;*/
     }
 </style>

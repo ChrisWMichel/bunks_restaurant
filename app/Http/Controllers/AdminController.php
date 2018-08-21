@@ -47,5 +47,18 @@ class AdminController extends Controller
         return \response($user->jsonSerialize(), Response::HTTP_OK);
     }
 
+    public function createEmployee(Request $request){
+        $user = User::where('email', $request->email)->first();
 
+        $user->role_id = 3;
+        $user->update();
+
+        return \response($user);
+    }
+
+    public function getEmployees(){
+        $employees = User::where('role_id', 3)->get();
+
+        return \response($employees);
+    }
 }
