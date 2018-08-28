@@ -23,18 +23,14 @@
                 <td>{{employee.email}}</td>
                 <td><button class="btn-danger">X</button></td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>Item 2</td>
-                <td>$2</td>
-            </tr>
             </tbody>
         </table>
     </div>
 </template>
 
 <script>
-
+/*TODO: do not allow admin to submit if field is empty.
+* TODO: if email isn't found, send message to inform the admin that user hasn't registered yet.*/
     export default {
         name: "NewEmployee",
         data () {
@@ -43,7 +39,7 @@
             }
         },
         created(){
-            this.storeEmployees();
+
         },
         computed:{
             employees(){
@@ -53,10 +49,9 @@
         methods: {
             createEmployee(){
                 this.$store.dispatch('createEmployee', this.user_email);
+                this.user_email = '';
             },
-            storeEmployees(){
-                this.$store.dispatch('storeEmployees')
-            }
+
         }
 
     }

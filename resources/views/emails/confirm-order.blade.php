@@ -37,7 +37,7 @@
                 @foreach($item->ordered_toppings as $topping)
                     {{$topping->topping}}, &nbsp;
                 @endforeach
-                {{'($' .$item->toppings_cost . ')'}}
+                {{'($' .($item->toppings_cost). ')'}}
             </td>
         @else
             <td>{{$item->item->name}}</td>

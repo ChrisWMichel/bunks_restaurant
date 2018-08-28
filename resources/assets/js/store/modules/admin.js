@@ -3,33 +3,36 @@ export default {
     //namespaced: true,
     state:{
         employees:[],
-        getEmployees: []
 
     },
     getters:{
 
         getAllEmployees(state){
-            return state.getEmployees;
+            return state.employees;
         }
     },
     mutations:{
         createEmployee(state, user){
+            console.log('email', state.employees);
             state.employees.push(user);
         },
         storeEmployees(state, employees){
-            state.employees = employees
+            state.employees = employees;
+
         }
 
 
     },
     actions:{
         createEmployee({commit}, user_email){
-            axios.get('api/create_employee', user_email).then(resp => {
+
+            axios.post('api/create_employee', {email: user_email}).then(resp => {
                 commit('createEmployee', resp.data);
             });
         },
         storeEmployees({commit}){
             axios.get('api/get_employees').then(resp =>{
+               // console.log('employees', resp.data);
                 commit('storeEmployees', resp.data);
             });
         }

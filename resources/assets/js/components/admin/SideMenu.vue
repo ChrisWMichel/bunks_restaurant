@@ -56,6 +56,7 @@
         created(){
             this.getCategories();
             this.getToppings();
+            this.getEmployees();
             this.$router.push('/dashboard')
         },
         methods:{
@@ -71,6 +72,9 @@
                 axios.get('api/topping_cat').then(resp => {
                     this.$store.dispatch('getToppings', resp.data);
                 })
+            },
+            getEmployees(){
+                this.$store.dispatch('storeEmployees');
             }
         }
     }

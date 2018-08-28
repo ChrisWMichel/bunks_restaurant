@@ -46,7 +46,7 @@
                         <td v-else>n/a</td>
 
                         <td v-if="item.toppings.length > 0"
-                        >{{item.item_name}}<br> <span v-for="topping in item.toppings">{{topping.name}}, &nbsp;</span> </td>
+                        >{{item.item_name}}<br> <span v-for="topping in item.toppings">{{topping.name}}, &nbsp;</span>({{item.total_topping_cost | currency}}) </td>
 
                         <td v-if="item.toppings.length == 0">{{item.item_name}}</td>
 
@@ -130,7 +130,11 @@
                 this.$emit('update_count');
             },
             changeQty(qty, item, index){
-                item.total_item_cost = item.price * qty;
+                if(item.category_name === 'Pizzas'){
+                    const topping = item.total_topping_cost * qty;
+                    item.total_topping_cost = topping;
+                }
+                item.total_item_cost = (item.price * qty) + item.total_topping_cost;
                 item.quantity = qty;
                 this.$store.dispatch('updateQuantity', {item: item, index: index});
             },

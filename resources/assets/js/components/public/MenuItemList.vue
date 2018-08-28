@@ -101,6 +101,7 @@
                     let id = this.itemCount + 1;
                     this.cart = {
                         id: id,
+                        category_name: this.category_name,
                         item_id: data.item_id,
                         quantity: this.quantity,
                         item_name: item_name,
