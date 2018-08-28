@@ -39,8 +39,12 @@ if($this->middleware('IsAdmin')){
 
     Route::get('biz_info', 'BusinessInfoController@index');
 
+    Route::post('create_employee', 'AdminController@createEmployee');
+    Route::get('get_employees', 'AdminController@getEmployees');
+
 if($this->middleware('isEmployee')){
     Route::get('/get_orders', 'OrderController@getOrders');
+    Route::post('/order_complete/{id}', 'OrderController@orderComplete');
 }
 
 Route::post('update_address/{id}', 'UserController@updateAddress');

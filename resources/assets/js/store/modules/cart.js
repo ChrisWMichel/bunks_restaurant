@@ -10,7 +10,8 @@ export default {
         check_duplicate: false,
         item_id_records: [],
         checkout_note: '',
-        active_orders:[]
+        active_orders:[],
+        order_count: 0,
     },
     getters:{
         getItemCount(state){
@@ -80,6 +81,9 @@ export default {
         },
         updateAddress(state, user){
             state.user = user;
+        },
+        finishedOrder(state, index){
+            state.active_orders.splice(index, 1);
         }
     },
     actions:{
@@ -107,7 +111,7 @@ export default {
         },
         getOrders({commit}){
             axios.get('api/get_orders').then(resp => {
-                console.log(resp.data);
+                //console.log(resp.data);
                 commit('getOrders', resp.data);
             })
         },
@@ -117,6 +121,11 @@ export default {
                 .then(resp =>{
                     commit('updateAddress', resp.data);
                 })
+        },
+        finishedOrder({commit}, payload){
+            axios.post('api/order_complete/' + payload.order_id).then(resp =>{
+                commit('finishedOrder', payload.index);
+            });
         }
     }
 }

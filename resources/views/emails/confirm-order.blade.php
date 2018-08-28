@@ -37,7 +37,7 @@
                 @foreach($item->ordered_toppings as $topping)
                     {{$topping->topping}}, &nbsp;
                 @endforeach
-                {{'($' .$item->toppings_cost . ')'}}
+                {{'($' .($item->toppings_cost). ')'}}
             </td>
         @else
             <td>{{$item->item->name}}</td>
@@ -45,7 +45,7 @@
 
         @if($item->size_id == NULL)
             <td>n/a</td>
-            <td>${{$item->item->prices[0]->price}}</td>
+            <td>${{$item->item->prices[0]->price * $item->quantity}}</td>
         @else
             @foreach($item->item->prices as $price)
                 @if($price->size[0]->id == $item->size_id)

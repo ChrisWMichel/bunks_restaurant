@@ -5,6 +5,7 @@ import CreateItem from '../components/items/ItemCreate'
 import ItemsList from '../components/items/ListItems'
 import ToppingPage from '../components/toppings/ToppingPage'
 import ShowCart from '../components/public/cart/ShowCart'
+import NewEmployee from '../components/admin/NewEmployee'
 
 //import MenuItems from '../components/public/MenuItems'
 
@@ -12,6 +13,7 @@ import ShowCart from '../components/public/cart/ShowCart'
 export const routes =[
     {path: '/dashboard', name:'dashboard', component: Dashboard},
     {path: '/new-admin', name: 'new-admin', component:NewAdmin},
+    {path: '/new_employee', name: 'new-employee', component:NewEmployee},
     {path: '/categories', name: 'categories', component:Categories},
     {path: '/create_item', name: 'create_item', component:CreateItem},
     {path:'/list_items', name: 'list_items', component:ItemsList},
