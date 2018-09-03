@@ -6,6 +6,7 @@ import ItemsList from '../components/items/ListItems'
 import ToppingPage from '../components/toppings/ToppingPage'
 import ShowCart from '../components/public/cart/ShowCart'
 import NewEmployee from '../components/admin/NewEmployee'
+//import OrderHistory from '../components/public/OrderHistory'
 
 //import MenuItems from '../components/public/MenuItems'
 
@@ -21,5 +22,5 @@ export const routes =[
 
     {path:'/cart', name:'show_cart', component:ShowCart},
 
-    //{path: '/menu_items', name: 'menu_items', component:{public_side:MenuItems}}
+    //{path: '/order_history', name: 'order_history', component:{"order-history":OrderHistory}}
 ];

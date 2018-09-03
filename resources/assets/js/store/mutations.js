@@ -135,3 +135,16 @@ export const deleteTopping = (state, item_object) =>{
     });
 };
 
+export const getOrderHistory = (state, $order_history) =>{
+    state.order_history = $order_history;
+}
+
+export const deleteOrder = (state, order_object) => {
+    state.order_history.forEach(order =>{
+        if(order.id === order_object.id){
+            const index = state.order_history.indexOf(order_object);
+            state.order_history.splice(index, 1);
+        }
+    })
+
+}

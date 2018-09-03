@@ -42,9 +42,13 @@ if($this->middleware('IsAdmin')){
     Route::post('create_employee', 'AdminController@createEmployee');
     Route::get('get_employees', 'AdminController@getEmployees');
 
+
 if($this->middleware('isEmployee')){
     Route::get('/get_orders', 'OrderController@getOrders');
     Route::post('/order_complete/{id}', 'OrderController@orderComplete');
 }
 
 Route::post('update_address/{id}', 'UserController@updateAddress');
+
+Route::get('get_order_history/{user_id}', 'OrderController@getOrderHistory');
+Route::get('delete_order/{order_id}', 'OrderController@deleteOrder');

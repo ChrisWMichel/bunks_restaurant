@@ -62,3 +62,15 @@ export const deleteTopping = ({commit}, item)=>{
     commit('deleteTopping', item);
 };
 
+export const getOrderHistory = ({commit}, user_id) =>{
+    axios.get('api/get_order_history/' + user_id).then(resp =>{
+        commit('getOrderHistory', resp.data);
+        console.log('orders', resp.data);
+    })
+}
+
+export const deleteOrder = ({commit}, order_object)=>{
+    axios.get('api/delete_order/' + order_object.id).then(resp =>{
+        commit('deleteOrder', order_object);
+    })
+}

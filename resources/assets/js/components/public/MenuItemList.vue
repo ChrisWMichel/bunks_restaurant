@@ -72,7 +72,7 @@
                 image_url: '/images/',
                 quantity: 1,
                 item: '',
-                cart:[]
+                cart:[],
             }
         },
         computed: {

@@ -126,6 +126,10 @@
     toastr.info("{{Illuminate\Support\Facades\Session::get('info')}}");
     @endif
 
+    @if(Illuminate\Support\Facades\Session::has('warning'))
+    toastr.warning("{{Illuminate\Support\Facades\Session::get('warning')}}");
+    @endif
+
 </script>
     @yield('scripts')
 </body>

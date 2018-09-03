@@ -125,7 +125,7 @@
 
 <style scoped>
     .list-item {
-        display: inline-block;
+        /*display: inline-block;*/
         margin-right: 10px;
     }
     .list-enter-active, .list-leave-active {

@@ -67,13 +67,14 @@ class OrderController extends Controller
 
         $order = Order::where('id', $order->id)->with('user')->first();
         $order_history = OrderHistory::where('order_id', $order->id)->get();
-
-        Mail::to($order->user->email)->send(new ConfirmOrder($order, $order_history));
+        // ToDo: uncomment the code below.
+        //Mail::to($order->user->email)->send(new ConfirmOrder($order, $order_history));
     }
 
 
     public function getOrders()
     {
+        // Employees will recieve these orders
         $orders = Order::where('complete', '=', 0)->with('user')->with('orderHistories')->orderBy('created_at', 'asc')->get();
 
         return $orders;
@@ -98,9 +99,12 @@ class OrderController extends Controller
      * @param  \App\order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(order $order)
+    public function getOrderHistory($user_id)
     {
-        //
+        $order = Order::where('user_id', $user_id)->with('user')->with('orderHistories')->orderBy('created_at', 'desc')->get();
+        //$order_history = OrderHistory::where('order_id', $order->id)->get();
+
+        return response($order);
     }
 
     /**
@@ -132,8 +136,10 @@ class OrderController extends Controller
      * @param  \App\order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(order $order)
+    public function deleteOrder($id)
     {
-        //
+        $order = Order::find($id);
+        $items = OrderHistory::where('order_id', $order->id)->delete();
+        Order::find($id)->delete();
     }
 }

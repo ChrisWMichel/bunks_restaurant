@@ -1,26 +1,18 @@
 <template>
     <div :class="{'front-page': display_cat}">
-        <!--<div id="header">
-            <h2>Header</h2>
-        </div>-->
-        <transition name="slide" mode="out-in">
-            <div v-if="display_cat" key="item-list" id="body">
-                <div class="menu-center">
-                    <h2>Menu</h2>
-                    <app-category-menu @receivedCategory="ShowItems"></app-category-menu>
-                </div>
-            </div>
-            <div v-else="display_items">
-                <app-menu-items></app-menu-items>
-            </div>
-        </transition>
 
-        <!--Display items with second menut-->
+           <transition name="slide" mode="out-in">
+               <div v-if="display_cat" key="item-list" id="body">
+                   <div class="menu-center">
+                       <h2>Menu</h2>
+                       <app-category-menu @receivedCategory="ShowItems"></app-category-menu>
+                   </div>
+               </div>
+               <div v-else="display_items">
+                   <app-menu-items></app-menu-items>
+               </div>
+           </transition>
 
-
-        <!--<div id="footer">
-            <p>&copy; 2018</p>
-        </div>-->
     </div>
 
 </template>
@@ -33,12 +25,13 @@
         name: "PublicSide",
         components: {
             appCategoryMenu: CategoryMenu,
-            appMenuItems: MenuItems
+            appMenuItems: MenuItems,
         },
         data(){
            return{
                display_cat: true,
-               display_items: false
+               display_items: false,
+               show_history: false
            }
         },
         created(){
@@ -65,9 +58,9 @@
             },
             loginStatus(){
                 axios.get('login_status').then(resp => {
-                    console.log('loginStatus function');
+                   // console.log('loginStatus function');
                     this.$store.state.user = resp.data;
-                    //console.log('status', this.$store.state.user)
+                    this.$store.dispatch('getOrderHistory', resp.data.id);
                 })
             },
             biz_info(){
